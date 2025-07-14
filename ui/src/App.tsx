@@ -1,12 +1,15 @@
 import { useTranslation } from 'react-i18next';
 import './App.css'
+import Layout from './components/layout/Layout';
+import Button from './components/common/Button';
 
 function App() {
  const { t } = useTranslation();
   return (
-    <div>
+    <Layout>
       {t('home.title')}
-    </div>
+     
+    </Layout>
   )
 }
 
