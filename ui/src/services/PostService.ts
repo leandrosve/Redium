@@ -2,9 +2,9 @@ import type { APIResponse } from "@/types/APIResponse";
 import type { Post } from "@/types/models/Post";
 import { mockedPosts } from "./mockData";
 
-interface PostFilters {
+export interface PostFilters {
   page?: number;
-  pageSize?: number;
+  pageSize: number;
   searchTerm?: string;
   sortBy?: string;
   order?: "asc" | "desc";
@@ -12,6 +12,11 @@ interface PostFilters {
 
 export default class PostService {
   private static readonly BASE_URL = `https://665de6d7e88051d60408c32d.mockapi.io/post`;
+
+  // Only for testing
+  private static async sleep(ms: number) {
+    return new Promise((res) => setTimeout(res, ms));
+  }
 
   private static buildFilterParams(filters?: PostFilters): string {
     if (!filters) return "";
@@ -40,8 +45,6 @@ export default class PostService {
   public static async list(
     filters?: PostFilters
   ): Promise<APIResponse<Post[]>> {
-
-    return {hasError: false, data: mockedPosts}
     const res = await fetch(
       `${this.BASE_URL}?${this.buildFilterParams(filters)}`
     );

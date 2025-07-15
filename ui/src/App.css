@@ -45,7 +45,8 @@
 
 body {
   background: var(--color-base);
-  
+  scrollbar-gutter: both-edges;
+  overflow-y: auto;
 }
 
 .background-effect {

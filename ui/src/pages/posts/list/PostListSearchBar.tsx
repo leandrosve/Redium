@@ -52,6 +52,7 @@ const PostListSearchBar = () => {
           <Button
             variant="outline"
             size="md"
+            className="min-w-32 justify-between"
             rightIcon={<ChevronDown className="w-5 h-5" />}
           >
             {sort}

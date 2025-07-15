@@ -6,23 +6,24 @@ interface Props<T> {
   initialFetch?: boolean;
 }
 
-const useFetchAPI = <T>({
-  fetchFunction,
-  initialFetch = true,
-}: Props<T>) => {
+const useFetchAPI = <T>({ fetchFunction, initialFetch = true }: Props<T>) => {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const doFetch = useCallback(
-    async (fn: () => Promise<APIResponse<T>>) => {
+    async (
+      fn: () => Promise<APIResponse<T>>,
+      transform?: (prev: T | null, newData: T) => T
+    ) => {
       setLoading(true);
       setError(null);
       const res = await fn();
       setLoading(false);
 
       if (res.data) {
-        setData(res.data);
+        const data = res.data;
+        setData(transform ? (p) => transform(p, data) : data);
         return;
       }
 
@@ -39,8 +40,10 @@ const useFetchAPI = <T>({
   );
 
   const fetchOther = useCallback(
-    (otherFetchFunction: () => Promise<APIResponse<T>>) =>
-      doFetch(otherFetchFunction),
+    (
+      otherFetchFunction: () => Promise<APIResponse<T>>,
+      transform?: (prev: T | null, newData: T) => T
+    ) => doFetch(otherFetchFunction, transform),
     [doFetch]
   );
 
@@ -50,8 +53,7 @@ const useFetchAPI = <T>({
     if (initialFetch) {
       fetchEntity();
     }
-    console.log("FETCH")
-  }, [initialFetch, fetchEntity]);
+  }, [initialFetch]);
 
   return {
     entity: data,
