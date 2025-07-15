@@ -1,4 +1,4 @@
-import { Check, ChevronDown, Languages } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import {
   Dropdown,
   DropdownItem,
@@ -7,8 +7,6 @@ import {
 } from "@/components/common/dropdown";
 import Button from "@/components/common/Button";
 import i18next from "i18next";
-import { join, printIf } from "@/utils/ClassUtils";
-import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 const locales = [
@@ -36,24 +34,18 @@ const LanguageSelector = () => {
       </DropdownTrigger>
       <DropdownMenu>
         {locales.map(({ label, key, image }) => (
-          <DropdownItem
-            key={key}
-            className={join(
-              "flex items-center px-5 py-2 text-lg cursor-pointer gap-4",
-              printIf(
-                "text-primary-600 dark:text-primary-300 bg-base-300/50",
-                key == "NOT YET"
-              )
-            )}
-            value={key}
-          >
+          <DropdownItem key={key} value={key}>
             <img
               alt={label}
               src={image}
-              className="rounded-full h-[1.25em] w-[1.25em]"
+              className="rounded-full h-5 w-5"
             />
             {label}
-            {key == i18n.language && <Check className="h-[1em] w-[1em]" />}
+            {key == i18n.language && (
+              <div>
+                <Check className="h-5 w-5 shrink-0 mr-4" />
+              </div>
+            )}
           </DropdownItem>
         ))}
       </DropdownMenu>

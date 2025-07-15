@@ -24,7 +24,7 @@ export const DropdownItem = ({
     <li
       onClick={handleClick}
       className={join(
-        "flex items-center px-5 py-2 text-lg hover:bg-content-200 cursor-pointer gap-4",
+        "flex items-center px-5 py-2 text-lg hover:bg-foreground-100/5 cursor-pointer gap-4",
         printIf("text-primary-600 dark:text-primary-300 bg-base-300/50", false),
         className
       )}

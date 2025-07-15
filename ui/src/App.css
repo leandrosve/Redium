@@ -6,6 +6,7 @@
 
   --color-base: #000000;
 
+  --color-content-50: #080808;
   --color-content-100: #111113;
   --color-content-200: #1e1e20;
   --color-content-300: #3f3f46;
@@ -44,6 +45,10 @@
 
 body {
   background: var(--color-base);
+  
+}
+
+.background-effect {
   background-image: radial-gradient(
       circle at 96.74% 90.01%,
       #011b4de1,

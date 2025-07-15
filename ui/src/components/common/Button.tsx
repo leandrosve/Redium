@@ -26,7 +26,7 @@ const colorClasses = {
 
 const variantClasses = {
   solid: "",
-  outline: "bg-transparent border border-subtle hover:bg-gray-400/15 text-foreground-200  rounded-full",
+  outline: "bg-transparent border border-subtle hover:bg-gray-400/5 text-foreground-200  rounded-full focus-within:bg-gray-400/5",
 };
 
 const Button = ({

@@ -13,7 +13,7 @@ export const DropdownMenu = ({ children }: DropdownMenuProps) => {
 
   return (
     <ul
-      className="absolute mt-2 min-w-48 border rounded-md shadow z-10 bg-content-100 border-subtle"
+      className="absolute mt-2 border rounded-xl shadow z-10 bg-content-50/40 backdrop-blur-3xl border-subtle overflow-hidden"
       style={{ right: 0 }}
       role="menu"
     >

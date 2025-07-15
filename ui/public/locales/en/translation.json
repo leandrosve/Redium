@@ -3,6 +3,8 @@
     "title": "Welcome to Redium"
   },
   "posts": {
-    "latestPosts": "Latest Posts"
+    "latestPosts": "Latest Posts",
+    "posts": "Posts"
+
   }
 }
