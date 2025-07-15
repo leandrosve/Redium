@@ -8,6 +8,8 @@ import {
 import Button from "@/components/common/Button";
 import i18next from "i18next";
 import { join, printIf } from "@/utils/ClassUtils";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
 const locales = [
   { label: "English", key: "en", image: "/images/languages/en.png" },
@@ -15,11 +17,10 @@ const locales = [
 ];
 
 const LanguageSelector = () => {
-  const language = i18next.language;
-
   const handleSelect = (key: string) => {
     i18next.changeLanguage(key);
   };
+  const { i18n } = useTranslation();
 
   return (
     <Dropdown onSelect={handleSelect}>
@@ -30,7 +31,7 @@ const LanguageSelector = () => {
             <ChevronDown className="w-[1em] h-[1em] text-foreground-200" />
           }
         >
-          <Languages />
+          {i18n.language}
         </Button>
       </DropdownTrigger>
       <DropdownMenu>
@@ -52,7 +53,7 @@ const LanguageSelector = () => {
               className="rounded-full h-[1.25em] w-[1.25em]"
             />
             {label}
-            {key == language && <Check className="h-[1em] w-[1em]" />}
+            {key == i18n.language && <Check className="h-[1em] w-[1em]" />}
           </DropdownItem>
         ))}
       </DropdownMenu>

@@ -4,10 +4,12 @@ import { Outlet } from "react-router-dom";
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (
-    <div className="flex flex-col flex-auto">
+    <div className="flex flex-col flex-auto  pt-24 ">
       <Header />
       {children}
-      <Outlet />
+      <div className="flex flex-col flex-auto items-center">
+        <Outlet />
+      </div>
     </div>
   );
 };

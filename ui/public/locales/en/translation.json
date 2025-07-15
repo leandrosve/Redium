@@ -1,5 +1,8 @@
 {
   "home": {
     "title": "Welcome to Redium"
+  },
+  "posts": {
+    "latestPosts": "Latest Posts"
   }
 }

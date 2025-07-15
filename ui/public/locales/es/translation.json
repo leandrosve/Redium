@@ -1,5 +1,8 @@
 {
   "home": {
     "title": "Bienvenido a Redium"
+  },
+  "posts": {
+    "latestPosts": "Últimas publicaciones"
   }
 }
