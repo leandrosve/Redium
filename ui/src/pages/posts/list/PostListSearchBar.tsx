@@ -18,12 +18,13 @@ const PostListSearchBar = () => {
   const [searchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState(searchParams.get("q") || "");
   const [sort, setSort] = useState(searchParams.get("sort") || "newest");
-  const [debouncedSearchTerm] = useDebounce<string>(searchTerm, 500);
+  const [debouncedSearchTerm, setDebouncedTerm] = useDebounce<string>(searchTerm, 500);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onClearInput = () => {
     setSearchTerm("");
+    setDebouncedTerm(""); // Para que se actualice de inmediato sin esperar el debounce
     inputRef.current?.focus();
   };
 
