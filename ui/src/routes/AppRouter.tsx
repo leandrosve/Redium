@@ -1,0 +1,35 @@
+import { Suspense } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import routes from "./routes";
+import Layout from "@/components/layout/Layout";
+import Spinner from "@/components/common/Spinner";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    Component: Layout,
+    children: routes.map((r) => ({
+      path: r.path,
+      id: r.path,
+      lazy: async () => {
+        const LazyComponent = r.element;
+        return {
+          protection: null,
+          Component: () => {
+            document.title = r.titleKey;
+            return (
+              <Suspense fallback={<Spinner fullPage />}>
+                <LazyComponent />
+              </Suspense>
+            );
+          },
+        };
+      },
+      hydrateFallbackElement: <Spinner fullPage />,
+    })),
+  },
+]);
+
+const AppRouter = () => <RouterProvider router={router} />;
+
+export default AppRouter;

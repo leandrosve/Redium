@@ -1,16 +1,8 @@
-import { useTranslation } from 'react-i18next';
-import './App.css'
-import Layout from './components/layout/Layout';
-import Button from './components/common/Button';
+import "./App.css";
+import AppRouter from "./routes/AppRouter";
 
 function App() {
- const { t } = useTranslation();
-  return (
-    <Layout>
-      {t('home.title')}
-     
-    </Layout>
-  )
+  return <AppRouter />;
 }
 
-export default App
+export default App;

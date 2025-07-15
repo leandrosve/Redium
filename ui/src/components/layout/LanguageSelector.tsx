@@ -1,14 +1,13 @@
 import { Check, ChevronDown, Languages } from "lucide-react";
-import { join, printIf } from "../../utils/ClassUtils";
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-} from "../common/dropdown";
-import Button from "../common/Button";
+} from "@/components/common/dropdown";
+import Button from "@/components/common/Button";
 import i18next from "i18next";
-import { useMemo } from "react";
+import { join, printIf } from "@/utils/ClassUtils";
 
 const locales = [
   { label: "English", key: "en", image: "/images/languages/en.png" },
@@ -39,7 +38,7 @@ const LanguageSelector = () => {
           <DropdownItem
             key={key}
             className={join(
-              "flex items-center px-5 py-2 text-lg hover:bg-content2 cursor-pointer gap-4",
+              "flex items-center px-5 py-2 text-lg cursor-pointer gap-4",
               printIf(
                 "text-primary-600 dark:text-primary-300 bg-base-300/50",
                 key == "NOT YET"
