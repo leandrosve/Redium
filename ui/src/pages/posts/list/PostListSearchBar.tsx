@@ -7,8 +7,10 @@ import {
 } from "@/components/common/dropdown";
 import { Input } from "@/components/common/Input";
 import { useDebounce } from "@/hooks/useDebounce";
-import { ChevronDown, SearchIcon } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { join, printIf } from "@/utils/ClassUtils";
+import { ChevronDown, SearchIcon, X } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 const PostListSearchBar = () => {
@@ -17,6 +19,13 @@ const PostListSearchBar = () => {
   const [searchTerm, setSearchTerm] = useState(searchParams.get("q") || "");
   const [sort, setSort] = useState(searchParams.get("sort") || "newest");
   const [debouncedSearchTerm] = useDebounce<string>(searchTerm, 500);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const onClearInput = () => {
+    setSearchTerm("");
+    inputRef.current?.focus();
+  };
 
   const onSortChange = useCallback(
     (sort: string) => {
@@ -27,8 +36,8 @@ const PostListSearchBar = () => {
       } else {
         params.delete("sort");
       }
-      
-      setSort(sort)
+
+      setSort(sort);
       navigate({ search: params.toString() }, { replace: true });
     },
     [searchParams, navigate]
@@ -45,6 +54,7 @@ const PostListSearchBar = () => {
     navigate({ search: params.toString() }, { replace: true });
   }, [debouncedSearchTerm, navigate, searchParams]);
 
+  const { t } = useTranslation();
   return (
     <div className="flex items-center gap-3">
       <Dropdown onSelect={onSortChange}>
@@ -55,19 +65,25 @@ const PostListSearchBar = () => {
             className="min-w-32 justify-between"
             rightIcon={<ChevronDown className="w-5 h-5" />}
           >
-            {sort}
+            {t(`posts.sort.${sort}`)}
           </Button>
         </DropdownTrigger>
-        <DropdownMenu>
-          <DropdownItem value="newest">Newest</DropdownItem>
-          <DropdownItem value="oldest">Oldest</DropdownItem>
+        <DropdownMenu className="min-w-40">
+          <DropdownItem value="newest">{t("posts.sort.newest")}</DropdownItem>
+          <DropdownItem value="oldest">{t("posts.sort.oldest")}</DropdownItem>
         </DropdownMenu>
       </Dropdown>
       <Input
         icon={<SearchIcon />}
-        placeholder="Search posts"
+        placeholder={t("posts.searchPlaceholder")}
         value={searchTerm}
+        ref={inputRef}
         onChange={(e) => setSearchTerm(e.target.value)}
+        endElement={
+          <span role="button" className={join("cursor-pointer text-foreground-200", printIf("pointer-events-none opacity-0", !searchTerm))} onClick={onClearInput}>
+            <X />
+          </span>
+        }
       />
     </div>
   );

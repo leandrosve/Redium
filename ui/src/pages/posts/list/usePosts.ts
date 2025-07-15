@@ -37,6 +37,7 @@ const usePosts = () => {
   }, [baseFilters]);
 
   const fetchMore = useCallback(async () => {
+    console.log("FETCH MORE", page, hasMore, loadingMore, baseFilters)
     if (!hasMore || loadingMore) return;
 
     setLoadingMore(true);

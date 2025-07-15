@@ -27,7 +27,7 @@ const InfiniteScrollDetector = ({ onLoadMore, disabled }: Props) => {
     return () => {
       observer.disconnect();
     };
-  }, [onLoadMore, disabled]);
+  }, [disabled]);
 
   return <div ref={ref} className="h-1" />;
 };

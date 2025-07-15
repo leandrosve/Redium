@@ -3,8 +3,15 @@
     "title": "Welcome to Redium"
   },
   "posts": {
-    "latestPosts": "Latest Posts",
-    "posts": "Posts"
-
+    "title": "Posts",
+    "sort": {
+      "newest": "Newest",
+      "oldest": "Oldest"
+    },
+    "searchPlaceholder": "Search all posts",
+    "endReached": "Nothing else to see... for now."
+  },
+  "common": {
+    "error": "Something went wrong, please try again."
   }
 }

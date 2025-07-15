@@ -6,15 +6,16 @@ import PostListSearchBar from "./list/PostListSearchBar";
 import usePosts from "./list/usePosts";
 import Skeleton from "@/components/common/Skeleton";
 import InfiniteScrollDetector from "@/components/common/InfiniteScrollDetector";
+import ErrorMessage from "@/components/common/ErrorMessage";
 
 const PostListPage = () => {
-  const { posts, loading, loadingMore, fetchMore, hasMore } = usePosts();
+  const { posts, loading, loadingMore, fetchMore, hasMore, error } = usePosts();
 
   const { t } = useTranslation();
 
   return (
-    <section className="flex flex-col w-full max-w-5xl items-start mt-20 gap-2 mb-20 items-stretch">
-      <h1 className="text-4xl mb-4">{t("posts.posts")}</h1>
+    <section className="flex flex-col w-full max-w-5xl mt-20 gap-2 mb-20 items-stretch">
+      <h1 className="text-4xl mb-4">{t("posts.title")}</h1>
 
       <PostListSearchBar />
       {loading && <Skeleton repeat={5} className="h-30" />}
@@ -25,18 +26,18 @@ const PostListPage = () => {
           </Link>
         ))}
       </div>
-
+      {error && <ErrorMessage />}
       {loadingMore && <Skeleton repeat={5} className="h-30" />}
 
       {!hasMore && (
         <div className="text-center w-full p-5 font-bold text-sm text-foreground-200">
-          Nada más que ver... por ahora.
+          {t("posts.endReached")}
         </div>
       )}
 
       <InfiniteScrollDetector
         onLoadMore={() => fetchMore()}
-        disabled={loading || loadingMore || !hasMore}
+        disabled={loading || loadingMore || !hasMore || !!error}
       />
     </section>
   );
