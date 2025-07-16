@@ -12,29 +12,39 @@ import usePosts from "@/hooks/usePosts";
 const PostList = () => {
   const { posts, loading, loadingMore, fetchMore, hasMore, error } = usePosts();
 
+  const isEmpty = !loading && posts.length === 0 && !error;
+  const showEndMessage = posts.length > 0 && !hasMore;
+
   const { t } = useTranslation();
 
   return (
     <div className="flex flex-col w-full gap-2 items-stretch">
       <PostListSearchBar />
-      {loading && <Skeleton repeat={5} className="h-30" />}
-      <div className="flex flex-col gap-4 ">
-        {posts?.map((p) => (
-          <Link key={p.id} to={ROUTES.POST_DETAIL.replace(":id", p.id)}>
-            <PostListItem key={p.id} post={p} />
-          </Link>
-        ))}
-      </div>
+      
+      {loading ? (
+        <Skeleton repeat={5} className="h-30" />
+      ) : (
+        <div className="flex flex-col gap-4 ">
+          {/* No puedo usar el id como key porque hay ids repetidos en los mockup*/}
+          {posts?.map((p, i) => (
+            <Link key={i} to={ROUTES.POST_DETAIL.replace(":id", p.id)}>
+              <PostListItem post={p} />
+            </Link>
+          ))}
+        </div>
+      )}
+      
       {error && <ErrorMessage />}
-      {loadingMore && <Skeleton repeat={5} className="h-30" />}
 
-      {posts.length == 0 && !error && !loading && (
+      {!loading && loadingMore && <Skeleton repeat={5} className="h-30" />}
+
+      {isEmpty && (
         <div className="text-center w-full p-5 font-bold text-sm text-foreground-200 relative">
-          <CircleOff className="h-14 w-14 opacity-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
+          <CircleOff className="h-14 w-14 opacity-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
           {t("posts.noResults")}
         </div>
       )}
-      {posts.length > 0 && !hasMore && (
+      {showEndMessage && (
         <div className="text-center w-full p-5 font-bold text-sm text-foreground-200">
           {t("posts.endReached")}
         </div>
