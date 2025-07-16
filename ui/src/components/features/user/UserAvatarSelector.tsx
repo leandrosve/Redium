@@ -3,14 +3,16 @@ import { join, printIf } from "@/utils/ClassUtils";
 import React from "react";
 
 const avatarSeeds = [...new Array(54)].map((_, i) => (i + 1).toString());
+const prefix = "https://api.dicebear.com/9.x/bottts-neutral/svg?seed=";
 
 interface Props {
   onChange: (url: string) => void;
   value: string | null;
 }
-const prefix = "https://api.dicebear.com/9.x/bottts-neutral/svg?seed=";
 
-const AvatarSelector = ({ onChange, value }: Props) => {
+const UserAvatarSelector = ({ onChange, value }: Props) => {
+
+  // Pequeña optimizacion para evitar pasar el handler como prop a cada elemento
   const handleSelectAvatar = (e: React.MouseEvent | React.KeyboardEvent) => {
     const target = e.target as HTMLElement;
     const avatar = target.closest("[data-avatar]");
@@ -71,4 +73,4 @@ const AvatarOption = ({
     </span>
   );
 };
-export default AvatarSelector;
+export default UserAvatarSelector;

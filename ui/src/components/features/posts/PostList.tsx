@@ -6,8 +6,8 @@ import InfiniteScrollDetector from "@/components/common/InfiniteScrollDetector";
 import ErrorMessage from "@/components/common/ErrorMessage";
 import PostListItem from "./PostListItem";
 import PostListSearchBar from "./PostListSearchBar";
-import usePosts from "./usePosts";
 import { CircleOff } from "lucide-react";
+import usePosts from "@/hooks/usePosts";
 
 const PostList = () => {
   const { posts, loading, loadingMore, fetchMore, hasMore, error } = usePosts();

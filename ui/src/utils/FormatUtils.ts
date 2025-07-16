@@ -1,4 +1,5 @@
 const COLORS = [
+  "bg-gray-600/25",
   "bg-red-600/25",
   "bg-orange-600/25",
   "bg-amber-600/25",

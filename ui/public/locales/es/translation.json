@@ -12,6 +12,14 @@
     "endReached": "Nada más que ver... por ahora.",
     "noResults": "No se encontraron resultados. Intenta con otro término de búsqueda."
   },
+  "user": {
+    "formErrors": {
+      "name_required": "El nombre es obligatorio",
+      "min_3_characters": "Debe tener al menos 3 caracteres",
+      "max_50_characters": "Debe tener como máximo 50 caracteres",
+      "avatar_required": "La imagen de perfil es obligatoria"
+    }
+  },
   "common": {
     "error": "Algo salió mal. Por favor, intenta nuevamente."
   }

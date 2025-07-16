@@ -1,3 +1,4 @@
+import { printIf } from "@/utils/ClassUtils";
 import { forwardRef, type InputHTMLAttributes, type ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -7,6 +8,8 @@ interface InputProps
   endElement?: ReactNode;
   className?: string;
   size?: "sm" | "md" | "lg";
+  invalid?: boolean;
+  variant?: 'outline' | 'filled';
 }
 
 const sizeClasses = {
@@ -15,15 +18,22 @@ const sizeClasses = {
   lg: "px-6 py-3 text-2xl h-20",
 };
 
+const variantClasses = {
+  outline: "bg-transparent border border-subtle focus-within:bg-gray-400/5",
+  filled: "bg-input border border-transparent focus-within:bg-gray-400/10",
+};
+
 export const Input = forwardRef<HTMLInputElement, InputProps>(function (
-  { icon, className, size = "md", id, endElement, ...props }: InputProps,
+  { icon, className, size = "md", id, endElement, invalid, variant = 'outline', ...props }: InputProps,
   ref
 ) {
   return (
     <div
       className={twMerge(
-        "flex items-center gap-2 border border-subtle rounded-full px-3 py-2 transition-colors focus-within:bg-gray-400/5 text-foreground-100",
+        "flex items-center gap-2 rounded-full px-3 py-2 transition-colors text-foreground-100",
+        variantClasses[variant],
         sizeClasses[size],
+        printIf("border-transparent bg-red-700/5 focus-within:bg-red-400/5", invalid),
         className
       )}
     >

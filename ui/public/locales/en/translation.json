@@ -12,6 +12,14 @@
     "endReached": "Nothing else to see... for now.",
     "noResults": "No results found. Try a different search term."
   },
+  "user": {
+    "formErrors": {
+      "name_required": "Name is required",
+      "min_3_characters": "Must be at least 3 characters",
+      "max_50_characters": "Must be at most 50 characters",
+      "avatar_required": "Avatar is required"
+    }
+  },
   "common": {
     "error": "Something went wrong, please try again."
   }

@@ -1,7 +1,7 @@
-import { type ReactNode } from "react";
+import { type ButtonHTMLAttributes, type ReactNode } from "react";
 import { join } from "../../utils/ClassUtils";
 
-interface Props {
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode;
   rightIcon?: ReactNode;
   leftIcon?: ReactNode;
@@ -30,7 +30,7 @@ const variantClasses = {
   outline:
     "bg-transparent border border-subtle enabled:hover:bg-gray-400/10 text-foreground-200   focus-within:bg-gray-400/5",
   ghost:
-    "bg-transparent  hover:bg-gray-400/5 text-foreground-200 focus-within:bg-gray-400/5",
+    "bg-transparent enabled:hover:bg-gray-400/5 text-foreground-200 focus-within:bg-gray-400/5",
 };
 
 const Button = ({
@@ -43,6 +43,7 @@ const Button = ({
   disabled = false,
   onClick,
   className,
+  ...props
 }: Props) => {
   return (
     <button
@@ -56,6 +57,7 @@ const Button = ({
         disabled ? "opacity-50 cursor-not-allowed" : "",
         className
       )}
+      {...props}
     >
       {leftIcon && <span className="flex top-0 right-0">{leftIcon}</span>}
       {children}

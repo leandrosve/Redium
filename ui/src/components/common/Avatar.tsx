@@ -30,7 +30,7 @@ const Avatar = ({ name, src, size = "md" }: Props) => {
       aria-label={name}
     >
       {initials}
-      {src && <img src={src} alt={name} className={join("h-full w-full", printIf("hidden", error))} onError={() => setError(true)}/>}
+      {src && <img src={src} alt={name} className={join("absolute h-full w-full", printIf("hidden", error))} onError={() => setError(true)}/>}
     </span>
   );
 };

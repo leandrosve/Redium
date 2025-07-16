@@ -1,4 +1,5 @@
 import LanguageSelector from "./LanguageSelector";
+import UserDisplay from "@/components/features/user/UserDisplay";
 
 const Header = () => {
   return (
@@ -7,7 +8,8 @@ const Header = () => {
         <a href="/">[Re]dium</a>
       </div>
 
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-5 items-center">
+        <UserDisplay />
         <LanguageSelector />
       </div>
     </header>

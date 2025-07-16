@@ -1,6 +1,6 @@
+import PostCreateButton from "@/components/features/posts/PostCreateButton";
+import PostList from "@/components/features/posts/PostList";
 import { useTranslation } from "react-i18next";
-import PostList from "./list/PostList";
-import PostCreateButton from "./create/PostCreateButton";
 
 const PostListPage = () => {
   const { t } = useTranslation();
