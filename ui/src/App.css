@@ -8,7 +8,7 @@
 
   --color-content-50: #080808;
   --color-content-100: #111113;
-  --color-content-200: #1e1e20;
+  --color-content-200: #161618;
   --color-content-300: #3f3f46;
   --color-content-400: #52525b;
 
@@ -41,11 +41,16 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  overflow: auto;
+  scrollbar-gutter: stable;
 }
 
 body {
   background: var(--color-base);
-  scrollbar-gutter: both-edges;
+  scrollbar-gutter: stable;
+}
+html {
+  scrollbar-gutter: stable;
   overflow-y: auto;
 }
 
@@ -58,4 +63,31 @@ body {
     radial-gradient(circle at 9.92% 74.36%, #190b21, transparent 45%),
     radial-gradient(circle at 54.35% 34.01%, #130836, transparent 72%),
     radial-gradient(circle at 50% 50%, #000000, #000000 100%);
+}
+
+.card-gradient {
+  background-image: radial-gradient(
+      circle at 20.39% 120.56%,
+      rgba(105, 99, 194, 0.075),
+      transparent 80%
+    ),
+    radial-gradient(circle at 50% 50%, transparent, transparent 100%);
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.animate-scale-in {
+  animation: scale-in 0.2s ease-out;
+}
+
+.no-scroll {
+  overflow: hidden;
 }

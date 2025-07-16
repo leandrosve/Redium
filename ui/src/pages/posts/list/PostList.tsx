@@ -7,6 +7,7 @@ import ErrorMessage from "@/components/common/ErrorMessage";
 import PostListItem from "./PostListItem";
 import PostListSearchBar from "./PostListSearchBar";
 import usePosts from "./usePosts";
+import { CircleOff } from "lucide-react";
 
 const PostList = () => {
   const { posts, loading, loadingMore, fetchMore, hasMore, error } = usePosts();
@@ -14,9 +15,7 @@ const PostList = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-col w-full max-w-5xl mt-20 gap-2 mb-20 items-stretch">
-      <h1 className="text-4xl mb-4">{t("posts.title")}</h1>
-
+    <div className="flex flex-col w-full gap-2 items-stretch">
       <PostListSearchBar />
       {loading && <Skeleton repeat={5} className="h-30" />}
       <div className="flex flex-col gap-4 ">
@@ -29,7 +28,13 @@ const PostList = () => {
       {error && <ErrorMessage />}
       {loadingMore && <Skeleton repeat={5} className="h-30" />}
 
-      {!hasMore && (
+      {posts.length == 0 && !error && !loading && (
+        <div className="text-center w-full p-5 font-bold text-sm text-foreground-200 relative">
+          <CircleOff className="h-14 w-14 opacity-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
+          {t("posts.noResults")}
+        </div>
+      )}
+      {posts.length > 0 && !hasMore && (
         <div className="text-center w-full p-5 font-bold text-sm text-foreground-200">
           {t("posts.endReached")}
         </div>

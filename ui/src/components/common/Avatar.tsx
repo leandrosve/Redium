@@ -1,8 +1,9 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   generateColorForNickname,
   getInitialsForName,
 } from "@/utils/FormatUtils";
+import { join, printIf } from "@/utils/ClassUtils";
 
 interface Props {
   name: string;
@@ -21,6 +22,7 @@ const Avatar = ({ name, src, size = "md" }: Props) => {
     return [generateColorForNickname(name), getInitialsForName(name)];
   }, [name]);
 
+  const [error, setError] = useState(false);
   return (
     <span
       className={`text-white ${color}  overflow-hidden rounded-full flex items-center justify-center select-none relative ${sizeClasses[size]}`}
@@ -28,6 +30,7 @@ const Avatar = ({ name, src, size = "md" }: Props) => {
       aria-label={name}
     >
       {initials}
+      {src && <img src={src} alt={name} className={join("h-full w-full", printIf("hidden", error))} onError={() => setError(true)}/>}
     </span>
   );
 };

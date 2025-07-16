@@ -8,6 +8,7 @@ import {
 import Button from "@/components/common/Button";
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 const locales = [
   { label: "English", key: "en", image: "/images/languages/en.png" },
@@ -19,6 +20,14 @@ const LanguageSelector = () => {
     i18next.changeLanguage(key);
   };
   const { i18n } = useTranslation();
+
+  useEffect(() => {
+  // Hago esto para precargar las imagenes, ya que si no, al abrir el dropdown pueden tardar un instante
+  locales.forEach((l) => {
+    const img = new Image();
+    img.src = l.image;
+  });
+}, []);
 
   return (
     <Dropdown onSelect={handleSelect}>

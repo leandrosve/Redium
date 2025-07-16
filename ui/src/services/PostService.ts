@@ -45,11 +45,17 @@ export default class PostService {
   public static async list(
     filters?: PostFilters
   ): Promise<APIResponse<Post[]>> {
+    // Este sleep es solo para que no pegue un salto cuando carga demasiado rapido
+    await this.sleep(1000);
     const res = await fetch(
       `${this.BASE_URL}?${this.buildFilterParams(filters)}`
     );
 
     if (!res.ok) {
+      const text = await res.text();
+      if (text == '"Not found"') {
+        return { hasError: false, data: [] };
+      }
       return {
         hasError: true,
         error: "api_error",

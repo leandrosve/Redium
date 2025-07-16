@@ -31,7 +31,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function (
       <input
         id={id}
         ref={ref}
-        className="flex-1 outline-none bg-transparent placeholder-gray-400 text-sm"
+        className="flex-1 outline-none bg-transparent placeholder-gray-400 text-md"
         {...props}
       />
       {endElement}

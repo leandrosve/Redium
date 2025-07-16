@@ -9,7 +9,8 @@
       "oldest": "Más antiguas"
     },
     "searchPlaceholder": "Buscar publicaciones",
-    "endReached": "Nada más que ver... por ahora."
+    "endReached": "Nada más que ver... por ahora.",
+    "noResults": "No se encontraron resultados. Intenta con otro término de búsqueda."
   },
   "common": {
     "error": "Algo salió mal. Por favor, intenta nuevamente."

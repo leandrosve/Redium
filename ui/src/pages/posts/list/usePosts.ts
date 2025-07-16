@@ -32,12 +32,12 @@ const usePosts = () => {
       setHasMore(res.data.length >= baseFilters.pageSize);
       setPage(2);
     } else {
+      setData([]);
       setError(res.error ?? "unknown_error");
     }
   }, [baseFilters]);
 
   const fetchMore = useCallback(async () => {
-    console.log("FETCH MORE", page, hasMore, loadingMore, baseFilters)
     if (!hasMore || loadingMore) return;
 
     setLoadingMore(true);

@@ -4,9 +4,10 @@ import { join } from "../../utils/ClassUtils";
 interface Props {
   children?: ReactNode;
   rightIcon?: ReactNode;
+  leftIcon?: ReactNode;
   size?: "sm" | "md" | "lg";
   color?: "primary" | "secondary";
-  variant?: "solid" | "outline";
+  variant?: "solid" | "outline" | "ghost";
   disabled?: boolean;
   loading?: boolean;
   onClick?: () => void;
@@ -16,22 +17,26 @@ interface Props {
 const sizeClasses = {
   sm: "px-3 py-1 text-sm h-8",
   md: "px-4 py-2 text-base h-10",
-  lg: "px-6 py-3 text-2xl h-20",
+  lg: "px-6 py-3 text-lg h-12",
 };
 
 const colorClasses = {
-  primary: "bg-primary-200 hover:bg-primary-400 text-white",
-  secondary: "bg-gray-300 hover:bg-gray-400 text-gray-800",
+  primary: "bg-primary-200 enabled:hover:bg-primary-400 text-white",
+  secondary: "bg-gray-300 enabled:hover:bg-gray-400 text-gray-800",
 };
 
 const variantClasses = {
   solid: "",
-  outline: "bg-transparent border border-subtle hover:bg-gray-400/5 text-foreground-200  rounded-full focus-within:bg-gray-400/5",
+  outline:
+    "bg-transparent border border-subtle enabled:hover:bg-gray-400/10 text-foreground-200   focus-within:bg-gray-400/5",
+  ghost:
+    "bg-transparent  hover:bg-gray-400/5 text-foreground-200 focus-within:bg-gray-400/5",
 };
 
 const Button = ({
   children,
   rightIcon,
+  leftIcon,
   size = "md",
   variant = "solid",
   color = "primary",
@@ -44,7 +49,7 @@ const Button = ({
       onClick={onClick}
       disabled={disabled}
       className={join(
-        "inline-flex items-center justify-center rounded-md font-medium transition-colors overflow-hidden relative cursor-pointer gap-1",
+        "inline-flex items-center justify-center font-medium transition-colors overflow-hidden relative cursor-pointer gap-1 rounded-full",
         sizeClasses[size],
         colorClasses[color],
         variantClasses[variant],
@@ -52,7 +57,8 @@ const Button = ({
         className
       )}
     >
-      {children && <span>{children}</span>}
+      {leftIcon && <span className="flex top-0 right-0">{leftIcon}</span>}
+      {children}
       {rightIcon && <span className="flex items-center">{rightIcon}</span>}
     </button>
   );

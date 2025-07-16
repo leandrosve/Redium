@@ -9,7 +9,8 @@
       "oldest": "Oldest"
     },
     "searchPlaceholder": "Search all posts",
-    "endReached": "Nothing else to see... for now."
+    "endReached": "Nothing else to see... for now.",
+    "noResults": "No results found. Try a different search term."
   },
   "common": {
     "error": "Something went wrong, please try again."
