@@ -4,12 +4,12 @@ import { z } from "zod";
 export const postFormSchema = z.object({
   title: z
     .string()
-    .nonempty("name_required")
+    .nonempty("title_required")
     .min(3, "min_3_characters")
     .max(200, "max_200_characters"),
   content: z
     .string()
-    .nonempty("name_required")
+    .nonempty("content_required")
     .min(3, "min_3_characters")
-    .max(200, "max_200_characters"),
+    .max(500, "max_500_characters"),
 });

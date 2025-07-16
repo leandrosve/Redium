@@ -51,7 +51,7 @@ const ModalContent = ({ onClose, isOpen, title, children }: ModalProps) => {
       }}
     >
       <div
-        className="bg-content-100 rounded-2xl p-6 shadow-xl max-w-lg w-full animate-scale-in -mt-40 relative"
+        className="bg-content-100 rounded-2xl p-6 shadow-xl max-w-lg w-full animate-scale-in -mt-40 relative overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         <Button

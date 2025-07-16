@@ -14,15 +14,16 @@ const usePosts = () => {
 
   const [searchParams] = useSearchParams();
 
+  const searchTerm = searchParams.get("q") ?? "";
+  const sort = searchParams.get("sort") ?? "";
   const baseFilters: PostFilters = useMemo(() => {
-    const searchTerm = searchParams.get("q") ?? "";
-    const sort = searchParams.get("sort") ?? "";
-    const order = sort === "newest" ? "desc" : "asc";
-    return { searchTerm, order, sortBy: "id", pageSize: 10 };
-  }, [searchParams]);
+    const order = sort === "oldest" ? "asc" : "desc";
+    return { searchTerm, order, sortBy: "id", pageSize: 15 };
+  }, [searchTerm, sort]);
 
   const fetchInitial = useCallback(async () => {
     setLoading(true);
+    setData([]);
     setError(null);
     const res = await PostService.list({ ...baseFilters, page: 1 });
     setLoading(false);
@@ -54,12 +55,25 @@ const usePosts = () => {
     }
   }, [baseFilters, page, hasMore, loadingMore]);
 
+  const sortedData = useMemo(() => {
+    console.log("HOLA", data, baseFilters);
+    let copy = [...data];
+    copy.sort((a, b) => {
+      const timeA = new Date(a.createdAt).getTime();
+      const timeB = new Date(b.createdAt).getTime();
+
+      return baseFilters.order === "asc" ? timeA - timeB : timeB - timeA;
+    });
+    return copy;
+  }, [data, baseFilters.order]);
+
   useEffect(() => {
     fetchInitial();
   }, [fetchInitial]);
 
   return {
-    posts: data,
+    posts: sortedData,
+    sortedData,
     loading,
     loadingMore,
     error,

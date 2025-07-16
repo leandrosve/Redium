@@ -2,6 +2,7 @@ import Modal from "@/components/common/Modal";
 import UserConfigForm from "@/components/features/user/UserConfigForm";
 import { useUserContext } from "@/context/UserContext";
 import type { User } from "@/types/models/User";
+import PostForm from "./PostForm";
 
 interface Props {
   isOpen: boolean;
@@ -15,7 +16,7 @@ const PostFormModal = ({ isOpen, onClose }: Props) => {
       onClose={onClose}
       title={user ? "Crear Publicacion" : "Primero lo primero..."}
     >
-      {user ? "POST" : <UserConfigStep />}
+      {user ? <PostForm onSuccess={onClose} user={user}/> : <UserConfigStep />}
     </Modal>
   );
 };

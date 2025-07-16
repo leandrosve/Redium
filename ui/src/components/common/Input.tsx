@@ -2,7 +2,7 @@ import { printIf } from "@/utils/ClassUtils";
 import { forwardRef, type InputHTMLAttributes, type ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 
-interface InputProps
+export interface InputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
   icon?: ReactNode;
   endElement?: ReactNode;

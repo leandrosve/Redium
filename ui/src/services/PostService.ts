@@ -1,6 +1,6 @@
 import type { APIResponse } from "@/types/APIResponse";
-import type { Post } from "@/types/models/Post";
-import { mockedPosts } from "./mockData";
+import type { Post, PostContent } from "@/types/models/Post";
+import type { User } from "@/types/models/User";
 
 export interface PostFilters {
   page?: number;
@@ -67,6 +67,38 @@ export default class PostService {
     return {
       hasError: false,
       data: posts,
+    };
+  }
+
+  public static async create(
+    post: PostContent,
+    user: User
+  ): Promise<APIResponse<Post>> {
+    // Este sleep es solo para que no pegue un salto cuando carga demasiado rapido
+    await this.sleep(1000);
+    const req = { ...post, ...user, createdAt: new Date().toISOString() };
+    
+    return {hasError: false, data: {id:"12312", ...req}}
+    const res = await fetch(this.BASE_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(req),
+    });
+
+    if (!res.ok) {
+      return {
+        hasError: true,
+        error: "api_error",
+      };
+    }
+
+    const data: Post = await res.json();
+
+    return {
+      hasError: false,
+      data,
     };
   }
 }

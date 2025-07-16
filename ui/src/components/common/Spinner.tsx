@@ -3,8 +3,9 @@ import { LoaderCircle } from "lucide-react";
 
 interface Props {
   fullPage?: boolean;
+  className?: string;
 }
-const Spinner = ({ fullPage }: Props) => {
+const Spinner = ({ fullPage, className }: Props) => {
   return (
     <div
       className={join(
@@ -12,7 +13,7 @@ const Spinner = ({ fullPage }: Props) => {
         printIf("w-full h-full flex-auto", fullPage)
       )}
     >
-      <LoaderCircle className="animate-spin h-16 w-16 text-foreground-200" />
+      <LoaderCircle className={join("animate-spin h-16 w-16 text-foreground-200", className)} />
     </div>
   );
 };

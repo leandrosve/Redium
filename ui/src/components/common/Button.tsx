@@ -1,5 +1,6 @@
 import { type ButtonHTMLAttributes, type ReactNode } from "react";
 import { join } from "../../utils/ClassUtils";
+import Spinner from "./Spinner";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode;
@@ -42,6 +43,7 @@ const Button = ({
   color = "primary",
   disabled = false,
   onClick,
+  loading,
   className,
   ...props
 }: Props) => {
@@ -62,6 +64,8 @@ const Button = ({
       {leftIcon && <span className="flex top-0 right-0">{leftIcon}</span>}
       {children}
       {rightIcon && <span className="flex items-center">{rightIcon}</span>}
+
+      {loading && <span className="absolute w-full h-full flex items-center justify-center"><Spinner className="h-5 w-5 "/></span>}
     </button>
   );
 };

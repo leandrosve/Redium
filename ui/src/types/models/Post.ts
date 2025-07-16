@@ -8,3 +8,8 @@ export interface Post {
   content: string;
   source?: string;
 }
+
+export interface PostContent {
+  title: string;
+  content: string;
+}

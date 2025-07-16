@@ -24,9 +24,9 @@ const HelperText = ({
 
   return (
     <span
-      className={`text-sm ml-3 inline-flex items-center gap-1 mt-1 ${typeClasses[type]} ${className}`}
+      className={`text-sm ml-3 inline-flex items-center gap-1 mt-1 animate-scale-in duration-300 ${typeClasses[type]} ${className}`}
     >
-      <Icon className="h-4 w-4 flex-shrink-0" />
+      <Icon className="h-4 w-4 flex-shrink-0 -mb-[0.25em]" />
       {message}
     </span>
   );
