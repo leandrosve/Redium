@@ -6,8 +6,8 @@ import { useForm } from "react-hook-form";
 import { userFormSchema } from "@/validators/userFormSchema";
 import type { User } from "@/types/models/User";
 import Tooltip from "@/components/common/Tooltip";
-import { useTranslation } from "react-i18next";
 import HelperText from "@/components/common/HelperText";
+import { useLocalized } from "@/hooks/useLocalized";
 
 interface Props {
   onSubmit: (user: User) => void;
@@ -28,7 +28,7 @@ const UserConfigForm = ({ onSubmit, submitMessage, initialData }: Props) => {
     defaultValues: { name: "", avatar: "", ...initialData },
   });
 
-  const { t } = useTranslation();
+  const { translate:t } = useLocalized();
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -39,10 +39,10 @@ const UserConfigForm = ({ onSubmit, submitMessage, initialData }: Props) => {
           className="text-sm font-bold ml-3 mb-2 inline-block"
           htmlFor="name"
         >
-          Nombre
+          {t("user.name")}
         </label>
         <Input
-          placeholder="Escribe tu nombre"
+          placeholder= {t("user.namePlaceholder")}
           id="name"
           variant="filled"
           {...register("name")}
@@ -50,13 +50,13 @@ const UserConfigForm = ({ onSubmit, submitMessage, initialData }: Props) => {
         {errors.name && (
           <HelperText
             type="error"
-            message={t(`user.formErrors.${errors.name.message}`)}
+            message={t(`validationErrors.${errors.name.message}`)}
           />
         )}
       </div>
 
       <div>
-        <span className="text-sm font-bold mt-4 ml-3 mb-2 block">Avatar</span>
+        <span className="text-sm font-bold mt-4 ml-3 mb-2 block">{t("user.avatar")}</span>
         <UserAvatarSelector
           value={watch("avatar")}
           onChange={(avatar) =>
@@ -67,7 +67,7 @@ const UserConfigForm = ({ onSubmit, submitMessage, initialData }: Props) => {
 
       <div className="ml-auto mt-4">
         <Tooltip
-          content="Completa los campos necesarios"
+          content={t("validationErrors.complete_required_fields")}
           position="left"
           disabled={isValid}
         >

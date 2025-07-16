@@ -9,7 +9,7 @@ interface FieldProps {
 
 const Field = ({ id, label, error, children }: FieldProps) => {
   return (
-    <div className="mt-4">
+    <div>
       <label className="text-sm font-bold ml-3 mb-2 inline-block" htmlFor={id}>
         {label}
       </label>

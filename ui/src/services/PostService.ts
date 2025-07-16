@@ -77,6 +77,7 @@ export default class PostService {
     // Este sleep es solo para que no pegue un salto cuando carga demasiado rapido
     await this.sleep(1000);
     const req = { ...post, ...user, createdAt: new Date().toISOString() };
+    return {hasError: true, error: "asdma amsmmamsd "}
     
     return {hasError: false, data: {id:"12312", ...req}}
     const res = await fetch(this.BASE_URL, {

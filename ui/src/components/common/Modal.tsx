@@ -6,7 +6,7 @@ import { X } from "lucide-react";
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  title?: string;
+  title?: string | ReactNode;
   children: ReactNode;
 }
 
@@ -62,7 +62,7 @@ const ModalContent = ({ onClose, isOpen, title, children }: ModalProps) => {
           <X />
         </Button>
         {title && (
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+          <h2 className="text-lg font-semibold text-foreground-100 mb-4">
             {title}
           </h2>
         )}

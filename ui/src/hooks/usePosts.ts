@@ -56,7 +56,6 @@ const usePosts = () => {
   }, [baseFilters, page, hasMore, loadingMore]);
 
   const sortedData = useMemo(() => {
-    console.log("HOLA", data, baseFilters);
     let copy = [...data];
     copy.sort((a, b) => {
       const timeA = new Date(a.createdAt).getTime();

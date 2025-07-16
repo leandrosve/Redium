@@ -3,6 +3,7 @@ import UserConfigForm from "@/components/features/user/UserConfigForm";
 import { useUserContext } from "@/context/UserContext";
 import type { User } from "@/types/models/User";
 import PostForm from "./PostForm";
+import Avatar from "@/components/common/Avatar";
 
 interface Props {
   isOpen: boolean;
@@ -14,9 +15,17 @@ const PostFormModal = ({ isOpen, onClose }: Props) => {
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={user ? "Crear Publicacion" : "Primero lo primero..."}
+      title={
+        user ? (
+          <div className="flex gap-2 items-center">
+            <Avatar name={user.name} src={user.avatar} size="sm" /> {user.name}
+          </div>
+        ) : (
+          "Primero lo primero..."
+        )
+      }
     >
-      {user ? <PostForm onSuccess={onClose} user={user}/> : <UserConfigStep />}
+      {user ? <PostForm onSuccess={onClose} user={user} /> : <UserConfigStep />}
     </Modal>
   );
 };

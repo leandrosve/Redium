@@ -10,17 +10,40 @@
     },
     "searchPlaceholder": "Search all posts",
     "endReached": "Nothing else to see... for now.",
-    "noResults": "No results found. Try a different search term."
-  },
-  "user": {
-    "formErrors": {
-      "name_required": "Name is required",
-      "min_3_characters": "Must be at least 3 characters",
-      "max_50_characters": "Must be at most 50 characters",
-      "avatar_required": "Avatar is required"
+    "noResults": "No results found. Try a different search term.",
+    "create": {
+      "firstThingFirst": "First thing first...",
+      "share": "Is there something you'd like to share?",
+      "createPost": "Create post",
+      "title": "Title",
+      "titlePlaceholder": "Enter a title...",
+      "content": "Content",
+      "contentPlaceholder": "What's on your mind?",
+      "publish": "Publish"
     }
   },
+  "user": {
+    "profile": "Profile",
+    "logout": "Log out",
+    "name": "Name",
+    "namePlaceholder": "Enter your name",
+    "avatar": "Avatar"
+  },
   "common": {
-    "error": "Something went wrong, please try again."
+    "error": "Something went wrong, please try again.",
+    "save": "Save"
+  },
+  "validationErrors": {
+    "title_required": "Title is required",
+    "content_required": "Content is required",
+    "min_3_characters": "Must be at least 3 characters",
+    "max_200_characters": "Must be at most 200 characters",
+    "max_500_characters": "Must be at most 500 characters",
+
+    "name_required": "Name is required",
+    "max_50_characters": "Must be at most 50 characters",
+    "avatar_required": "Avatar is required",
+
+    "complete_required_fields": "Please complete all required fields"
   }
 }

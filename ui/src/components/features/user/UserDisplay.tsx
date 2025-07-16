@@ -6,6 +6,7 @@ import UserConfigForm from "./UserConfigForm";
 import type { User } from "@/types/models/User";
 import Button from "@/components/common/Button";
 import { LogOut } from "lucide-react";
+import { t } from "i18next";
 
 const UserDisplay = () => {
   const { user, setUser } = useUserContext();
@@ -33,14 +34,14 @@ const UserDisplay = () => {
       >
         <Avatar size="sm" name={user.name} src={user.avatar} /> {user.name}
       </div>
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={"Perfil"}>
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={t("user.profile")}>
         <Button variant="outline" onClick={onClear} className="w-full">
-          <LogOut /> Cerrar Sesión
+          <LogOut /> {t("user.logout")}
         </Button>
         <UserConfigForm
           onSubmit={onSubmit}
           initialData={user}
-          submitMessage="Guardar"
+          submitMessage={t("common.save")}
         />
       </Modal>
     </>
