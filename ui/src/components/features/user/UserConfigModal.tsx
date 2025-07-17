@@ -10,7 +10,7 @@ interface Props {
   isOpen: boolean;
   onSaved?: () => void;
   onCleared?: () => void;
-  onClose: (reason?: 'saved' | 'cleared' | 'closed') => void;
+  onClose: (reason?: "saved" | "cleared" | "closed") => void;
 }
 const UserConfigModal = ({ isOpen, onSaved, onCleared, onClose }: Props) => {
   const { user, setUser } = useUserContext();
@@ -18,28 +18,43 @@ const UserConfigModal = ({ isOpen, onSaved, onCleared, onClose }: Props) => {
   const onSubmit = (u: User) => {
     setUser(u);
     onSaved?.();
-    onClose('saved');
+    onClose("saved");
   };
 
   const onClear = () => {
     setUser(null);
     onCleared?.();
     location.reload();
-    onClose('cleared');
+    onClose("cleared");
   };
   const { t } = useTranslation();
   return (
-    <Modal isOpen={isOpen} onClose={() => onClose('closed')}>
+    <Modal isOpen={isOpen} onClose={() => onClose("closed")}>
       <h2 className="text-lg font-semibold text-foreground-100 mb-4">
         {t(user ? "user.profile" : "user.firstThingFirst")}
       </h2>
       {!user && <p className="font-bold">{t("user.requireInfo")}</p>}
 
       {!!user && (
-        <Button variant="outline" onClick={onClear} className="w-full">
-          <LogOut /> {t("user.logout")}
-        </Button>
+        <div>
+          <h3 className="font-bold">{t("user.logout")}</h3>
+          <div className="flex">
+            <p className="flex-1">
+              {t("user.logoutMessage")}
+            </p>
+            <Button
+              variant="solid"
+              color="secondary"
+              onClick={onClear}
+              className=" shrink-0"
+            >
+              <LogOut /> {t("user.logout")}
+            </Button>
+          </div>
+        </div>
       )}
+      <hr  className="border-subtle mt-4"/>
+
       <UserConfigForm
         onSubmit={onSubmit}
         initialData={user}

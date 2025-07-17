@@ -45,6 +45,7 @@ export default class CommentService {
   public static async create(
     postId: string,
     content: string,
+    parentId: string | null | undefined,
     user: User
   ): Promise<APIResponse<Comment>> {
     // Este sleep es solo para que no pegue un salto cuando carga demasiado rapido
@@ -52,6 +53,7 @@ export default class CommentService {
 
     const req: CommentCreateRequest = {
       content: content,
+      parentId: parentId,
       ...user,
       createdAt: new Date().toISOString(),
     };

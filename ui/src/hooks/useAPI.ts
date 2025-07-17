@@ -4,10 +4,13 @@ import { useCallback, useEffect, useState } from "react";
 interface Props<T> {
   fetchFunction: () => Promise<APIResponse<T>>;
   initialFetch?: boolean;
+  initialData: T;
 }
 
-const useAPI = <T>({ fetchFunction, initialFetch = true }: Props<T>) => {
-  const [data, setData] = useState<T | null>(null);
+type SetStateAction<T> = T | ((prevState: T) => T);
+
+const useAPI = <T>({ fetchFunction, initialFetch = true, initialData }: Props<T>) => {
+  const [data, setData] = useState<T>(initialData);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -39,7 +42,9 @@ const useAPI = <T>({ fetchFunction, initialFetch = true }: Props<T>) => {
     [doFetch, fetchFunction]
   );
 
-  const setEntity = useCallback((entity: T) => setData(entity), []);
+  const setEntity = useCallback((value: SetStateAction<T>) => {
+  setData(value);
+}, []);
 
   useEffect(() => {
     if (initialFetch) {

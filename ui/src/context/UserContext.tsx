@@ -35,7 +35,6 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         const savedProfile = UserService.getProfile();
         setUserState(savedProfile);
       } catch (error) {
-        console.error("Error loading profile:", error);
         UserService.clearProfile();
       }
     };

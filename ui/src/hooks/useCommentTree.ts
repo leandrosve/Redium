@@ -26,6 +26,13 @@ export function buildCommentTree(comments: Comment[]): CommentNode[] {
     }
   }
 
+  roots.sort((a, b) => {
+    const timeA = new Date(a.createdAt).getTime();
+    const timeB = new Date(b.createdAt).getTime();
+
+    return timeB - timeA;
+  });
+
   return roots;
 }
 
@@ -33,7 +40,7 @@ const useCommentTree = (comments: Comment[]) => {
   const commentTree = useMemo(() => {
     return buildCommentTree(comments);
   }, [comments]);
-  
+
   return commentTree;
 };
 

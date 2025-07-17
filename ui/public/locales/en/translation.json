@@ -27,6 +27,7 @@
     "firstThingFirst": "First thing first...",
     "requireInfo": "Who are you? Tell us your name and pick an avatar so everyone knows who you are.",
     "logout": "Log out",
+    "logoutMessage":"You will no longer be able to edit any of the posts or comments you made.",
     "name": "Name",
     "namePlaceholder": "Enter your name",
     "avatar": "Avatar"
@@ -36,7 +37,8 @@
     "placeholder": "Join the conversation...",
     "comment":"Comment",
     "reply":"Reply",
-    "replyPlaceholder": "Add a reply..."
+    "replyPlaceholder": "Add a reply...",
+    "empty": "No comments yet. Be the first!"
   },
   "common": {
     "error": "Something went wrong, please try again.",

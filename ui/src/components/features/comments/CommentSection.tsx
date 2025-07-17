@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
+import { CommentsProvider } from "@/context/CommentsContext";
 
 interface Props {
   postId: string;
@@ -8,13 +9,15 @@ interface Props {
 const CommentSection = ({ postId }: Props) => {
   const { t } = useTranslation();
   return (
-    <div className="relative rounded-3xl">
-      <CommentForm postId={postId} />
-      <div className="mt-4">
-        <h3 className="mb-2">{t('comments.comments')}</h3>
-        <CommentList postId={postId} />
+    <CommentsProvider postId={postId}>
+      <div className="relative rounded-3xl">
+        <CommentForm postId={postId} />
+        <div className="mt-4">
+          <h3 className="mb-2">{t("comments.comments")}</h3>
+          <CommentList postId={postId} />
+        </div>
       </div>
-    </div>
+    </CommentsProvider>
   );
 };
 

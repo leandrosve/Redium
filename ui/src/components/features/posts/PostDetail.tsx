@@ -18,6 +18,7 @@ const PostDetail = ({ id }: Props) => {
     loading,
   } = useAPI<Post | null>({
     fetchFunction: () => PostService.detail(id),
+    initialData: null
   });
 
   if (loading) return <Spinner fullPage />;

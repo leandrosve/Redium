@@ -2,8 +2,8 @@ import Avatar from "@/components/common/Avatar";
 import Button from "@/components/common/Button";
 import DateDisplay from "@/components/common/DateDisplay";
 import type { CommentNode } from "@/types/models/Comment";
-import { join, printIf } from "@/utils/ClassUtils";
-import { ChevronDown, MessageCircle } from "lucide-react";
+import { join } from "@/utils/ClassUtils";
+import { MessageCircle } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import CommentForm from "./CommentForm";
 import { useTranslation } from "react-i18next";
@@ -125,7 +125,7 @@ const CommentContent = ({
 
       {reply && (
         <div className="mt-1">
-          <CommentForm postId={postId} commentId={commentId} autoFocus />
+          <CommentForm postId={postId} commentId={commentId} autoFocus onCancel={() => setReply(false)} onSuccess={() => setReply(false)}/>
         </div>
       )}
     </div>
