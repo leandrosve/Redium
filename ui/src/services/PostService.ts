@@ -127,4 +127,40 @@ export default class PostService {
       data,
     };
   }
+
+  public static async update(
+    postId: string,
+    post: PostContent,
+    user: User
+  ): Promise<APIResponse<Post>> {
+    // Este sleep es solo para que no pegue un salto cuando carga demasiado rapido
+    await this.sleep(1000);
+    const req: Partial<Post> = {
+      ...post,
+      ...user,
+      updatedAt: new Date().toISOString(),
+    };
+
+    const res = await fetch(`${this.BASE_URL}/${postId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(req),
+    });
+
+    if (!res.ok) {
+      return {
+        hasError: true,
+        error: "api_error",
+      };
+    }
+
+    const data: Post = await res.json();
+
+    return {
+      hasError: false,
+      data,
+    };
+  }
 }

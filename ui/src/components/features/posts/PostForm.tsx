@@ -15,6 +15,7 @@ import { Alert } from "@/components/common/Alert";
 import { useLocalized } from "@/hooks/useLocalized";
 import { useOwnershipContext } from "@/context/OwnershipContext";
 import DateDisplay from "@/components/common/DateDisplay";
+import type { APIResponse } from "@/types/APIResponse";
 
 interface Props {
   onSuccess: (post: Post) => void;
@@ -42,9 +43,14 @@ const PostForm = ({ onSuccess, post, user }: Props) => {
   const [error, setError] = useState<string | null>();
   const [success, setSuccess] = useState<boolean>(false);
   const submit = useCallback(
-    async (post: PostContent) => {
+    async (postContent: PostContent) => {
       setError(null);
-      const res = await PostService.create(post, user);
+      let res: APIResponse<Post>;
+      if (post) {
+        res = await PostService.update(post.id, postContent, user);
+      } else {
+        res = await PostService.create(postContent, user);
+      }
       if (res.hasError) {
         setError(res.error);
         return;
@@ -55,7 +61,7 @@ const PostForm = ({ onSuccess, post, user }: Props) => {
         onSuccess(res.data);
       }, 2000);
     },
-    [user]
+    [user, post]
   );
 
   return (
@@ -64,7 +70,7 @@ const PostForm = ({ onSuccess, post, user }: Props) => {
       className="flex flex-col items-stretch gap-2"
     >
       {success && (
-        <SuccessOverlay message={translate("posts.create.published")} />
+        <SuccessOverlay message={translate(post ? "posts.create.saved" : "posts.create.published")} />
       )}
       <h2 className="text-lg font-semibold text-foreground-100">
         {translate(!!post ? "posts.updatePost" : "posts.createPost")}

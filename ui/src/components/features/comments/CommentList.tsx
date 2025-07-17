@@ -7,11 +7,7 @@ import CommentListItem from "./CommentListItem";
 import useCommentTree from "@/hooks/useCommentTree";
 import { useCommentsContext } from "@/context/CommentsContext";
 
-interface Props {
-  postId: string;
-}
-
-const CommentList = ({ postId }: Props) => {
+const CommentList = () => {
   const { loading, comments, error } = useCommentsContext();
 
   return (

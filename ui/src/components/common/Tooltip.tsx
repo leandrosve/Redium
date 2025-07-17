@@ -1,7 +1,7 @@
 import { useMemo, useState, type ReactNode } from "react";
 
 interface Props {
-  content: string;
+  content: string | ReactNode;
   children: ReactNode;
   position: "top" | "bottom" | "left" | "right";
   disabled?: boolean;

@@ -15,12 +15,13 @@
     "updatePost": "Update post",
     "create": {
       "share": "Is there something you'd like to share?",
+      "saved": "Saved!",
       "title": "Title",
       "titlePlaceholder": "Enter a title...",
       "content": "Content",
       "contentPlaceholder": "What's on your mind?",
       "publish": "Publish",
-      "published": "¡Published!"
+      "published": "Published!"
     }
   },
   "user": {
@@ -39,7 +40,7 @@
     "comment": "Comment",
     "reply": "Reply",
     "replyPlaceholder": "Add a reply...",
-    "empty": "No comments yet. Be the first!"
+    "empty": "No comments yet. Be the first one!"
   },
   "common": {
     "error": "Something went wrong, please try again.",
@@ -51,6 +52,7 @@
     "showMore": "Show more",
     "showLess": "Show less",
     "edit": "Edit",
+    "edited": "Edited",
     "you": "You"
   },
   "validationErrors": {
