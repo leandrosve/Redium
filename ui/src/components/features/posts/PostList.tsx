@@ -8,8 +8,12 @@ import PostListItem from "./PostListItem";
 import PostListSearchBar from "./PostListSearchBar";
 import { CircleOff } from "lucide-react";
 import usePosts from "@/hooks/usePosts";
+import type { Post } from "@/types/models/Post";
 
-const PostList = () => {
+interface Props {
+  onEdit: (post:Post) => void;
+}
+const PostList = ({onEdit}:Props) => {
   const { posts, loading, loadingMore, fetchMore, hasMore, error } = usePosts();
 
   const isEmpty = !loading && posts.length === 0 && !error;
@@ -28,7 +32,7 @@ const PostList = () => {
           {/* No puedo usar el id como key porque hay ids repetidos en los mockup*/}
           {posts?.map((p, i) => (
             <Link key={i} to={ROUTES.POST_DETAIL.replace(":id", p.id)}>
-              <PostListItem post={p} />
+              <PostListItem post={p} onEdit={() => onEdit(p)}/>
             </Link>
           ))}
         </div>

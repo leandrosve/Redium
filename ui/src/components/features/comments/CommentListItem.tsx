@@ -4,9 +4,10 @@ import DateDisplay from "@/components/common/DateDisplay";
 import type { CommentNode } from "@/types/models/Comment";
 import { join } from "@/utils/ClassUtils";
 import { MessageCircle } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import CommentForm from "./CommentForm";
 import { useTranslation } from "react-i18next";
+import { useOverflowCheck } from "@/hooks/useOverflowCheck";
 
 interface Props {
   comment: CommentNode;
@@ -72,23 +73,9 @@ const CommentContent = ({
   commentId: string;
 }) => {
   const contentRef = useRef<HTMLDivElement>(null);
-  const [expanded, setExpanded] = useState(false);
-
-  const [isOverflowing, setIsOverflowing] = useState(false);
+  const [expanded, setExpanded] = useState(false);  
   const [reply, setReply] = useState(false);
-
-  useEffect(() => {
-    const el = contentRef.current;
-    if (el) {
-      const style = window.getComputedStyle(el);
-      const lineHeight = parseFloat(style.lineHeight);
-      const maxLines = 2;
-      const maxHeight = lineHeight * maxLines;
-
-      // Comparar altura real con altura máxima esperada
-      setIsOverflowing(el.scrollHeight > maxHeight + 1);
-    }
-  }, [content]);
+  const isOverflowing = useOverflowCheck(contentRef, 2);
 
   const { t } = useTranslation();
   return (

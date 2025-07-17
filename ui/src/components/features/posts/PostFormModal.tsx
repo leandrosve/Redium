@@ -3,20 +3,29 @@ import { useUserContext } from "@/context/UserContext";
 import PostForm from "./PostForm";
 import Avatar from "@/components/common/Avatar";
 import UserConfigModal from "../user/UserConfigModal";
+import type { Post } from "@/types/models/Post";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "@/routes/routes";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  post: Post | null;
 }
-const PostFormModal = ({ isOpen, onClose }: Props) => {
+const PostFormModal = ({ isOpen, onClose , post}: Props) => {
   const { user } = useUserContext();
 
+  const navigate = useNavigate();
   const onCloseConfig = (reason?: 'saved' | 'cleared' | 'closed') => {
     if (reason == 'closed') {
       onClose();
       return;
     }
   } 
+
+  const onSuccess = (post:Post) => {
+    navigate(ROUTES.POST_DETAIL.replace(":id", post.id))
+  }
 
   if (!user) return <UserConfigModal isOpen={isOpen} onClose={onCloseConfig}/>
   return (
@@ -29,7 +38,7 @@ const PostFormModal = ({ isOpen, onClose }: Props) => {
         </div>
       }
     >
-      <PostForm onSuccess={onClose} user={user} />
+      <PostForm onSuccess={onSuccess} user={user} post={post}/>
     </Modal>
   );
 };

@@ -5,6 +5,7 @@ import UserConfigForm from "./UserConfigForm";
 import { useUserContext } from "@/context/UserContext";
 import type { User } from "@/types/models/User";
 import { useTranslation } from "react-i18next";
+import { useOwnershipContext } from "@/context/OwnershipContext";
 
 interface Props {
   isOpen: boolean;
@@ -14,6 +15,8 @@ interface Props {
 }
 const UserConfigModal = ({ isOpen, onSaved, onCleared, onClose }: Props) => {
   const { user, setUser } = useUserContext();
+  const { clearAll } = useOwnershipContext();
+
 
   const onSubmit = (u: User) => {
     setUser(u);
@@ -21,8 +24,9 @@ const UserConfigModal = ({ isOpen, onSaved, onCleared, onClose }: Props) => {
     onClose("saved");
   };
 
-  const onClear = () => {
+  const onLogOut = () => {
     setUser(null);
+    clearAll();
     onCleared?.();
     location.reload();
     onClose("cleared");
@@ -45,7 +49,7 @@ const UserConfigModal = ({ isOpen, onSaved, onCleared, onClose }: Props) => {
             <Button
               variant="solid"
               color="secondary"
-              onClick={onClear}
+              onClick={onLogOut}
               className=" shrink-0"
             >
               <LogOut /> {t("user.logout")}

@@ -45,7 +45,7 @@ export default class CommentService {
   public static async create(
     postId: string,
     content: string,
-    parentId: string | null | undefined,
+    parentId: string | null,
     user: User
   ): Promise<APIResponse<Comment>> {
     // Este sleep es solo para que no pegue un salto cuando carga demasiado rapido

@@ -4,24 +4,25 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import Tooltip from "@/components/common/Tooltip";
 import { postFormSchema } from "@/validators/postFormSchema";
-import type { PostContent } from "@/types/models/Post";
+import type { Post, PostContent } from "@/types/models/Post";
 import Field from "@/components/common/Field";
 import Textarea from "@/components/common/Textarea";
 import type { User } from "@/types/models/User";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, Dot } from "lucide-react";
 import { useCallback, useState } from "react";
 import PostService from "@/services/PostService";
 import { Alert } from "@/components/common/Alert";
-import { useTranslation } from "react-i18next";
 import { useLocalized } from "@/hooks/useLocalized";
+import { useOwnershipContext } from "@/context/OwnershipContext";
+import DateDisplay from "@/components/common/DateDisplay";
 
 interface Props {
-  onSuccess: () => void;
-  initialData?: PostContent | null;
+  onSuccess: (post: Post) => void;
+  post?: Post | null;
   user: User;
 }
 
-const PostForm = ({ onSuccess, initialData, user }: Props) => {
+const PostForm = ({ onSuccess, post, user }: Props) => {
   const {
     register,
     handleSubmit,
@@ -29,10 +30,14 @@ const PostForm = ({ onSuccess, initialData, user }: Props) => {
   } = useForm<PostContent>({
     resolver: zodResolver(postFormSchema),
     mode: "all",
-    defaultValues: { title: "", content: "", ...initialData },
+    defaultValues: {
+      title: post?.title ?? "",
+      content: post?.content ?? "",
+    },
   });
 
   const { translate } = useLocalized();
+  const { markPostAsOwned } = useOwnershipContext();
 
   const [error, setError] = useState<string | null>();
   const [success, setSuccess] = useState<boolean>(false);
@@ -44,10 +49,10 @@ const PostForm = ({ onSuccess, initialData, user }: Props) => {
         setError(res.error);
         return;
       }
-
+      markPostAsOwned(res.data.id);
       setSuccess(true);
       setTimeout(() => {
-        onSuccess();
+        onSuccess(res.data);
       }, 2000);
     },
     [user]
@@ -58,13 +63,18 @@ const PostForm = ({ onSuccess, initialData, user }: Props) => {
       onSubmit={handleSubmit(submit)}
       className="flex flex-col items-stretch gap-2"
     >
-      {success && <SuccessOverlay message={translate("posts.create.published")}/>}
+      {success && (
+        <SuccessOverlay message={translate("posts.create.published")} />
+      )}
       <h2 className="text-lg font-semibold text-foreground-100">
-       {translate("posts.create.createPost")}
+        {translate(!!post ? "posts.updatePost" : "posts.createPost")}
       </h2>
       {error && (
         <Alert
-          title={translate(error, { defaultKey: "common.error", defaultValue:"" })}
+          title={translate(error, {
+            defaultKey: "common.error",
+            defaultValue: "",
+          })}
           status="info"
         />
       )}
@@ -98,6 +108,13 @@ const PostForm = ({ onSuccess, initialData, user }: Props) => {
         />
       </Field>
 
+      {!!post && (
+        <div className="flex rounded-full text-sm font-bold">
+          <Dot/> Created at:
+          <DateDisplay date={post.createdAt} format="date" className="ml-2 font-medium"/>
+        </div>
+      )}
+
       <div className="ml-auto mt-4">
         <Tooltip
           content={translate("validationErrors.complete_required_fields")}
@@ -109,7 +126,7 @@ const PostForm = ({ onSuccess, initialData, user }: Props) => {
             type="submit"
             loading={isSubmitting}
           >
-            {translate("posts.create.publish")}
+            {translate(!!post ? "common.save" : "posts.create.publish")}
           </Button>
         </Tooltip>
       </div>
@@ -117,7 +134,7 @@ const PostForm = ({ onSuccess, initialData, user }: Props) => {
   );
 };
 
-const SuccessOverlay = ({message}:{message: string}) => (
+const SuccessOverlay = ({ message }: { message: string }) => (
   <div className="absolute h-full w-full text-primary-600 bg-black/20 top-0 left-0 flex items-center justify-center flex-col text-2xl font-bold post-success-overlay z-10">
     <div className="flex flex-col items-center post-success-overlay-content">
       <CheckCircle className="h-20 w-20 " />

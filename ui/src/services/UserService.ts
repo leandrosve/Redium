@@ -5,6 +5,7 @@ export interface UserProfile {
 }
 
 const USER_PROFILE_KEY = "user_profile";
+const USER_OWNED_POSTS = "user_posts";
 
 export default class UserService {
   private static getStorage(): Storage {
@@ -59,6 +60,36 @@ export default class UserService {
       this.getStorage().removeItem(USER_PROFILE_KEY);
     } catch (error) {
       console.error("Error al limpiar el perfil:", error);
+    }
+  }
+
+  static getOwnedPosts(): string[] {
+    try {
+      const storedData = this.getStorage().getItem(USER_OWNED_POSTS);
+      if (!storedData) return [];
+
+      const postIds = JSON.parse(storedData);
+
+      // Validación básica del tipo
+      if (!Array.isArray(postIds)) {
+        this.getStorage().removeItem(USER_OWNED_POSTS);
+      }
+
+      return postIds;
+    } catch {
+      this.getStorage().removeItem(USER_OWNED_POSTS);
+      return [];
+    }
+  }
+
+  static addOwnedPost(postId: string): boolean {
+    try {
+      const posts = this.getOwnedPosts();
+      posts.push(postId);
+      this.getStorage().setItem(USER_OWNED_POSTS, JSON.stringify(posts));
+      return true;
+    } catch {
+      return false;
     }
   }
 }

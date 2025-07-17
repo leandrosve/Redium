@@ -10,6 +10,7 @@ import Button from "@/components/common/Button";
 import { generateId } from "@/utils/IdUtils";
 import CommentService from "@/services/CommentService";
 import { useCommentsContext } from "@/context/CommentsContext";
+import { useOwnershipContext } from "@/context/OwnershipContext";
 
 interface Props {
   postId: string;
@@ -88,6 +89,8 @@ const CommentFormContent = ({
   const [isSubmiting, setIsSubmiting] = useState(false);
   const [error, setError] = useState("");
 
+  const { markCommentAsOwned } = useOwnershipContext();
+
   const { addComment } = useCommentsContext();
 
   const showSubmit = !disabled && (!!sanitizedContent || commentId); // Para las replies siempre muestro los botones
@@ -101,7 +104,7 @@ const CommentFormContent = ({
     const res = await CommentService.create(
       postId,
       sanitizedContent,
-      commentId,
+      commentId ?? null,
       user
     );
 
@@ -112,6 +115,7 @@ const CommentFormContent = ({
     }
 
     addComment(res.data);
+    markCommentAsOwned(res.data.id)
     onSuccess?.();
     setValue("");
     setIsSubmiting(false);

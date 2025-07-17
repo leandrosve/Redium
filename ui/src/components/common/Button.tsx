@@ -11,7 +11,6 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "solid" | "outline" | "ghost" | "link";
   disabled?: boolean;
   loading?: boolean;
-  onClick?: () => void;
   className?: string;
 }
 

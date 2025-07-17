@@ -18,9 +18,12 @@ export function buildCommentTree(comments: Comment[]): CommentNode[] {
     const node = map.get(comment.id);
     if (!node) continue;
 
-    if (comment.parentId && map.has(comment.parentId)) {
-      const parent = map.get(comment.parentId);
-      if (parent) parent.children.push(node);
+    if (comment.parentId) {
+      // Si tiene parentId pero no se encuentra en el map, es hijo de un comentario eliminado
+      if (map.has(comment.parentId)) {
+        const parent = map.get(comment.parentId);
+        if (parent) parent.children.push(node);
+      }
     } else {
       roots.push(node);
     }

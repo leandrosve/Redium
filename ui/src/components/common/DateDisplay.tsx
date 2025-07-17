@@ -10,8 +10,8 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 const DateDisplay = ({ date, format, ...props }: Props) => {
   const [formattedDate, relativeTime] = useMemo(() => {
     const parsedDate = new Date(date);
-
-    let timeAgo: string | null = null;
+    if (!parsedDate) return ["", ""];
+    let timeAgo: string | null = "";
     if (format === "time-ago") {
       const secondsAgo = (Date.now() - parsedDate.getTime()) / 1000;
       if (secondsAgo < 0) {
