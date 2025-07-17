@@ -45,7 +45,7 @@ const UserConfigForm = ({ onSubmit, submitMessage, initialData }: Props) => {
           placeholder= {t("user.namePlaceholder")}
           id="name"
           variant="filled"
-          {...register("name", {setValueAs: v => "asdasd"})}
+          {...register("name")}
         />
         {errors.name && (
           <HelperText

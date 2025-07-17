@@ -20,3 +20,7 @@ export interface CommentCreateRequest {
   content: string;
   parentId?: null | string;
 }
+
+export interface CommentNode extends Comment {
+  children: CommentNode[];
+}

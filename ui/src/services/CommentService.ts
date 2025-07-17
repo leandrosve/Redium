@@ -1,13 +1,9 @@
 import type { APIResponse } from "@/types/APIResponse";
-import type {
-  CommentContent,
-  CommentCreateRequest,
-} from "@/types/models/Comment";
-import type { Post, PostContent } from "@/types/models/Post";
+import type { Comment, CommentCreateRequest } from "@/types/models/Comment";
 import type { User } from "@/types/models/User";
 
-export interface PostFilters {
-  page?: number;
+export interface BasicFilters {
+  page: number;
   pageSize: number;
   searchTerm?: string;
   sortBy?: string;
@@ -22,39 +18,10 @@ export default class CommentService {
     return new Promise((res) => setTimeout(res, ms));
   }
 
-  private static buildFilterParams(filters?: PostFilters): string {
-    if (!filters) return "";
-    const params = new URLSearchParams();
-
-    const map: Record<keyof PostFilters, string> = {
-      page: "page",
-      pageSize: "limit",
-      searchTerm: "search",
-      sortBy: "sortBy",
-      order: "order",
-    };
-
-    Object.entries(filters).forEach(([key, value]) => {
-      if (value !== undefined && value !== null && value !== "") {
-        const paramKey = map[key as keyof PostFilters];
-        if (paramKey) {
-          params.append(paramKey, String(value));
-        }
-      }
-    });
-
-    return params.toString();
-  }
-
-  public static async list(
-    postId: string,
-    filters?: PostFilters
-  ): Promise<APIResponse<Post[]>> {
+  public static async list(postId: string): Promise<APIResponse<Comment[]>> {
     // Este sleep es solo para que no pegue un salto cuando carga demasiado rapido
     await this.sleep(1000);
-    const res = await fetch(
-      `${this.BASE_URL}/${postId}/comments?${this.buildFilterParams(filters)}`
-    );
+    const res = await fetch(`${this.BASE_URL}/${postId}/comment`);
 
     if (!res.ok) {
       const text = await res.text();
@@ -67,11 +34,11 @@ export default class CommentService {
       };
     }
 
-    const posts: Post[] = await res.json();
+    const comments: Comment[] = await res.json();
 
     return {
       hasError: false,
-      data: posts,
+      data: comments,
     };
   }
 
@@ -79,7 +46,7 @@ export default class CommentService {
     postId: string,
     content: string,
     user: User
-  ): Promise<APIResponse<Post>> {
+  ): Promise<APIResponse<Comment>> {
     // Este sleep es solo para que no pegue un salto cuando carga demasiado rapido
     await this.sleep(1000);
 
@@ -89,7 +56,7 @@ export default class CommentService {
       createdAt: new Date().toISOString(),
     };
 
-    const res = await fetch(`${this.BASE_URL}/${postId}/comments`, {
+    const res = await fetch(`${this.BASE_URL}/${postId}/comment`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -104,7 +71,7 @@ export default class CommentService {
       };
     }
 
-    const data: Post = await res.json();
+    const data: Comment = await res.json();
 
     return {
       hasError: false,

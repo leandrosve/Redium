@@ -1,6 +1,10 @@
 import { join, printIf } from "@/utils/ClassUtils";
 import {
   forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
   useState,
   type ReactNode,
   type TextareaHTMLAttributes,
@@ -16,6 +20,7 @@ export interface TextareaProps
   invalid?: boolean;
   variant?: "outline" | "filled";
   maxLength?: number;
+  displayCharCount?: boolean;
 }
 
 const sizeClasses = {
@@ -36,6 +41,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function (
     id,
     invalid,
     variant = "outline",
+    displayCharCount = true,
     innerClassName,
     onChange,
     icon,
@@ -49,10 +55,26 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function (
     setCharCount(e.target.value.length);
     onChange?.(e);
   };
+
+  // Pequeña logica para permitir que el textarea crezca a meida que se agregan mas lineas
+  const innerRef = useRef<HTMLTextAreaElement>(null);
+
+  // Expone el innerRef al ref externo
+  useImperativeHandle(ref, () => innerRef.current!);
+
+  const resize = useCallback(() => {
+    const el = innerRef.current;
+    if (el) {
+      el.style.height = "auto";
+      el.style.height = `${el.scrollHeight}px`;
+
+    }
+  }, [innerRef]);
+
   return (
     <div
       className={twMerge(
-        "flex flex-col items-start gap-2 rounded-3xl px-3 py-2 transition-colors text-foreground-100 ",
+        "flex flex-col items-start gap-2 rounded-3xl px-3 py-2 transition-colors text-foreground-100 relative ",
         variantClasses[variant],
         sizeClasses[size],
         printIf(
@@ -62,22 +84,24 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function (
         className
       )}
     >
-      <div className="flex gap-2 self-stretch flex-1">
+      <div className="flex gap-2 self-stretch flex-1 ">
         {icon && <div className="text-gray-500">{icon}</div>}
         <textarea
           id={id}
-          ref={ref}
+          ref={innerRef}
           onChange={handleChange}
           className={join(
             "flex-1 outline-none bg-transparent placeholder-gray-400 text-md resize-none w-full h-full",
             innerClassName
           )}
+          rows={1}
+          onInput={resize}
           maxLength={maxLength}
           {...props}
         />
       </div>
       {!!maxLength && (
-        <span className="text-xs ml-auto text-foreground-200">{`${charCount}/${maxLength}`}</span>
+        <span className="text-xs  text-foreground-200 absolute right-4 bottom-2">{`${charCount}/${maxLength}`}</span>
       )}
     </div>
   );

@@ -1,40 +1,45 @@
-import { Link } from "react-router-dom";
-import { ROUTES } from "@/routes/routes";
 import { useTranslation } from "react-i18next";
 import Skeleton from "@/components/common/Skeleton";
-import InfiniteScrollDetector from "@/components/common/InfiniteScrollDetector";
 import ErrorMessage from "@/components/common/ErrorMessage";
 import { CircleOff } from "lucide-react";
-import usePosts from "@/hooks/usePosts";
+import CommentService, { type BasicFilters } from "@/services/CommentService";
+import type { Comment } from "@/types/models/Comment";
+import CommentListItem from "./CommentListItem";
+import { useCallback } from "react";
+import useAPI from "@/hooks/useAPI";
+import useCommentTree from "@/hooks/useCommentTree";
 
-const PostList = () => {
-  const { posts, loading, loadingMore, fetchMore, hasMore, error } = usePosts();
+interface Props {
+  postId: string;
+}
 
-  const isEmpty = !loading && posts.length === 0 && !error;
-  const showEndMessage = posts.length > 0 && !hasMore;
+const CommentList = ({ postId }: Props) => {
+  const fetchFunction = useCallback(
+    () => CommentService.list(postId),
+    [postId]
+  );
+
+  const {
+    loading,
+    entity: items,
+    error,
+  } = useAPI<Comment[]>({ fetchFunction });
+
+  const isEmpty = !loading && items?.length === 0 && !error;
 
   const { t } = useTranslation();
 
   return (
     <div className="flex flex-col w-full gap-2 items-stretch">
-      <PostListSearchBar />
-      
-      {loading ? (
-        <Skeleton repeat={5} className="h-30" />
-      ) : (
+      {loading && <Skeleton repeat={5} className="h-30" />}
+
+      {!loading && !!items && (
         <div className="flex flex-col gap-4 ">
-          {/* No puedo usar el id como key porque hay ids repetidos en los mockup*/}
-          {posts?.map((p, i) => (
-            <Link key={i} to={ROUTES.POST_DETAIL.replace(":id", p.id)}>
-              <PostListItem post={p} />
-            </Link>
-          ))}
+          <CommentListContent comments={items} />
         </div>
       )}
-      
-      {error && <ErrorMessage />}
 
-      {!loading && loadingMore && <Skeleton repeat={5} className="h-30" />}
+      {error && <ErrorMessage />}
 
       {isEmpty && (
         <div className="text-center w-full p-5 font-bold text-sm text-foreground-200 relative">
@@ -42,18 +47,27 @@ const PostList = () => {
           {t("posts.noResults")}
         </div>
       )}
-      {showEndMessage && (
-        <div className="text-center w-full p-5 font-bold text-sm text-foreground-200">
-          {t("posts.endReached")}
-        </div>
-      )}
-
-      <InfiniteScrollDetector
-        onLoadMore={() => fetchMore()}
-        disabled={loading || loadingMore || !hasMore || !!error}
-      />
+      {!loading ||
+        (!error && (
+          <div className="text-center w-full p-5 font-bold text-sm text-foreground-200">
+            {t("posts.endReached")}
+          </div>
+        ))}
     </div>
   );
 };
 
-export default PostList;
+const CommentListContent = ({ comments }: { comments: Comment[] }) => {
+  const commentTree = useCommentTree(comments);
+  return (
+    <div className="flex flex-col bg-content-100 rounded-2xl">
+      {commentTree.map((c) => (
+        <div key={c.id} className="p-4">  
+          <CommentListItem comment={c}  nestingLevel={0} />
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default CommentList;

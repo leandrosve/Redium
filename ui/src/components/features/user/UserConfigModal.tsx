@@ -24,6 +24,7 @@ const UserConfigModal = ({ isOpen, onSaved, onCleared, onClose }: Props) => {
   const onClear = () => {
     setUser(null);
     onCleared?.();
+    location.reload();
     onClose('cleared');
   };
   const { t } = useTranslation();

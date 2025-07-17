@@ -33,12 +33,20 @@
   },
   "comments": {
     "comments": "Comments",
-    "placeholder": "Join the conversation..."
+    "placeholder": "Join the conversation...",
+    "comment":"Comment",
+    "reply":"Reply",
+    "replyPlaceholder": "Add a reply..."
   },
   "common": {
     "error": "Something went wrong, please try again.",
     "continue": "Continue",
-    "save": "Save"
+    "save": "Save",
+    "momentAgo": "a moment ago",
+    "fromFuture": "this comes from the future",
+    "cancel": "Cancel",
+    "showMore":"Show more",
+    "showLess":"Show less"
   },
   "validationErrors": {
     "title_required": "Title is required",

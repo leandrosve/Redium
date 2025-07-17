@@ -60,11 +60,19 @@ export const formatTimeAgo = (lang: string, date: Date) => {
   return formatter.format(value, timeUnit);
 };
 
-export const formatTime = (lang: string, date: Date) => {
+export const formatTime = (lang: string, date: Date, dateOnly?:boolean) => {
   if (!["en", "es"].includes(lang)) lang = "en";
-  return new Intl.DateTimeFormat(lang, {
+
+  const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "long",
     day: "numeric",
-  }).format(date);
+  };
+
+  if (!dateOnly) {
+    options.hour = "2-digit";
+    options.minute = "2-digit";
+  }
+
+  return new Intl.DateTimeFormat(lang, options).format(date);
 };

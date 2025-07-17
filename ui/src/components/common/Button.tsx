@@ -8,7 +8,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   leftIcon?: ReactNode;
   size?: "sm" | "md" | "lg";
   color?: "primary" | "secondary";
-  variant?: "solid" | "outline" | "ghost";
+  variant?: "solid" | "outline" | "ghost" | "link";
   disabled?: boolean;
   loading?: boolean;
   onClick?: () => void;
@@ -32,6 +32,7 @@ const variantClasses = {
     "bg-transparent border border-subtle enabled:hover:bg-gray-400/10 text-foreground-200   focus-within:bg-gray-400/5",
   ghost:
     "bg-transparent enabled:hover:bg-gray-400/5 text-foreground-200 focus-within:bg-gray-400/5",
+  link: "bg-transparent enabled:hover:bg-transparent enabled:hover:underline px-0",
 };
 
 const Button = ({
@@ -65,7 +66,11 @@ const Button = ({
       {children}
       {rightIcon && <span className="flex items-center">{rightIcon}</span>}
 
-      {loading && <span className="absolute w-full h-full flex items-center justify-center"><Spinner className="h-5 w-5 "/></span>}
+      {loading && (
+        <span className="absolute w-full h-full flex items-center justify-center">
+          <Spinner className="h-5 w-5 " />
+        </span>
+      )}
     </button>
   );
 };

@@ -43,7 +43,7 @@ const PostDetailContent = ({ post }: { post: Post }) => {
     ];
   }, [i18next.language, post]);
   return (
-    <div>
+    <div >
       <div className="flex gap-2 items-center font-bold text-foreground-200 text-sm">
         <Avatar name={post.name} src={post.avatar} size="sm" />{" "}
         <span className="max-w-40 overflow-ellipsis line-clamp-1">

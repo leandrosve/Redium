@@ -81,7 +81,7 @@ html {
 }
 
 .post-success-overlay-content {
-  animation: scale-in .75s ease-out;
+  animation: scale-in 0.75s ease-out;
   transform: scale(1);
 }
 
@@ -101,4 +101,21 @@ html {
 
 .no-scroll {
   overflow: hidden;
+}
+
+.comment-tree-line {
+  background: var(--color-subtle);
+  background: linear-gradient(
+    180deg,
+    var(--color-subtle) 0% 90%,
+    rgba(237, 221, 83, 0) 100%
+  );
+}
+.comment-tree-line-horizontal {
+  background: var(--color-subtle);
+  background: linear-gradient(
+    90deg,
+    var(--color-subtle) 0%,
+    rgba(237, 221, 83, 0) 100%
+  );
 }
