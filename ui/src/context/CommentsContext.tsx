@@ -4,9 +4,7 @@ import type { Comment } from "@/types/models/Comment";
 import {
   createContext,
   useCallback,
-  useContext,
-  useState,
-  type ReactNode,
+  useContext, type ReactNode
 } from "react";
 
 interface CommentsContextType {
@@ -14,6 +12,7 @@ interface CommentsContextType {
   loading: boolean;
   error: string | null;
   addComment: (comment: Comment) => void;
+  updateComment: (comment: Comment) => void;
   deleteComment: (id: string) => void;
 }
 
@@ -23,30 +22,51 @@ const CommentsContext = createContext<CommentsContextType>({
   error: null,
   addComment: () => {},
   deleteComment: () => {},
+  updateComment: () => {},
 });
 
-export const CommentsProvider = ({ children , postId}: { postId: string, children: ReactNode }) => {
+export const CommentsProvider = ({
+  children,
+  postId,
+}: {
+  postId: string;
+  children: ReactNode;
+}) => {
   const fetchFunction = useCallback(
     () => CommentService.list(postId),
     [postId]
   );
-    const {
+  const {
     loading,
     entity: comments,
     setEntity,
     error,
-  } = useAPI<Comment[]>({ fetchFunction, initialData:[] });
+  } = useAPI<Comment[]>({ fetchFunction, initialData: [] });
 
   const addComment = (comment: Comment) => {
-    setEntity((prev) => prev ? [...prev, comment] : [comment]);
+    setEntity((prev) => (prev ? [...prev, comment] : [comment]));
+  };
+  const updateComment = (updated: Comment) => {
+    setEntity((prev) =>
+      prev ? prev.map((c) => (c.id === updated.id ? updated : c)) : [updated]
+    );
   };
 
   const deleteComment = (id: string) => {
-    setEntity((prev) => prev ? prev.filter((c) => c.id !== id) : []);
+    setEntity((prev) => (prev ? prev.filter((c) => c.id !== id) : []));
   };
 
   return (
-    <CommentsContext.Provider value={{ comments, loading, error, addComment, deleteComment }}>
+    <CommentsContext.Provider
+      value={{
+        comments,
+        loading,
+        error,
+        addComment,
+        deleteComment,
+        updateComment,
+      }}
+    >
       {children}
     </CommentsContext.Provider>
   );

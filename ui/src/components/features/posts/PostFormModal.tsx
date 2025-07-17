@@ -4,28 +4,22 @@ import PostForm from "./PostForm";
 import Avatar from "@/components/common/Avatar";
 import UserConfigModal from "../user/UserConfigModal";
 import type { Post } from "@/types/models/Post";
-import { useNavigate } from "react-router-dom";
-import { ROUTES } from "@/routes/routes";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  onSuccess: (p: Post) => void;
   post: Post | null;
 }
-const PostFormModal = ({ isOpen, onClose , post}: Props) => {
+const PostFormModal = ({ isOpen, onClose, onSuccess, post}: Props) => {
   const { user } = useUserContext();
 
-  const navigate = useNavigate();
   const onCloseConfig = (reason?: 'saved' | 'cleared' | 'closed') => {
     if (reason == 'closed') {
       onClose();
       return;
     }
   } 
-
-  const onSuccess = (post:Post) => {
-    navigate(ROUTES.POST_DETAIL.replace(":id", post.id))
-  }
 
   if (!user) return <UserConfigModal isOpen={isOpen} onClose={onCloseConfig}/>
   return (

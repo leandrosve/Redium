@@ -45,7 +45,7 @@ export default class CommentService {
   public static async create(
     postId: string,
     content: string,
-    parentId: string | null,
+    parentId: string | null | undefined,
     user: User
   ): Promise<APIResponse<Comment>> {
     // Este sleep es solo para que no pegue un salto cuando carga demasiado rapido
@@ -60,6 +60,44 @@ export default class CommentService {
 
     const res = await fetch(`${this.BASE_URL}/${postId}/comment`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(req),
+    });
+
+    if (!res.ok) {
+      return {
+        hasError: true,
+        error: "api_error",
+      };
+    }
+
+    const data: Comment = await res.json();
+
+    return {
+      hasError: false,
+      data,
+    };
+  }
+
+  public static async update(
+    postId: string,
+    commentId: string,
+    content: string,
+    user: User
+  ): Promise<APIResponse<Comment>> {
+    // Este sleep es solo para que no pegue un salto cuando carga demasiado rapido
+    await this.sleep(1000);
+
+    const req: Partial<Comment> = {
+      content: content,
+      ...user,
+      updatedAt: new Date().toISOString(),
+    };
+
+    const res = await fetch(`${this.BASE_URL}/${postId}/comment/${commentId}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },

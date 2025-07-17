@@ -3,11 +3,12 @@ import Button from "@/components/common/Button";
 import DateDisplay from "@/components/common/DateDisplay";
 import type { CommentNode } from "@/types/models/Comment";
 import { join } from "@/utils/ClassUtils";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, Pencil } from "lucide-react";
 import { useRef, useState } from "react";
 import CommentForm from "./CommentForm";
 import { useTranslation } from "react-i18next";
 import { useOverflowCheck } from "@/hooks/useOverflowCheck";
+import { useOwnershipContext } from "@/context/OwnershipContext";
 
 interface Props {
   comment: CommentNode;
@@ -18,6 +19,12 @@ interface Props {
 const maxNextingLevel = 5;
 
 const CommentListItem = ({ comment, nestingLevel = 0, className }: Props) => {
+  const { isCommentOwned } = useOwnershipContext();
+  const { t } = useTranslation();
+  const isOwned = isCommentOwned(comment.id);
+
+  const [isEditing, setIsEditing] = useState(false);
+
   return (
     <div className={join("flex gap-2", className)}>
       <div className="flex flex-col items-center relative">
@@ -39,8 +46,8 @@ const CommentListItem = ({ comment, nestingLevel = 0, className }: Props) => {
       </div>
       <div className="flex flex-col gap-2 flex-1">
         <div className="flex gap-2 items-center font-bold text-foreground-200 text-sm">
-          <span className="max-w-40 overflow-ellipsis line-clamp-1 text-sm">
-            {comment.name}
+          <span className="max-w-40 overflow-ellipsis line-clamp-1">
+            {comment.name} {isOwned && `(${t("common.you")})`}
           </span>
           <span className="select-none opacity-50">•</span>
           <DateDisplay
@@ -48,12 +55,35 @@ const CommentListItem = ({ comment, nestingLevel = 0, className }: Props) => {
             format="time-ago"
             date={comment.createdAt}
           />
+
+          {isOwned && (
+            <Button
+              variant="ghost"
+              size="sm"
+              leftIcon={<Pencil className="h-4 w-4" />}
+              onClick={() => setIsEditing(true)}
+            >
+              {t("common.edit")}
+            </Button>
+          )}
         </div>
-        <CommentContent
-          content={comment.content}
-          postId={comment.postId}
-          commentId={comment.id}
-        />
+        {isEditing ? (
+          <CommentForm
+            postId={comment.postId}
+            parentId={comment.parentId}
+            comment={comment}
+            autoFocus
+            mode="edit"
+            onCancel={() => setIsEditing(false)}
+            onSuccess={() => setIsEditing(false)}
+          />
+        ) : (
+          <CommentContent
+            content={comment.content}
+            postId={comment.postId}
+            commentId={comment.id}
+          />
+        )}
         {nestingLevel < maxNextingLevel &&
           comment.children?.map((c) => (
             <CommentListItem comment={c} nestingLevel={nestingLevel + 1} />
@@ -73,8 +103,9 @@ const CommentContent = ({
   commentId: string;
 }) => {
   const contentRef = useRef<HTMLDivElement>(null);
-  const [expanded, setExpanded] = useState(false);  
+  const [expanded, setExpanded] = useState(false);
   const [reply, setReply] = useState(false);
+
   const isOverflowing = useOverflowCheck(contentRef, 2);
 
   const { t } = useTranslation();
@@ -82,7 +113,7 @@ const CommentContent = ({
     <div className="text-sm text-foreground-200">
       <div
         ref={contentRef}
-        className={`text-sm text-foreground-200 transition-all ${
+        className={`text-sm text-foreground-200 break-all transition-all ${
           expanded ? "" : "line-clamp-2"
         }`}
       >
@@ -112,7 +143,14 @@ const CommentContent = ({
 
       {reply && (
         <div className="mt-1">
-          <CommentForm postId={postId} commentId={commentId} autoFocus onCancel={() => setReply(false)} onSuccess={() => setReply(false)}/>
+          <CommentForm
+            postId={postId}
+            comment={null}
+            parentId={commentId}
+            autoFocus
+            onCancel={() => setReply(false)}
+            onSuccess={() => setReply(false)}
+          />
         </div>
       )}
     </div>

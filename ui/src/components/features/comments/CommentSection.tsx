@@ -11,10 +11,10 @@ const CommentSection = ({ postId }: Props) => {
   return (
     <CommentsProvider postId={postId}>
       <div className="relative rounded-3xl">
-        <CommentForm postId={postId} />
+        <CommentForm postId={postId} comment={null} />
         <div className="mt-4">
           <h3 className="mb-2">{t("comments.comments")}</h3>
-          <CommentList postId={postId} />
+          <CommentList />
         </div>
       </div>
     </CommentsProvider>

@@ -1,8 +1,11 @@
 import Textarea from "@/components/common/Textarea";
 import { useUserContext } from "@/context/UserContext";
-import { useMemo, useState, type FormEvent } from "react";
+import {
+  useMemo,
+  useState,
+  type FormEvent
+} from "react";
 import { useTranslation } from "react-i18next";
-import UserConfigModal from "../user/UserConfigModal";
 import type { User } from "@/types/models/User";
 import Avatar from "@/components/common/Avatar";
 import { MessageCircle } from "lucide-react";
@@ -11,10 +14,14 @@ import { generateId } from "@/utils/IdUtils";
 import CommentService from "@/services/CommentService";
 import { useCommentsContext } from "@/context/CommentsContext";
 import { useOwnershipContext } from "@/context/OwnershipContext";
+import type { Comment } from "@/types/models/Comment";
+import CheckUserWrapper from "../user/CheckUserWrapper";
 
 interface Props {
+  mode?: "create" | "edit";
   postId: string;
-  commentId?: string | null;
+  comment: Comment | null; // Para la edicion
+  parentId?: string | null;
   autoFocus?: boolean;
   inputId?: string; // Para manejar el focus de manera sencilla
   onCancel?: () => void;
@@ -22,50 +29,43 @@ interface Props {
 }
 
 const CommentForm = ({
+  mode = "create",
   postId,
-  commentId,
+  parentId,
   autoFocus,
   onCancel,
   onSuccess,
+  comment,
 }: Props) => {
   const { user } = useUserContext();
-  const [isUserConfigOpen, setIsUserConfigOpen] = useState(false);
   const [inputId] = useState(generateId());
   return (
-    <div className="relative rounded-3xl">
-      {!user && (
-        <>
-          <button
-            aria-label="join"
-            className="rounded-3xl absolute t-0 l-0 bg-gray-500/5 z-10 h-full w-full cursor-pointer hover:bg-gray-500/10"
-            onClick={() => setIsUserConfigOpen(true)}
-          />
-          <UserConfigModal
-            onClose={() => setIsUserConfigOpen(false)}
-            isOpen={isUserConfigOpen}
-            onSaved={() => {
-              setTimeout(() => document.getElementById(inputId)?.focus(), 200);
-            }}
-          />
-        </>
-      )}
+    <CheckUserWrapper
+      onCompleted={() =>
+        setTimeout(() => document.getElementById(inputId)?.focus(), 200)
+      }
+    >
       <CommentFormContent
         user={user}
         postId={postId}
-        commentId={commentId}
+        parentId={parentId}
         autoFocus={autoFocus}
         inputId={inputId}
         onCancel={onCancel}
         onSuccess={onSuccess}
         disabled={!user}
+        mode={mode}
+        comment={comment}
       />
-    </div>
+    </CheckUserWrapper>
   );
 };
 
 interface ContentProps {
+  mode?: "create" | "edit";
+  comment: Comment | null; // Para la edicion
   user: User | null;
-  commentId?: string | null;
+  parentId?: string | null;
   postId: string;
   autoFocus?: boolean;
   inputId?: string;
@@ -75,47 +75,47 @@ interface ContentProps {
 }
 const CommentFormContent = ({
   user,
-  commentId,
+  parentId,
   postId,
   autoFocus,
   inputId,
   onCancel,
   onSuccess,
   disabled,
+  comment,
+  mode = "create",
 }: ContentProps) => {
   const { t } = useTranslation();
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(comment?.content ?? "");
   const sanitizedContent = useMemo(() => value.trim(), [value]);
   const [isSubmiting, setIsSubmiting] = useState(false);
   const [error, setError] = useState("");
 
   const { markCommentAsOwned } = useOwnershipContext();
 
-  const { addComment } = useCommentsContext();
+  const { addComment, updateComment } = useCommentsContext();
 
-  const showSubmit = !disabled && (!!sanitizedContent || commentId); // Para las replies siempre muestro los botones
+  const showSubmit =
+    mode == "edit" || (!disabled && (!!sanitizedContent || parentId)); // Para las replies siempre muestro los botones
 
-  const onSubmit = async (e:FormEvent) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!sanitizedContent) return;
     if (!user) return;
     setIsSubmiting(true);
     setError("");
-    const res = await CommentService.create(
-      postId,
-      sanitizedContent,
-      commentId ?? null,
-      user
-    );
+
+    const res = mode === "edit" && comment
+      ? await CommentService.update(comment.postId, comment.id, sanitizedContent, user)
+      : await CommentService.create(postId, sanitizedContent, parentId ?? null, user);
 
     if (res.hasError) {
       setError(res.error);
-      setIsSubmiting(false);
       return;
     }
 
-    addComment(res.data);
-    markCommentAsOwned(res.data.id)
+    mode === "edit" ? updateComment(res.data) : addComment(res.data);
+    markCommentAsOwned(res.data.id);
     onSuccess?.();
     setValue("");
     setIsSubmiting(false);
@@ -125,32 +125,37 @@ const CommentFormContent = ({
     setValue("");
     onCancel?.();
   };
+
+  let icon = null;
+  if (mode === "create") {
+    icon = user ? (
+      <Avatar name={user.name} src={user.avatar} size="sm" className="mr-3" />
+    ) : (
+      <MessageCircle />
+    );
+  }
+
   return (
     <form onSubmit={onSubmit}>
       <Textarea
         disabled={!user}
         id={inputId}
         placeholder={t(
-          commentId ? "comments.replyPlaceholder" : "comments.placeholder"
+          mode == "edit"
+            ? ""
+            : parentId
+            ? "comments.replyPlaceholder"
+            : "comments.placeholder"
         )}
-        innerClassName="h-auto"
+        innerClassName={`h-auto pr-12 ${
+          mode == "edit" ? "text-sm" : "text-md"
+        }`}
         maxLength={500}
         value={value}
         autoFocus={autoFocus}
-        displayCharCount={!commentId}
+        displayCharCount={!parentId}
         onChange={(e) => setValue(e.target.value)}
-        icon={
-          user ? (
-            <Avatar
-              name={user.name}
-              src={user.avatar}
-              size="sm"
-              className="mr-3"
-            />
-          ) : (
-            <MessageCircle />
-          )
-        }
+        icon={icon}
       />
       {showSubmit && (
         <div className="flex align-center justify-end mt-2 gap-2 animate-scale-in duration-200">
@@ -166,7 +171,7 @@ const CommentFormContent = ({
             loading={isSubmiting}
             disabled={!sanitizedContent}
           >
-            {t(commentId ? "comments.reply" : "comments.comment")}
+            {t(parentId ? "comments.reply" : "comments.comment")}
           </Button>
         </div>
       )}

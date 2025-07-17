@@ -59,7 +59,7 @@ const PostForm = ({ onSuccess, post, user }: Props) => {
       setSuccess(true);
       setTimeout(() => {
         onSuccess(res.data);
-      }, 2000);
+      }, 1000);
     },
     [user, post]
   );

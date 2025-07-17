@@ -45,8 +45,6 @@ export default class PostService {
   public static async list(
     filters?: PostFilters
   ): Promise<APIResponse<Post[]>> {
-    // Este sleep es solo para que no pegue un salto cuando carga demasiado rapido
-    await this.sleep(1000);
     const res = await fetch(
       `${this.BASE_URL}?${this.buildFilterParams(filters)}`
     );
@@ -71,7 +69,6 @@ export default class PostService {
   }
 
   public static async detail(id: string): Promise<APIResponse<Post>> {
-    await this.sleep(1000);
     const res = await fetch(`${this.BASE_URL}/${id}`, {
       method: "GET",
       headers: {
@@ -101,8 +98,6 @@ export default class PostService {
     post: PostContent,
     user: User
   ): Promise<APIResponse<Post>> {
-    // Este sleep es solo para que no pegue un salto cuando carga demasiado rapido
-    await this.sleep(1000);
     const req = { ...post, ...user, createdAt: new Date().toISOString() };
 
     const res = await fetch(this.BASE_URL, {
@@ -133,8 +128,6 @@ export default class PostService {
     post: PostContent,
     user: User
   ): Promise<APIResponse<Post>> {
-    // Este sleep es solo para que no pegue un salto cuando carga demasiado rapido
-    await this.sleep(1000);
     const req: Partial<Post> = {
       ...post,
       ...user,

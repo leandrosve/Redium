@@ -3,9 +3,9 @@ import Skeleton from "@/components/common/Skeleton";
 import ErrorMessage from "@/components/common/ErrorMessage";
 import { MessageCircleOff } from "lucide-react";
 import type { Comment } from "@/types/models/Comment";
-import CommentListItem from "./CommentListItem";
 import useCommentTree from "@/hooks/useCommentTree";
 import { useCommentsContext } from "@/context/CommentsContext";
+import CommentListItem from "./CommentListItem";
 
 const CommentList = () => {
   const { loading, comments, error } = useCommentsContext();

@@ -64,12 +64,15 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function (
 
   const resize = useCallback(() => {
     const el = innerRef.current;
+    console.log("NO CORRE??")
     if (el) {
       el.style.height = "auto";
       el.style.height = `${el.scrollHeight}px`;
 
     }
   }, [innerRef]);
+
+  useEffect(() => resize(), [resize]);
 
   return (
     <div

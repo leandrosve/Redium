@@ -67,7 +67,7 @@ const Button = ({
 
       {loading && (
         <span className="absolute w-full h-full flex items-center justify-center">
-          <Spinner className="h-5 w-5 " />
+          <Spinner className="h-5 w-5 text-inherit" />
         </span>
       )}
     </button>
