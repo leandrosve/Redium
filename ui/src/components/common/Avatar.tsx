@@ -9,6 +9,7 @@ interface Props {
   name: string;
   src?: string;
   size?: "sm" | "md" | "lg";
+  className?: string;
 }
 
 const sizeClasses = {
@@ -17,7 +18,7 @@ const sizeClasses = {
   lg: "w-16 h-16",
 };
 
-const Avatar = ({ name, src, size = "md" }: Props) => {
+const Avatar = ({ name, src, size = "md", className }: Props) => {
   const [color, initials] = useMemo(() => {
     return [generateColorForNickname(name), getInitialsForName(name)];
   }, [name]);
@@ -25,12 +26,24 @@ const Avatar = ({ name, src, size = "md" }: Props) => {
   const [error, setError] = useState(false);
   return (
     <span
-      className={`text-white ${color}  overflow-hidden rounded-full flex items-center justify-center select-none relative ${sizeClasses[size]}`}
+      className={join(
+        "text-white overflow-hidden rounded-full flex items-center justify-center select-none relative",
+        color,
+        sizeClasses[size],
+        className
+      )}
       role="img"
       aria-label={name}
     >
       {initials}
-      {src && <img src={src} alt={name} className={join("absolute h-full w-full", printIf("hidden", error))} onError={() => setError(true)}/>}
+      {src && (
+        <img
+          src={src}
+          alt={name}
+          className={join("absolute h-full w-full", printIf("hidden", error))}
+          onError={() => setError(true)}
+        />
+      )}
     </span>
   );
 };

@@ -4,6 +4,7 @@ import { z } from "zod";
 export const userFormSchema = z.object({
   name: z
     .string()
+    .trim()
     .nonempty("name_required")
     .min(3, "min_3_characters")
     .max(50, "max_50_characters"),

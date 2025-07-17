@@ -1,49 +1,26 @@
 import Avatar from "@/components/common/Avatar";
-import Modal from "@/components/common/Modal";
 import { useUserContext } from "@/context/UserContext";
 import { useState } from "react";
-import UserConfigForm from "./UserConfigForm";
-import type { User } from "@/types/models/User";
-import Button from "@/components/common/Button";
-import { LogOut } from "lucide-react";
-import { t } from "i18next";
+import UserConfigModal from "./UserConfigModal";
 
 const UserDisplay = () => {
-  const { user, setUser } = useUserContext();
+  const { user } = useUserContext();
+
   const [isOpen, setIsOpen] = useState(false);
 
-  const onSubmit = (u: User) => {
-    setUser(u);
-    setIsOpen(false);
-  };
-
-  const onClear = () => {
-    setUser(null);
-    setIsOpen(false);
-  };
-
   if (!user) return null;
-  
+
   return (
     <>
       <div
-        className="inline-flex gap-2 items-center text-md text-foreground-200 cursor-pointer rounded-full p-3 hover:bg-gray-400/5"
+        className="inline-flex gap-2 items-center text-md text-foreground-200 cursor-pointer rounded-full p-3 hover:bg-gray-400/5 "
         role="button"
         tabIndex={0}
         onClick={() => setIsOpen(true)}
       >
-        <Avatar size="sm" name={user.name} src={user.avatar} /> {user.name}
+        <Avatar size="sm" name={user.name} src={user.avatar} /> <span className="max-w-30 overflow-ellipsis line-clamp-1">{user.name}</span>
       </div>
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={t("user.profile")}>
-        <Button variant="outline" onClick={onClear} className="w-full">
-          <LogOut /> {t("user.logout")}
-        </Button>
-        <UserConfigForm
-          onSubmit={onSubmit}
-          initialData={user}
-          submitMessage={t("common.save")}
-        />
-      </Modal>
+      <UserConfigModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </>
   );
 };

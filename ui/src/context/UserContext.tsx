@@ -1,5 +1,11 @@
 // contexts/UserProfileContext.tsx
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import type { User } from "@/types/models/User";
 import UserService from "@/services/UserService";
 
@@ -37,15 +43,18 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     loadProfile();
   }, []);
 
-  const setUser = (newProfile: User | null): void => {
-    if (newProfile) {
-      UserService.saveProfile(newProfile);
-      setUserState(newProfile);
-    } else {
-      UserService.clearProfile();
-      setUserState(null);
-    }
-  };
+  const setUser = useCallback(
+    (newProfile: User | null): void => {
+      if (newProfile) {
+        UserService.saveProfile(newProfile);
+        setUserState(newProfile);
+      } else {
+        UserService.clearProfile();
+        setUserState(null);
+      }
+    },
+    [setUserState]
+  );
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

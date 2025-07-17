@@ -12,7 +12,6 @@
     "endReached": "Nothing else to see... for now.",
     "noResults": "No results found. Try a different search term.",
     "create": {
-      "firstThingFirst": "First thing first...",
       "share": "Is there something you'd like to share?",
       "createPost": "Create post",
       "title": "Title",
@@ -25,13 +24,20 @@
   },
   "user": {
     "profile": "Profile",
+    "firstThingFirst": "First thing first...",
+    "requireInfo": "Who are you? Tell us your name and pick an avatar so everyone knows who you are.",
     "logout": "Log out",
     "name": "Name",
     "namePlaceholder": "Enter your name",
     "avatar": "Avatar"
   },
+  "comments": {
+    "comments": "Comments",
+    "placeholder": "Join the conversation..."
+  },
   "common": {
     "error": "Something went wrong, please try again.",
+    "continue": "Continue",
     "save": "Save"
   },
   "validationErrors": {

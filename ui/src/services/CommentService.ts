@@ -1,0 +1,114 @@
+import type { APIResponse } from "@/types/APIResponse";
+import type {
+  CommentContent,
+  CommentCreateRequest,
+} from "@/types/models/Comment";
+import type { Post, PostContent } from "@/types/models/Post";
+import type { User } from "@/types/models/User";
+
+export interface PostFilters {
+  page?: number;
+  pageSize: number;
+  searchTerm?: string;
+  sortBy?: string;
+  order?: "asc" | "desc";
+}
+
+export default class CommentService {
+  private static readonly BASE_URL = `https://665de6d7e88051d60408c32d.mockapi.io/post`;
+
+  // Only for testing
+  private static async sleep(ms: number) {
+    return new Promise((res) => setTimeout(res, ms));
+  }
+
+  private static buildFilterParams(filters?: PostFilters): string {
+    if (!filters) return "";
+    const params = new URLSearchParams();
+
+    const map: Record<keyof PostFilters, string> = {
+      page: "page",
+      pageSize: "limit",
+      searchTerm: "search",
+      sortBy: "sortBy",
+      order: "order",
+    };
+
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== "") {
+        const paramKey = map[key as keyof PostFilters];
+        if (paramKey) {
+          params.append(paramKey, String(value));
+        }
+      }
+    });
+
+    return params.toString();
+  }
+
+  public static async list(
+    postId: string,
+    filters?: PostFilters
+  ): Promise<APIResponse<Post[]>> {
+    // Este sleep es solo para que no pegue un salto cuando carga demasiado rapido
+    await this.sleep(1000);
+    const res = await fetch(
+      `${this.BASE_URL}/${postId}/comments?${this.buildFilterParams(filters)}`
+    );
+
+    if (!res.ok) {
+      const text = await res.text();
+      if (text == '"Not found"') {
+        return { hasError: false, data: [] };
+      }
+      return {
+        hasError: true,
+        error: "api_error",
+      };
+    }
+
+    const posts: Post[] = await res.json();
+
+    return {
+      hasError: false,
+      data: posts,
+    };
+  }
+
+  public static async create(
+    postId: string,
+    content: string,
+    user: User
+  ): Promise<APIResponse<Post>> {
+    // Este sleep es solo para que no pegue un salto cuando carga demasiado rapido
+    await this.sleep(1000);
+
+    const req: CommentCreateRequest = {
+      content: content,
+      ...user,
+      createdAt: new Date().toISOString(),
+    };
+
+    const res = await fetch(`${this.BASE_URL}/${postId}/comments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(req),
+    });
+
+    if (!res.ok) {
+      return {
+        hasError: true,
+        error: "api_error",
+      };
+    }
+
+    const data: Post = await res.json();
+
+    return {
+      hasError: false,
+      data,
+    };
+  }
+}

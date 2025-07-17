@@ -1,5 +1,10 @@
 import { join, printIf } from "@/utils/ClassUtils";
-import { forwardRef, useState, type ReactNode, type TextareaHTMLAttributes } from "react";
+import {
+  forwardRef,
+  useState,
+  type ReactNode,
+  type TextareaHTMLAttributes,
+} from "react";
 import { twMerge } from "tailwind-merge";
 
 export interface TextareaProps
@@ -7,6 +12,7 @@ export interface TextareaProps
   className?: string;
   innerClassName?: string;
   size?: "sm" | "md" | "lg";
+  icon?: ReactNode;
   invalid?: boolean;
   variant?: "outline" | "filled";
   maxLength?: number;
@@ -32,6 +38,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function (
     variant = "outline",
     innerClassName,
     onChange,
+    icon,
     maxLength,
     ...props
   }: TextareaProps,
@@ -55,17 +62,20 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function (
         className
       )}
     >
-      <textarea
-        id={id}
-        ref={ref}
-        onChange={handleChange}
-        className={join(
-          "flex-1 outline-none bg-transparent placeholder-gray-400 text-md resize-none w-full h-full",
-          innerClassName
-        )}
-        maxLength={maxLength}
-        {...props}
-      />
+      <div className="flex gap-2 self-stretch flex-1">
+        {icon && <div className="text-gray-500">{icon}</div>}
+        <textarea
+          id={id}
+          ref={ref}
+          onChange={handleChange}
+          className={join(
+            "flex-1 outline-none bg-transparent placeholder-gray-400 text-md resize-none w-full h-full",
+            innerClassName
+          )}
+          maxLength={maxLength}
+          {...props}
+        />
+      </div>
       {!!maxLength && (
         <span className="text-xs ml-auto text-foreground-200">{`${charCount}/${maxLength}`}</span>
       )}

@@ -6,6 +6,7 @@ import type { Post } from "@/types/models/Post";
 import { formatTime, formatTimeAgo } from "@/utils/FormatUtils";
 import i18next from "i18next";
 import { useMemo } from "react";
+import CommentSection from "../comments/CommentSection";
 
 interface Props {
   id: string;
@@ -23,7 +24,14 @@ const PostDetail = ({ id }: Props) => {
 
   if (error || !post) return <div>{error}</div>;
 
-  return <PostDetailContent post={post} />;
+  return (
+    <div className="flex flex-col gap-4">
+      <PostDetailContent post={post} />
+      <div className="mt-8">
+        <CommentSection postId={post.id}/>
+      </div>
+    </div>
+  );
 };
 
 const PostDetailContent = ({ post }: { post: Post }) => {
