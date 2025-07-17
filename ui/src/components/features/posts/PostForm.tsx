@@ -58,7 +58,7 @@ const PostForm = ({ onSuccess, initialData, user }: Props) => {
       onSubmit={handleSubmit(submit)}
       className="flex flex-col items-stretch gap-2"
     >
-      {success && <SuccessOverlay />}
+      {success && <SuccessOverlay message={translate("posts.create.published")}/>}
       <h2 className="text-lg font-semibold text-foreground-100">
        {translate("posts.create.createPost")}
       </h2>
@@ -117,11 +117,11 @@ const PostForm = ({ onSuccess, initialData, user }: Props) => {
   );
 };
 
-const SuccessOverlay = () => (
+const SuccessOverlay = ({message}:{message: string}) => (
   <div className="absolute h-full w-full text-primary-600 bg-black/20 top-0 left-0 flex items-center justify-center flex-col text-2xl font-bold post-success-overlay z-10">
     <div className="flex flex-col items-center post-success-overlay-content">
       <CheckCircle className="h-20 w-20 " />
-      ¡Publicado!
+      {message}
     </div>
   </div>
 );

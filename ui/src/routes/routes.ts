@@ -1,11 +1,7 @@
-import {
-  lazy,
-  type JSX,
-  type LazyExoticComponent,
-  type ReactElement,
-} from "react";
+import { lazy, type JSX, type LazyExoticComponent } from "react";
 
 const PostListPage = lazy(() => import("@/pages/posts/PostListPage"));
+const PostDetailPage = lazy(() => import("@/pages/posts/PostDetailPage"));
 
 export const ROUTES = {
   HOME: "/",
@@ -24,6 +20,11 @@ const routes: AppRoute[] = [
     path: ROUTES.POSTS,
     titleKey: "posts",
     element: PostListPage,
+  },
+  {
+    path: ROUTES.POST_DETAIL,
+    titleKey: "posts_detail",
+    element: PostDetailPage,
   },
 ];
 export default routes;

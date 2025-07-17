@@ -59,3 +59,12 @@ export const formatTimeAgo = (lang: string, date: Date) => {
   });
   return formatter.format(value, timeUnit);
 };
+
+export const formatTime = (lang: string, date: Date) => {
+  if (!["en", "es"].includes(lang)) lang = "en";
+  return new Intl.DateTimeFormat(lang, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(date);
+};

@@ -19,7 +19,8 @@
       "titlePlaceholder": "Enter a title...",
       "content": "Content",
       "contentPlaceholder": "What's on your mind?",
-      "publish": "Publish"
+      "publish": "Publish",
+      "published": "¡Published!"
     }
   },
   "user": {

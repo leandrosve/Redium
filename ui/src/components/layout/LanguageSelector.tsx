@@ -44,11 +44,12 @@ const LanguageSelector = () => {
       <DropdownMenu>
         {locales.map(({ label, key, image }) => (
           <DropdownItem key={key} value={key}>
+            <span className="rounded-full h-5 w-5 bg-content-100 overflow-hidden">
             <img
               alt={label}
               src={image}
-              className="rounded-full h-5 w-5"
-            />
+              className="rounded-full h-full w-full"
+            /></span>
             {label}
             {key == i18n.language && (
               <div>

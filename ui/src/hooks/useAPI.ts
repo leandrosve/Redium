@@ -6,7 +6,7 @@ interface Props<T> {
   initialFetch?: boolean;
 }
 
-const useFetchAPI = <T>({ fetchFunction, initialFetch = true }: Props<T>) => {
+const useAPI = <T>({ fetchFunction, initialFetch = true }: Props<T>) => {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -39,14 +39,6 @@ const useFetchAPI = <T>({ fetchFunction, initialFetch = true }: Props<T>) => {
     [doFetch, fetchFunction]
   );
 
-  const fetchOther = useCallback(
-    (
-      otherFetchFunction: () => Promise<APIResponse<T>>,
-      transform?: (prev: T | null, newData: T) => T
-    ) => doFetch(otherFetchFunction, transform),
-    [doFetch]
-  );
-
   const setEntity = useCallback((entity: T) => setData(entity), []);
 
   useEffect(() => {
@@ -60,9 +52,8 @@ const useFetchAPI = <T>({ fetchFunction, initialFetch = true }: Props<T>) => {
     loading,
     error,
     fetchEntity,
-    fetchOther,
     setEntity,
   };
 };
 
-export default useFetchAPI;
+export default useAPI;

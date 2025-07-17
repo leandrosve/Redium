@@ -70,6 +70,33 @@ export default class PostService {
     };
   }
 
+  public static async detail(id: string): Promise<APIResponse<Post>> {
+    await this.sleep(1000);
+    const res = await fetch(`${this.BASE_URL}/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      let error = "api_error";
+      if (text == '"Not found"') error = "not_found";
+      return {
+        hasError: true,
+        error: error,
+      };
+    }
+
+    const data: Post = await res.json();
+
+    return {
+      hasError: false,
+      data,
+    };
+  }
+
   public static async create(
     post: PostContent,
     user: User
@@ -77,9 +104,7 @@ export default class PostService {
     // Este sleep es solo para que no pegue un salto cuando carga demasiado rapido
     await this.sleep(1000);
     const req = { ...post, ...user, createdAt: new Date().toISOString() };
-    return {hasError: true, error: "asdma amsmmamsd "}
-    
-    return {hasError: false, data: {id:"12312", ...req}}
+
     const res = await fetch(this.BASE_URL, {
       method: "POST",
       headers: {

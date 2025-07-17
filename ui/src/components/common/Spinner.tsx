@@ -10,7 +10,7 @@ const Spinner = ({ fullPage, className }: Props) => {
     <div
       className={join(
         "flex items-center justify-center",
-        printIf("w-full h-full flex-auto", fullPage)
+        printIf("w-full h-full  flex-1", fullPage)
       )}
     >
       <LoaderCircle className={join("animate-spin h-16 w-16 text-foreground-200", className)} />
