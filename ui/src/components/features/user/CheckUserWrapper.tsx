@@ -5,6 +5,8 @@ import UserConfigModal from "./UserConfigModal";
 interface Props extends PropsWithChildren {
   onCompleted?: () => void;
 }
+
+/*** Utilizado para envolver secciones que requieren autenticacion*/
 const CheckUserWrapper = ({ children, onCompleted }: Props) => {
   const { user } = useUserContext();
   const [isUserConfigOpen, setIsUserConfigOpen] = useState(false);

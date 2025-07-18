@@ -1,11 +1,8 @@
 import useAPI from "@/hooks/useAPI";
 import CommentService from "@/services/api/CommentService";
 import type { Comment } from "@/types/models/Comment";
-import {
-  createContext,
-  useCallback,
-  useContext, type ReactNode
-} from "react";
+import { createContext, useCallback, useContext, type ReactNode } from "react";
+import { useOwnershipContext } from "./OwnershipContext";
 
 interface CommentsContextType {
   comments: Comment[];
@@ -32,6 +29,7 @@ export const CommentsProvider = ({
   postId: string;
   children: ReactNode;
 }) => {
+  const { markCommentAsOwned } = useOwnershipContext();
   const fetchFunction = useCallback(
     () => CommentService.list(postId),
     [postId]
@@ -45,11 +43,13 @@ export const CommentsProvider = ({
 
   const addComment = (comment: Comment) => {
     setEntity((prev) => (prev ? [...prev, comment] : [comment]));
+    markCommentAsOwned(comment.id);
   };
-  const updateComment = (updated: Comment) => {
+  const updateComment = (comment: Comment) => {
     setEntity((prev) =>
-      prev ? prev.map((c) => (c.id === updated.id ? updated : c)) : [updated]
+      prev ? prev.map((c) => (c.id === comment.id ? comment : c)) : [comment]
     );
+    markCommentAsOwned(comment.id);
   };
 
   const deleteComment = (id: string) => {
