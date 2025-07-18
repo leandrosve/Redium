@@ -1,7 +1,7 @@
 import Avatar from "@/components/common/Avatar";
 import Spinner from "@/components/common/Spinner";
 import useAPI from "@/hooks/useAPI";
-import PostService from "@/services/PostService";
+import PostService from "@/services/api/PostService";
 import type { Post } from "@/types/models/Post";
 import { useCallback, useState } from "react";
 import CommentSection from "../comments/CommentSection";

@@ -10,7 +10,7 @@ import Textarea from "@/components/common/Textarea";
 import type { User } from "@/types/models/User";
 import { CheckCircle, Dot } from "lucide-react";
 import { useCallback, useState } from "react";
-import PostService from "@/services/PostService";
+import PostService from "@/services/api/PostService";
 import { Alert } from "@/components/common/Alert";
 import { useLocalized } from "@/hooks/useLocalized";
 import { useOwnershipContext } from "@/context/OwnershipContext";

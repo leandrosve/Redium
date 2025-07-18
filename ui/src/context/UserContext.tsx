@@ -1,4 +1,3 @@
-// contexts/UserProfileContext.tsx
 import React, {
   createContext,
   useCallback,
@@ -7,21 +6,18 @@ import React, {
   useState,
 } from "react";
 import type { User } from "@/types/models/User";
-import UserService from "@/services/UserService";
+import LocalUserService from "@/services/LocalUserService";
 
-// Definimos el tipo primero
 interface UserContextType {
   user: User | null;
   setUser: (profile: User | null) => void;
 }
 
-// Creamos el contexto con el tipo definido
 const UserContext = createContext<UserContextType>({
   user: null,
   setUser: () => {},
 });
 
-// Definimos las props del provider
 interface UserProviderProps {
   children: React.ReactNode;
 }
@@ -32,10 +28,10 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   useEffect(() => {
     const loadProfile = () => {
       try {
-        const savedProfile = UserService.getProfile();
+        const savedProfile = LocalUserService.getProfile();
         setUserState(savedProfile);
       } catch (error) {
-        UserService.clearProfile();
+        LocalUserService.clearProfile();
       }
     };
 
@@ -45,10 +41,10 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   const setUser = useCallback(
     (newProfile: User | null): void => {
       if (newProfile) {
-        UserService.saveProfile(newProfile);
+        LocalUserService.saveProfile(newProfile);
         setUserState(newProfile);
       } else {
-        UserService.clearProfile();
+        LocalUserService.clearProfile();
         setUserState(null);
       }
     },

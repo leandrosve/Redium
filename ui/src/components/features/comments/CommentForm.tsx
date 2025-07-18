@@ -11,7 +11,7 @@ import Avatar from "@/components/common/Avatar";
 import { MessageCircle } from "lucide-react";
 import Button from "@/components/common/Button";
 import { generateId } from "@/utils/IdUtils";
-import CommentService from "@/services/CommentService";
+import CommentService from "@/services/api/CommentService";
 import { useCommentsContext } from "@/context/CommentsContext";
 import { useOwnershipContext } from "@/context/OwnershipContext";
 import type { Comment } from "@/types/models/Comment";

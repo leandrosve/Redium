@@ -21,8 +21,13 @@ const OWNED_POSTS_KEY = "owned_posts";
 const OWNED_COMMENTS_KEY = "owned_comments";
 
 function getStoredIds(key: string): Set<string> {
-  const raw = localStorage.getItem(key);
-  return new Set(raw ? JSON.parse(raw) : []);
+  try {
+    const raw = localStorage.getItem(key);
+    return new Set(raw ? JSON.parse(raw) : []);
+  } catch {
+    localStorage.removeItem(key);
+    return new Set();
+  }
 }
 
 function saveToStorage(key: string, set: Set<string>) {

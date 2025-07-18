@@ -11,7 +11,7 @@ import usePosts from "@/hooks/usePosts";
 import type { Post } from "@/types/models/Post";
 import { useConfirmDialog } from "@/components/common/ConfirmationDialog";
 import { useCallback } from "react";
-import PostService from "@/services/PostService";
+import PostService from "@/services/api/PostService";
 
 interface Props {
   onEdit: (post: Post) => void;

@@ -1,4 +1,4 @@
-import PostService, { type PostFilters } from "@/services/PostService";
+import PostService, { type PostFilters } from "@/services/api/PostService";
 import type { Post } from "@/types/models/Post";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";

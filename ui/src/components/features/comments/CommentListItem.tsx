@@ -11,7 +11,7 @@ import { useOverflowCheck } from "@/hooks/useOverflowCheck";
 import { useOwnershipContext } from "@/context/OwnershipContext";
 import ActionMenu from "@/components/common/ActionMenu";
 import { useConfirmDialog } from "@/components/common/ConfirmationDialog";
-import CommentService from "@/services/CommentService";
+import CommentService from "@/services/api/CommentService";
 import { useCommentsContext } from "@/context/CommentsContext";
 
 interface Props {

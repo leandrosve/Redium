@@ -1,5 +1,5 @@
 import useAPI from "@/hooks/useAPI";
-import CommentService from "@/services/CommentService";
+import CommentService from "@/services/api/CommentService";
 import type { Comment } from "@/types/models/Comment";
 import {
   createContext,
