@@ -12,6 +12,7 @@ import { useOwnershipContext } from "@/context/OwnershipContext";
 import Button from "@/components/common/Button";
 import { Pencil } from "lucide-react";
 import PostFormModal from "./PostFormModal";
+import MissingPage from "@/pages/MissingPage";
 
 interface Props {
   id: string;
@@ -42,7 +43,7 @@ const PostDetail = ({ id }: Props) => {
 
   if (loading) return <Spinner fullPage />;
 
-  if (error || !post) return <div>{error}</div>;
+  if (error || !post) return <MissingPage />;
 
   return (
     <div className="flex flex-col gap-4">

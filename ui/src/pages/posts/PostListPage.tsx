@@ -18,7 +18,7 @@ const PostListPage = () => {
   const onSuccess = (post: Post) => {
     navigate(ROUTES.POST_DETAIL.replace(":id", post.id));
   };
-
+  
   return (
     <section className="flex flex-col w-full max-w-5xl mt-10 gap-2 mb-20 items-stretch flex-1">
       <PostCreateButton
