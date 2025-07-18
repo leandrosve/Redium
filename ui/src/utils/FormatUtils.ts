@@ -1,13 +1,13 @@
 const COLORS = [
-  "bg-gray-600/25",
-  "bg-red-600/25",
-  "bg-orange-600/25",
-  "bg-amber-600/25",
-  "bg-lime-600/25",
-  "bg-teal-600/25",
-  "bg-cyan-600/25",
-  "bg-blue-600/25",
-  "bg-purple-600/25",
+  "bg-gray-600 dark:bg-gray-600/25",
+  "bg-red-600 dark:bg-red-600/25",
+  "bg-orange-600 dark:bg-orange-600/25",
+  "bg-amber-600 dark:bg-amber-600/25",
+  "bg-lime-600 dark:bg-lime-600/25",
+  "bg-teal-600 dark:bg-teal-600/25",
+  "bg-cyan-600 dark:bg-cyan-600/25",
+  "bg-blue-600 dark:bg-blue-600/25",
+  "bg-purple-600 dark:bg-purple-600/25",
 ];
 
 const DATE_UNITS = {

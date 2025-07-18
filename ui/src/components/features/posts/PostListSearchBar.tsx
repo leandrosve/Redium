@@ -63,7 +63,7 @@ const PostListSearchBar = () => {
           <Button
             variant="outline"
             size="md"
-            className="min-w-32 justify-between"
+            className="min-w-32 justify-between dark:bg-transparent bg-content-100"
             rightIcon={<ChevronDown className="w-5 h-5" />}
           >
             {t(`posts.sort.${sort}`)}
@@ -77,6 +77,7 @@ const PostListSearchBar = () => {
       <Input
         icon={<SearchIcon />}
         placeholder={t("posts.searchPlaceholder")}
+        className="dark:bg-transparent bg-content-100"
         value={searchTerm}
         ref={inputRef}
         onChange={(e) => setSearchTerm(e.target.value)}

@@ -38,7 +38,7 @@ export const DropdownMenu = ({ children, className }: DropdownMenuProps) => {
     <ul
       ref={ref}
       className={join(
-        "absolute mt-2 border rounded-xl shadow z-10 bg-content-50/40 backdrop-blur-3xl border-subtle overflow-hidden",
+        "absolute mt-2 border rounded-xl shadow z-10 bg-content-100 dark:bg-base backdrop-blur-3xl border-subtle overflow-hidden",
         className
       )}
       style={{ right: 0 }}

@@ -30,6 +30,7 @@ const ActionMenu = ({ onEdit, onDelete }: Props) => {
       <DropdownTrigger>
         <Button
           variant="ghost"
+          className="p-4 h-4 w-4"
           rightIcon={
             <Ellipsis className="w-[1em] h-[1em] text-foreground-200" />
           }

@@ -37,7 +37,7 @@ const UserConfigModal = ({ isOpen, onSaved, onCleared, onClose }: Props) => {
       <h2 className="text-lg font-semibold text-foreground-100 mb-4">
         {t(user ? "user.profile" : "user.firstThingFirst")}
       </h2>
-      {!user && <p className="font-bold">{t("user.requireInfo")}</p>}
+      {!user && <p className="font-bold text-foreground-200">{t("user.requireInfo")}</p>}
 
       {!!user && (
         <div>

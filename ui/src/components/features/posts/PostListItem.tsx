@@ -18,7 +18,7 @@ const PostListItem = ({ post, onEdit,onDelete }: Props) => {
   const { t } = useTranslation();
 
   return (
-    <div className="bg-content-100 rounded-2xl p-5 flex flex-col shadow-md gap-2 hover:bg-content-200 relative">
+    <div className="bg-content-100 rounded-2xl p-5 flex flex-col shadow-sm gap-2 hover:bg-content-200 dark:hover:bg-highlight relative transition-colors">
       {isOwned && (
         <span onClick={(e) => e.preventDefault()} className="absolute top-1 right-1">
           <ActionMenu onEdit={onEdit} onDelete={onDelete} />

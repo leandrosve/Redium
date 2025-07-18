@@ -150,6 +150,7 @@ const CommentFormContent = ({
         innerClassName={`h-auto pr-12 ${
           mode == "edit" ? "text-sm" : "text-md"
         }`}
+        className="dark:bg-transparent bg-content-100"
         maxLength={500}
         value={value}
         autoFocus={autoFocus}

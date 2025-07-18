@@ -13,7 +13,7 @@ const Skeleton = ({
   ...props
 }: SkeletonProps) => {
   const mergedClassName = twMerge(
-    "animate-pulse rounded-2xl bg-content-100/50 dark:bg-content-200 w-full ",
+    "animate-pulse rounded-2xl bg-content-100/50 dark:bg-content-200 w-full shadow-md",
     className
   );
 

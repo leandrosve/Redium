@@ -12,7 +12,7 @@ const PostCreateButton = ({onClick}:Props) => {
       className="bg-content-100 rounded-2xl p-5 flex gap-5 items-center card-gradient cursor-pointer hover:bg-content-200 transition-colors duration-300"
       onClick={onClick}
     >
-      <span className="h-10 w-10 rounded-full bg-primary-300 flex items-center justify-center">
+      <span className="h-10 w-10 rounded-full dark:bg-primary-200 bg-primary-500  text-white flex items-center justify-center">
         <Lightbulb className="-rotate-5" />
       </span>{" "}
       {translate("posts.create.share")}

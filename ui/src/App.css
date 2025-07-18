@@ -1,21 +1,23 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
-  --color-foreground-100: white;
-  --color-foreground-200: rgb(212, 212, 212);
+  --color-foreground-100: rgb(0, 0, 0);
+  --color-foreground-200: rgb(0, 0, 0);
 
-  --color-base: #000000;
+  --color-base: #ffffff;
 
-  --color-content-50: #080808;
-  --color-content-100: #111113;
-  --color-content-200: #161618;
-  --color-content-300: #3f3f46;
-  --color-content-400: #52525b;
+  --color-content-50: #fcfcfc;
+  --color-content-100: #f1f1f1;
+  --color-content-200: #dddddd;
+  --color-content-300: #c7c7c7;
+  --color-content-400: #969696;
 
-  --color-input: #18181b;
+  --color-input: #ffffff;
 
-  --color-subtle: #2d2d2d;
-  --color-border-subtle: #ccc3;
+  --color-subtle: #d8d8d8;
+  --color-highlight: #d8d8d8;
 
   --color-primary-50: #001731;
   --color-primary-100: #002e62;
@@ -28,6 +30,9 @@
   --color-primary-800: #cce3fd;
   --color-primary-900: #e6f1fe;
 
+  --color-secondary-400: #cce3fd;
+  --color-secondary-500: #e6f1fe;
+
   --color-red-600: oklch(0.577 0.245 27.325);
   --color-orange-600: oklch(0.646 0.222 41.116);
   --color-amber-600: oklch(0.666 0.179 58.318);
@@ -38,25 +43,79 @@
   --color-purple-600: oklch(0.558 0.288 302.321);
 }
 
+@layer base {
+  :root.light {
+    --color-foreground-100: rgb(0, 0, 0);
+    --color-foreground-200: rgb(71, 71, 71);
+
+    --color-base: #f0f0f7;
+
+    --color-content-50: #fcfcfc;
+    --color-content-100: #ffffff;
+    --color-content-200: #f7f7f7;
+    --color-content-300: #c7c7c7;
+    --color-content-400: #969696;
+
+    --color-input: #f3f3f3;
+
+    --color-subtle: #d8d8d8;
+    --color-highlight: #e7e7e7;
+
+    --color-secondary-400: oklch(86.9% 0.022 252.894);
+    --color-secondary-500: oklch(87.2% 0.01 258.338);
+  }
+  :root.dark {
+    --color-foreground-100: white;
+    --color-foreground-200: rgb(212, 212, 212);
+
+    --color-base: #000000;
+
+    --color-content-50: #080808;
+    --color-content-100: #111113;
+    --color-content-200: #161618;
+    --color-content-300: #3f3f46;
+    --color-content-400: #52525b;
+
+    --color-input: #18181b;
+
+    --color-subtle: #2d2d2d;
+    --color-highlight: #37364e7a;
+
+    --color-secondary-400: oklch(92.9% 0.013 255.508);
+    --color-secondary-500: oklch(86.9% 0.022 252.894);
+  }
+}
+
 #root {
   min-height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   overflow: auto;
-  scrollbar-gutter: stable;
 }
 
 body {
   background: var(--color-base);
-  scrollbar-gutter: stable;
+  color: var(--color-foreground-100);
+  width: 100vw;
 }
 html {
-  scrollbar-gutter: stable;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .background-effect {
+  background-image: radial-gradient(
+      circle at 12.02% 58.03%,
+      #a7c7e2,
+      transparent 82%
+    ),
+    radial-gradient(circle at 33.97% 87.99%, #591a89, transparent 65%),
+    radial-gradient(circle at 59.71% 67.88%, #a3a3f7, transparent 89%),
+    radial-gradient(circle at 50% 50%, #fff5f5, #fff5f5 100%);
+}
+
+.dark .background-effect {
   background-image: radial-gradient(
       circle at 96.74% 90.01%,
       #011b4de1,
@@ -67,7 +126,7 @@ html {
     radial-gradient(circle at 50% 50%, #000000, #000000 100%);
 }
 
-.card-gradient {
+.dark .card-gradient {
   background-image: radial-gradient(
       circle at 20.39% 120.56%,
       rgba(105, 99, 194, 0.075),
@@ -99,7 +158,8 @@ html {
   animation: scale-in 0.2s ease-out;
 }
 
-.no-scroll, .no-scroll-menu {
+.no-scroll,
+.no-scroll-menu {
   overflow: hidden;
 }
 
@@ -118,4 +178,8 @@ html {
     var(--color-subtle) 0%,
     rgba(237, 221, 83, 0) 100%
   );
+}
+
+.disable-transitions * {
+  transition: none !important;
 }

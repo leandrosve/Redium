@@ -1,5 +1,5 @@
 import { type ButtonHTMLAttributes, type ReactNode } from "react";
-import { join } from "../../utils/ClassUtils";
+import { join, printIf } from "../../utils/ClassUtils";
 import Spinner from "./Spinner";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -21,14 +21,14 @@ const sizeClasses = {
 };
 
 const colorClasses = {
-  primary: "bg-primary-200 enabled:hover:bg-primary-400 text-white",
-  secondary: "bg-gray-300 enabled:hover:bg-gray-400 text-gray-800",
+  primary: "bg-primary-500 dark:bg-primary-200 enabled:hover:bg-primary-400 dark:enabled:hover:bg-primary-400 text-white",
+  secondary: "bg-secondary-400 enabled:hover:bg-secondary-500 text-black",
 };
 
 const variantClasses = {
   solid: "",
   outline:
-    "bg-transparent border border-subtle enabled:hover:bg-gray-400/10 text-foreground-200   focus-within:bg-gray-400/5",
+    "bg-transparent border border-subtle enabled:hover:bg-highlight/50 text-foreground-200",
   ghost:
     "bg-transparent enabled:hover:bg-gray-400/5 text-foreground-200 focus-within:bg-gray-400/5",
   link: "bg-transparent enabled:hover:bg-transparent enabled:hover:underline px-0",
@@ -52,9 +52,9 @@ const Button = ({
       onClick={onClick}
       disabled={disabled}
       className={join(
-        "inline-flex items-center justify-center font-medium transition-colors overflow-hidden relative cursor-pointer gap-1 rounded-full",
+        "inline-flex items-center justify-center font-medium transition-colors duration-200 overflow-hidden relative cursor-pointer gap-1 rounded-full",
         sizeClasses[size],
-        colorClasses[color],
+        printIf(colorClasses[color], variant == 'solid') ,
         variantClasses[variant],
         disabled ? "opacity-50 cursor-not-allowed" : "",
         className

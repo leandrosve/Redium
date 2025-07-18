@@ -19,8 +19,8 @@ const sizeClasses = {
 };
 
 const variantClasses = {
-  outline: "bg-transparent border border-subtle focus-within:bg-gray-400/5",
-  filled: "bg-input border border-transparent focus-within:bg-gray-400/10",
+  outline: "bg-transparent border border-subtle dark:focus-within:bg-gray-400/5",
+  filled: "bg-input border border-transparent dark:focus-within:bg-gray-400/10",
 };
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(function (
