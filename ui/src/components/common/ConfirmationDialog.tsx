@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { createContext, useCallback, useContext, useState } from "react";
 import { createPortal } from "react-dom";
 import Modal from "./Modal";
 import Button from "./Button";
@@ -12,39 +12,34 @@ type ConfirmOptions = {
   onConfirm?: () => Promise<void>;
 };
 
-let setConfirmState: ((state: ConfirmState) => void) | null = null;
-
 type ConfirmState = {
   isOpen: boolean;
   options: ConfirmOptions;
   resolve: (value: boolean) => void;
 };
 
-export const useConfirmDialog = () => {
-  const confirm = useCallback((options: ConfirmOptions) => {
-    return new Promise<boolean>((resolve) => {
-      setConfirmState?.({
-        isOpen: true,
-        options,
-        resolve,
-      });
-    });
-  }, []);
+const ConfirmDialogContext = createContext<{
+  confirm: (options: ConfirmOptions) => Promise<boolean>;
+} | null>(null);
 
-  return { confirm };
+export const useConfirmDialog = () => {
+  const ctx = useContext(ConfirmDialogContext);
+  if (!ctx) throw new Error("useConfirmDialog must be used within a ConfirmationDialogProvider");
+  return ctx;
 };
 
-export const ConfirmationDialogProvider = () => {
+export const ConfirmationDialogProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, setState] = useState<ConfirmState>({
     isOpen: false,
     options: {},
     resolve: () => {},
   });
-
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    setConfirmState = setState;
+  const confirm = useCallback((options: ConfirmOptions) => {
+    return new Promise<boolean>((resolve) => {
+      setState({ isOpen: true, options, resolve });
+    });
   }, []);
 
   const handleConfirm = async () => {
@@ -69,21 +64,25 @@ export const ConfirmationDialogProvider = () => {
     setState((prev) => ({ ...prev, isOpen: false }));
   };
 
-  if (typeof window === "undefined") return null;
+  return (
+    <ConfirmDialogContext.Provider value={{ confirm }}>
+      {children}
+      {typeof window !== "undefined" &&
+        createPortal(
+          <Modal isOpen={state.isOpen} title={state.options.title} onClose={handleCancel}>
+            <p>{state.options.message}</p>
 
-  return createPortal(
-    <Modal isOpen={state.isOpen} title={state.options.title} onClose={() => handleCancel()}>
-      <p>{state.options.message}</p>
-
-      <div className="flex justify-between items-center mt-5">
-        <Button variant="outline" onClick={handleCancel} disabled={isLoading}>
-          {state.options.cancelText}
-        </Button>
-        <Button variant="solid" color="secondary" onClick={handleConfirm} loading={isLoading}>
-          {state.options.confirmText}
-        </Button>
-      </div>
-    </Modal>,
-    document.body
+            <div className="flex justify-between items-center mt-5">
+              <Button variant="outline" onClick={handleCancel} disabled={isLoading}>
+                {state.options.cancelText}
+              </Button>
+              <Button variant="solid" color="secondary" onClick={handleConfirm} loading={isLoading}>
+                {state.options.confirmText}
+              </Button>
+            </div>
+          </Modal>,
+          document.body
+        )}
+    </ConfirmDialogContext.Provider>
   );
 };

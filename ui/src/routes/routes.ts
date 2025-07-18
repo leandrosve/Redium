@@ -2,6 +2,7 @@ import { lazy, type JSX, type LazyExoticComponent } from "react";
 
 const PostListPage = lazy(() => import("@/pages/posts/PostListPage"));
 const PostDetailPage = lazy(() => import("@/pages/posts/PostDetailPage"));
+const PlaygroundPage = lazy(() => import("@/pages/PlaygroundPage"));
 
 export const ROUTES = {
   HOME: "/",
@@ -25,6 +26,11 @@ const routes: AppRoute[] = [
     path: ROUTES.POST_DETAIL,
     titleKey: "routes.postDetail",
     element: PostDetailPage,
+  },
+  {
+    path: "/playground",
+    titleKey: "routes.playground",
+    element: PlaygroundPage,
   },
 ];
 export default routes;

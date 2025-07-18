@@ -12,6 +12,7 @@ import type { Post } from "@/types/models/Post";
 import { useConfirmDialog } from "@/components/common/ConfirmationDialog";
 import { useCallback } from "react";
 import PostService from "@/services/api/PostService";
+import { useToast } from "@/components/common/Toast";
 
 interface Props {
   onEdit: (post: Post) => void;
@@ -22,6 +23,7 @@ const PostList = ({ onEdit }: Props) => {
   const isEmpty = !loading && posts.length === 0 && !error;
   const showEndMessage = posts.length > 0 && !hasMore;
 
+  const {toast} = useToast();
   const { t } = useTranslation();
 
   const { confirm } = useConfirmDialog();
@@ -30,12 +32,13 @@ const PostList = ({ onEdit }: Props) => {
     async (post: Post) => {
       const res = await PostService.delete(post.id);
       if (res.hasError) {
-        // Mostar toast
+        toast(t('common.error'), 'danger')
         return;
       }
       deletePost(post.id);
+      toast(t('posts.postDeleted'), 'info')
     },
-    [deletePost]
+    [deletePost, t]
   );
 
   const onDelete = useCallback(

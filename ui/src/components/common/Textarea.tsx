@@ -39,10 +39,12 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function (
     size = "md",
     id,
     invalid,
+    value,
     variant = "outline",
     displayCharCount = true,
     innerClassName,
     onChange,
+    autoFocus,
     icon,
     maxLength,
     ...props
@@ -71,6 +73,19 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function (
   }, [innerRef]);
 
   useEffect(() => resize(), [resize]);
+  useEffect(() => {
+    if (value == undefined) return;
+    setCharCount(value.toString().length);
+  }, [value]);
+
+  useEffect(() => {
+    if (autoFocus) {
+      const el = innerRef.current;
+      if (!el) return;
+      el.focus();
+      el.setSelectionRange(el.value.length, el.value.length);
+    }
+  }, [autoFocus]);
 
   return (
     <div
@@ -87,7 +102,8 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function (
         <textarea
           id={id}
           ref={innerRef}
-          onChange={handleChange}
+          value={value}
+          onChange={value !== undefined ? handleChange : undefined}
           className={join(
             "flex-1 outline-none bg-transparent placeholder-gray-400 text-md resize-none w-full h-full",
             innerClassName

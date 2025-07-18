@@ -6,6 +6,8 @@ import CheckUserWrapper from "../user/CheckUserWrapper";
 import CommentFormContent from "./CommentFormContent";
 import { useCommentsContext } from "@/context/CommentsContext";
 import CommentService from "@/services/api/CommentService";
+import { useToast } from "@/components/common/Toast";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   mode?: "create" | "edit";
@@ -23,10 +25,12 @@ const CommentForm = ({ mode = "create", postId, parentId, autoFocus, onCancel, o
   const [inputId] = useState(generateId());
   const [isSubmiting, setIsSubmiting] = useState(false);
   const { addComment, updateComment } = useCommentsContext();
+  const { toast } = useToast();
+  const {t} = useTranslation();
 
-  const onSubmit = async (content: string) => {
-    if (!content) return;
-    if (!user) return;
+  const onSubmit = async (content: string): Promise<boolean> => {
+    if (!content) return false;
+    if (!user) return false;
     setIsSubmiting(true);
 
     const res =
@@ -35,14 +39,16 @@ const CommentForm = ({ mode = "create", postId, parentId, autoFocus, onCancel, o
         : await CommentService.create(postId, content, parentId ?? null, user);
 
     if (res.hasError) {
-      // mostrar toast
-      return;
+      toast(t("common.error"));
+      return false;
     }
 
     mode === "edit" ? updateComment(res.data) : addComment(res.data);
 
     onSuccess?.();
+    toast(t(mode === "edit" ? "comments.saved" : "comments.published"));
     setIsSubmiting(false);
+    return true;
   };
 
   return (
@@ -54,7 +60,6 @@ const CommentForm = ({ mode = "create", postId, parentId, autoFocus, onCancel, o
         autoFocus={autoFocus}
         inputId={inputId}
         onCancel={onCancel}
-        onSuccess={onSuccess}
         disabled={!user}
         mode={mode}
         comment={comment}

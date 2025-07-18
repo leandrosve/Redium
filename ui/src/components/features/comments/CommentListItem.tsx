@@ -11,6 +11,7 @@ import { useConfirmDialog } from "@/components/common/ConfirmationDialog";
 import CommentService from "@/services/api/CommentService";
 import { useCommentsContext } from "@/context/CommentsContext";
 import CommentListItemContent from "./CommentListItemContent";
+import { useToast } from "@/components/common/Toast";
 
 interface Props {
   comment: CommentNode;
@@ -22,7 +23,9 @@ const maxNextingLevel = 5;
 
 const CommentListItem = ({ comment, nestingLevel = 0, className }: Props) => {
   const { isCommentOwned } = useOwnershipContext();
-  const { deleteComment } = useCommentsContext();
+  const { deleteComment } = useCommentsContext()
+  const { toast } = useToast();
+  ;
 
   const { t } = useTranslation();
   const isOwned = isCommentOwned(comment.id);
@@ -34,12 +37,13 @@ const CommentListItem = ({ comment, nestingLevel = 0, className }: Props) => {
   const onDeleteConfirmed = useCallback(async () => {
     await CommentService.delete(comment.postId, comment.id);
     deleteComment(comment.id);
-  }, [deleteComment]);
+    toast(t('comments.commentDeleted'))
+  }, [deleteComment, toast]);
 
   const onDelete = useCallback(async () => {
     await confirm({
-      title: t("posts.deletePost"),
-      message: t("posts.deleteDescription"),
+      title: t("comments.deleteComment"),
+      message: t("comments.deleteDescription"),
       confirmText: t("common.accept"),
       cancelText: t("common.cancel"),
       onConfirm: onDeleteConfirmed,

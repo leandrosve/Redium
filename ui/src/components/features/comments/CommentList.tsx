@@ -10,17 +10,18 @@ import CommentListItem from "./CommentListItem";
 const CommentList = () => {
   const { loading, comments, error } = useCommentsContext();
 
+  const showError = error && error != 'not_found';
   return (
     <div className="flex flex-col w-full gap-2 items-stretch bg-content-100 rounded-2xl p-4">
       {loading && <Skeleton repeat={5} className="h-20" />}
 
-      {!loading && !!comments && (
+      {!loading && !!comments && !showError && (
         <div className="flex flex-col gap-4 ">
           <CommentListContent comments={comments} />
         </div>
       )}
 
-      {error && <ErrorMessage />}
+      {showError && <ErrorMessage />}
     </div>
   );
 };

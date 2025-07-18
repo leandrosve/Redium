@@ -20,7 +20,7 @@ const PostCreateButton = ({ onClick }: Props) => {
         size="lg"
         leftIcon={<PencilLine />}
         onClick={onClick}
-        className="border dark:border-white/30 shadow-md shrink-0"
+        className=" dark:border-white/30 shadow-md shrink-0 border-2"
       >
         {translate("posts.createPost")}
       </Button>

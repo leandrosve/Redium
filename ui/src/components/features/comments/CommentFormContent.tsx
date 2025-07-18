@@ -16,10 +16,9 @@ interface Props {
   autoFocus?: boolean;
   inputId?: string;
   onCancel?: () => void;
-  onSuccess?: () => void;
   disabled?: boolean;
   isSubmiting?: boolean;
-  onSubmit: (content: string) => void;
+  onSubmit: (content: string) => Promise<boolean>;
 }
 
 const CommentFormContent = ({
@@ -50,9 +49,13 @@ const CommentFormContent = ({
     icon = user ? <Avatar name={user.name} src={user.avatar} size="sm" className="mr-3" /> : <MessageCircle />;
   }
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    onSubmit(sanitizedContent);
+    const ok = await onSubmit(sanitizedContent);
+    if (ok) {
+      setValue("");
+      onCancel?.();
+    }
   };
 
   return (
