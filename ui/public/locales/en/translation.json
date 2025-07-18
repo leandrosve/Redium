@@ -63,7 +63,8 @@
     "edit": "Edit",
     "edited": "Edited",
     "you": "You",
-    "accept": "Accept"
+    "accept": "Accept",
+    "missingResource": "Sorry, we couldn't find the requested resource"
   },
   "routes": {
     "posts": "Posts",

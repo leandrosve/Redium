@@ -4,7 +4,8 @@ interface Options {
   delay?: number;
 }
 export default abstract class ApiService {
-  protected static BASE_URL = `https://665de6d7e88051d60408c32d.mockapi.io`;
+
+  protected static BASE_URL = import.meta.env.VITE_API_URL;
 
   protected static PATH: string;
 

@@ -63,7 +63,8 @@
     "edit": "Editar",
     "edited": "Editado",
     "you": "Tú",
-    "accept": "Aceptar"
+    "accept": "Aceptar",
+    "missingResource": "Lo sentimos, no pudimos encontrar el recurso solicitado"
   },
   "routes": {
     "posts": "Publicaciones",
