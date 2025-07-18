@@ -1,13 +1,10 @@
 import Avatar from "@/components/common/Avatar";
-import Button from "@/components/common/Button";
 import DateDisplay from "@/components/common/DateDisplay";
-import type { Comment, CommentNode } from "@/types/models/Comment";
+import type { CommentNode } from "@/types/models/Comment";
 import { join } from "@/utils/ClassUtils";
-import { MessageCircle } from "lucide-react";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import CommentForm from "./CommentForm";
 import { useTranslation } from "react-i18next";
-import { useOverflowCheck } from "@/hooks/useOverflowCheck";
 import { useOwnershipContext } from "@/context/OwnershipContext";
 import ActionMenu from "@/components/common/ActionMenu";
 import { useConfirmDialog } from "@/components/common/ConfirmationDialog";

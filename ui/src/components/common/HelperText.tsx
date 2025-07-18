@@ -1,4 +1,3 @@
-import React from "react";
 
 import { CircleAlert, Info } from "lucide-react";
 

@@ -1,10 +1,9 @@
 import { useUserContext } from "@/context/UserContext";
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
 import { generateId } from "@/utils/IdUtils";
 import type { Comment } from "@/types/models/Comment";
 import CheckUserWrapper from "../user/CheckUserWrapper";
 import CommentFormContent from "./CommentFormContent";
-import { useOwnershipContext } from "@/context/OwnershipContext";
 import { useCommentsContext } from "@/context/CommentsContext";
 import CommentService from "@/services/api/CommentService";
 

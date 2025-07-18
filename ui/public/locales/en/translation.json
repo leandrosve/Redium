@@ -59,6 +59,10 @@
     "you": "You",
     "accept": "Accept"
   },
+  "routes": {
+    "posts": "Posts",
+    "postDetail": "Post Detail"
+  },
   "validationErrors": {
     "title_required": "Title is required",
     "content_required": "Content is required",

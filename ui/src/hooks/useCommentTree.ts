@@ -1,5 +1,5 @@
 import type { Comment, CommentNode } from "@/types/models/Comment";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 
 /***  Exportada solo para testing*/
 export function buildCommentTree(comments: Comment[]): CommentNode[] {

@@ -3,7 +3,7 @@ import Spinner from "@/components/common/Spinner";
 import useAPI from "@/hooks/useAPI";
 import PostService from "@/services/api/PostService";
 import type { Post } from "@/types/models/Post";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import CommentSection from "../comments/CommentSection";
 import DateDisplay from "@/components/common/DateDisplay";
 import { useTranslation } from "react-i18next";
@@ -40,6 +40,11 @@ const PostDetail = ({ id }: Props) => {
     },
     [setEntity, setModalState]
   );
+
+  useEffect(() => {
+    if (!post) return;
+    document.title = post?.title;
+  }, [post])
 
   if (loading) return <Spinner fullPage />;
 

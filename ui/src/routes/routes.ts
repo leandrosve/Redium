@@ -18,12 +18,12 @@ type AppRoute = {
 const routes: AppRoute[] = [
   {
     path: ROUTES.POSTS,
-    titleKey: "posts",
+    titleKey: "routes.posts",
     element: PostListPage,
   },
   {
     path: ROUTES.POST_DETAIL,
-    titleKey: "posts_detail",
+    titleKey: "routes.postDetail",
     element: PostDetailPage,
   },
 ];
