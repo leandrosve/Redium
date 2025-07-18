@@ -9,22 +9,53 @@ import PostListSearchBar from "./PostListSearchBar";
 import { CircleOff } from "lucide-react";
 import usePosts from "@/hooks/usePosts";
 import type { Post } from "@/types/models/Post";
+import { useConfirmDialog } from "@/components/common/ConfirmationDialog";
+import { useCallback } from "react";
+import PostService from "@/services/PostService";
 
 interface Props {
-  onEdit: (post:Post) => void;
+  onEdit: (post: Post) => void;
 }
-const PostList = ({onEdit}:Props) => {
-  const { posts, loading, loadingMore, fetchMore, hasMore, error } = usePosts();
+const PostList = ({ onEdit }: Props) => {
+  const { posts, loading, loadingMore, fetchMore, hasMore, error, deletePost } =
+    usePosts();
 
   const isEmpty = !loading && posts.length === 0 && !error;
   const showEndMessage = posts.length > 0 && !hasMore;
 
   const { t } = useTranslation();
 
+  const { confirm } = useConfirmDialog();
+
+  const onDeleteConfirmed = useCallback(
+    async (post: Post) => {
+      const res = await PostService.delete(post.id);
+      if (res.hasError) {
+        // Mostar toast
+        return;
+      }
+      deletePost(post.id);
+    },
+    [deletePost]
+  );
+
+  const onDelete = useCallback(
+    async (post: Post) => {
+      await confirm({
+        title: t("posts.deletePost"),
+        message: t("posts.deleteDescription"),
+        confirmText: t("common.accept"),
+        cancelText: t("common.cancel"),
+        onConfirm: () => onDeleteConfirmed(post),
+      });
+    },
+    [onDeleteConfirmed, confirm]
+  );
+
   return (
     <div className="flex flex-col w-full gap-2 items-stretch">
       <PostListSearchBar />
-      
+
       {loading ? (
         <Skeleton repeat={5} className="h-30" />
       ) : (
@@ -32,12 +63,16 @@ const PostList = ({onEdit}:Props) => {
           {/* No puedo usar el id como key porque hay ids repetidos en los mockup*/}
           {posts?.map((p, i) => (
             <Link key={i} to={ROUTES.POST_DETAIL.replace(":id", p.id)}>
-              <PostListItem post={p} onEdit={() => onEdit(p)}/>
+              <PostListItem
+                post={p}
+                onEdit={() => onEdit(p)}
+                onDelete={() => onDelete(p)}
+              />
             </Link>
           ))}
         </div>
       )}
-      
+
       {error && <ErrorMessage />}
 
       {!loading && loadingMore && <Skeleton repeat={5} className="h-30" />}

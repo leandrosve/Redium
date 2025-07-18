@@ -142,7 +142,7 @@ const CommentFormContent = ({
         id={inputId}
         placeholder={t(
           mode == "edit"
-            ? ""
+            ? "comments.editPlaceholder"
             : parentId
             ? "comments.replyPlaceholder"
             : "comments.placeholder"

@@ -3,12 +3,16 @@ import Button from "@/components/common/Button";
 import DateDisplay from "@/components/common/DateDisplay";
 import type { CommentNode } from "@/types/models/Comment";
 import { join } from "@/utils/ClassUtils";
-import { MessageCircle, Pencil } from "lucide-react";
-import { useRef, useState } from "react";
+import { MessageCircle } from "lucide-react";
+import { useCallback, useRef, useState } from "react";
 import CommentForm from "./CommentForm";
 import { useTranslation } from "react-i18next";
 import { useOverflowCheck } from "@/hooks/useOverflowCheck";
 import { useOwnershipContext } from "@/context/OwnershipContext";
+import ActionMenu from "@/components/common/ActionMenu";
+import { useConfirmDialog } from "@/components/common/ConfirmationDialog";
+import CommentService from "@/services/CommentService";
+import { useCommentsContext } from "@/context/CommentsContext";
 
 interface Props {
   comment: CommentNode;
@@ -20,10 +24,29 @@ const maxNextingLevel = 5;
 
 const CommentListItem = ({ comment, nestingLevel = 0, className }: Props) => {
   const { isCommentOwned } = useOwnershipContext();
+  const { deleteComment } = useCommentsContext();
+
   const { t } = useTranslation();
   const isOwned = isCommentOwned(comment.id);
 
   const [isEditing, setIsEditing] = useState(false);
+
+  const { confirm } = useConfirmDialog();
+
+  const onDeleteConfirmed = useCallback(async () => {
+    await CommentService.delete(comment.postId, comment.id);
+    deleteComment(comment.id);
+  }, [deleteComment]);
+
+  const onDelete = useCallback(async () => {
+    await confirm({
+      title: t("posts.deletePost"),
+      message: t("posts.deleteDescription"),
+      confirmText: t("common.accept"),
+      cancelText: t("common.cancel"),
+      onConfirm: onDeleteConfirmed,
+    });
+  }, [onDeleteConfirmed, confirm]);
 
   return (
     <div className={join("flex gap-2", className)}>
@@ -57,14 +80,7 @@ const CommentListItem = ({ comment, nestingLevel = 0, className }: Props) => {
           />
 
           {isOwned && (
-            <Button
-              variant="ghost"
-              size="sm"
-              leftIcon={<Pencil className="h-4 w-4" />}
-              onClick={() => setIsEditing(true)}
-            >
-              {t("common.edit")}
-            </Button>
+            <ActionMenu onEdit={() => setIsEditing(true)} onDelete={onDelete} />
           )}
         </div>
         {isEditing ? (

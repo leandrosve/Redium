@@ -43,7 +43,7 @@ const usePosts = () => {
 
     setLoadingMore(true);
     setError(null);
-    const res = await PostService.list({ ...baseFilters, page });
+    const res = await PostService.list({ ...baseFilters, page }, 2000);
     setLoadingMore(false);
 
     if (!res.hasError) {
@@ -66,6 +66,11 @@ const usePosts = () => {
     return copy;
   }, [data, baseFilters.order]);
 
+  const deletePost = useCallback(
+    async (id: string) => setData((prev) => prev.filter((c) => c.id !== id)),
+    [setData]
+  );
+
   useEffect(() => {
     fetchInitial();
   }, [fetchInitial]);
@@ -78,6 +83,7 @@ const usePosts = () => {
     error,
     hasMore,
     fetchMore,
+    deletePost
   };
 };
 

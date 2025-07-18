@@ -43,8 +43,11 @@ export default class PostService {
   }
 
   public static async list(
-    filters?: PostFilters
+    filters?: PostFilters,
+    delay?: number // Para facilitar el delay en el infinite scroll
   ): Promise<APIResponse<Post[]>> {
+    if (delay) await this.sleep(delay);
+
     const res = await fetch(
       `${this.BASE_URL}?${this.buildFilterParams(filters)}`
     );
@@ -154,6 +157,24 @@ export default class PostService {
     return {
       hasError: false,
       data,
+    };
+  }
+
+  public static async delete(postId: string): Promise<APIResponse<boolean>> {
+    const res = await fetch(`${this.BASE_URL}/${postId}`, {
+      method: "DELETE",
+    });
+
+    if (!res.ok) {
+      return {
+        hasError: true,
+        error: "api_error",
+      };
+    }
+
+    return {
+      hasError: false,
+      data: true,
     };
   }
 }

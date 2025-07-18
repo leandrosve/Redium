@@ -13,6 +13,8 @@
     "noResults": "No results found. Try a different search term.",
     "createPost": "Create post",
     "updatePost": "Update post",
+    "deletePost": "Delete post",
+    "deleteDescription": "Are you sure you want to delete this post?",
     "create": {
       "share": "Is there something you'd like to share?",
       "saved": "Saved!",
@@ -40,7 +42,8 @@
     "comment": "Comment",
     "reply": "Reply",
     "replyPlaceholder": "Add a reply...",
-    "empty": "No comments yet. Be the first one!"
+    "empty": "No comments yet. Be the first one!",
+    "editPlaceholder": "Edit your comment..."
   },
   "common": {
     "error": "Something went wrong, please try again.",
@@ -53,7 +56,8 @@
     "showLess": "Show less",
     "edit": "Edit",
     "edited": "Edited",
-    "you": "You"
+    "you": "You",
+    "accept": "Accept"
   },
   "validationErrors": {
     "title_required": "Title is required",

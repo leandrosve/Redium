@@ -118,4 +118,28 @@ export default class CommentService {
       data,
     };
   }
+
+  public static async delete(
+    postId: string,
+    commentId: string
+  ): Promise<APIResponse<boolean>> {
+    // Este sleep es solo para que no pegue un salto cuando carga demasiado rapido
+    await this.sleep(2000);
+
+    const res = await fetch(`${this.BASE_URL}/${postId}/comment/${commentId}`, {
+      method: "DELETE",
+    });
+
+    if (!res.ok) {
+      return {
+        hasError: true,
+        error: "api_error",
+      };
+    }
+
+    return {
+      hasError: false,
+      data: true,
+    };
+  }
 }

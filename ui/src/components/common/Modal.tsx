@@ -11,6 +11,7 @@ interface ModalProps {
 }
 
 const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
+
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -41,7 +42,7 @@ const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
   );
 };
 
-const ModalContent = ({ onClose, isOpen, title, children }: ModalProps) => {
+const ModalContent = ({ onClose, title, children }: ModalProps) => {
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"

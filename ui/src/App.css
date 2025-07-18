@@ -99,7 +99,7 @@ html {
   animation: scale-in 0.2s ease-out;
 }
 
-.no-scroll {
+.no-scroll, .no-scroll-menu {
   overflow: hidden;
 }
 

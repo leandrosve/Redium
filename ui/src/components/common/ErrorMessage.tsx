@@ -1,5 +1,4 @@
-import React from "react";
-import { AlertTriangle, Unplug } from "lucide-react";
+import { Unplug } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 interface ErrorMessageProps {
