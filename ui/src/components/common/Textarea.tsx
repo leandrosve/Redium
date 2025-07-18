@@ -11,8 +11,7 @@ import {
 } from "react";
 import { twMerge } from "tailwind-merge";
 
-export interface TextareaProps
-  extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "size"> {
+export interface TextareaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "size"> {
   className?: string;
   innerClassName?: string;
   size?: "sm" | "md" | "lg";
@@ -64,11 +63,10 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function (
 
   const resize = useCallback(() => {
     const el = innerRef.current;
-    console.log("NO CORRE??")
+    console.log("NO CORRE??");
     if (el) {
       el.style.height = "auto";
       el.style.height = `${el.scrollHeight}px`;
-
     }
   }, [innerRef]);
 
@@ -80,10 +78,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function (
         "flex flex-col items-start gap-2 rounded-3xl px-3 py-2 transition-colors text-foreground-100 relative ",
         variantClasses[variant],
         sizeClasses[size],
-        printIf(
-          "border-transparent bg-red-700/5 focus-within:bg-red-400/5",
-          invalid
-        ),
+        printIf("border-transparent bg-red-700/5 focus-within:bg-red-400/5", invalid),
         className
       )}
     >

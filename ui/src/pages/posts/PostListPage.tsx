@@ -18,12 +18,10 @@ const PostListPage = () => {
   const onSuccess = (post: Post) => {
     navigate(ROUTES.POST_DETAIL.replace(":id", post.id));
   };
-  
+
   return (
     <section className="flex flex-col w-full max-w-5xl mt-10 gap-2 mb-20 items-stretch flex-1">
-      <PostCreateButton
-        onClick={() => setModalState({ isOpen: true, post: null })}
-      />
+      <PostCreateButton onClick={() => setModalState({ isOpen: true, post: null })} />
       <h1 className="text-4xl mb-4 mt-4">{t("posts.title")}</h1>
       <PostList onEdit={(p) => setModalState({ isOpen: true, post: p })} />
       <PostFormModal

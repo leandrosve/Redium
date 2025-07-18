@@ -72,11 +72,7 @@ export const ConfirmationDialogProvider = () => {
   if (typeof window === "undefined") return null;
 
   return createPortal(
-    <Modal
-      isOpen={state.isOpen}
-      title={state.options.title}
-      onClose={() => handleCancel()}
-    >
+    <Modal isOpen={state.isOpen} title={state.options.title} onClose={() => handleCancel()}>
       <p>{state.options.message}</p>
 
       <div className="flex justify-between items-center mt-5">

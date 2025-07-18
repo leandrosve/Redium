@@ -18,20 +18,13 @@ const CommentListItemContent = ({ comment }: { comment: Comment }) => {
     <div className="text-sm text-foreground-200">
       <div
         ref={contentRef}
-        className={`text-sm text-foreground-200 break-all transition-all ${
-          expanded ? "" : "line-clamp-2"
-        }`}
+        className={`text-sm text-foreground-200 break-all transition-all ${expanded ? "" : "line-clamp-2"}`}
       >
         {comment.content}
       </div>
       <div className="flex gap-2 mt-1">
         {hasContentOverflow && (
-          <Button
-            onClick={() => setExpanded((e) => !e)}
-            variant="link"
-            size="sm"
-            className="text-xs"
-          >
+          <Button onClick={() => setExpanded((e) => !e)} variant="link" size="sm" className="text-xs">
             {t(expanded ? "common.showLess" : "common.showMore")}
           </Button>
         )}

@@ -47,10 +47,7 @@ const PostDetail = ({ id }: Props) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <PostDetailContent
-        post={post}
-        onEdit={(p) => setModalState({ isOpen: true, post: p })}
-      />
+      <PostDetailContent post={post} onEdit={(p) => setModalState({ isOpen: true, post: p })} />
       <div className="mt-8">
         <CommentSection postId={post.id} />
       </div>
@@ -64,13 +61,7 @@ const PostDetail = ({ id }: Props) => {
   );
 };
 
-const PostDetailContent = ({
-  post,
-  onEdit,
-}: {
-  post: Post;
-  onEdit: (p: Post) => void;
-}) => {
+const PostDetailContent = ({ post, onEdit }: { post: Post; onEdit: (p: Post) => void }) => {
   const { t } = useTranslation();
 
   const { isPostOwned } = useOwnershipContext();
@@ -97,10 +88,7 @@ const PostDetailContent = ({
         </span>
         <DateDisplay date={post.createdAt} format="date" />
         {post.updatedAt && (
-          <Tooltip
-            content={<DateDisplay date={post.updatedAt} format="date" />}
-            position="top"
-          >
+          <Tooltip content={<DateDisplay date={post.updatedAt} format="date" />} position="top">
             <span className="text-xs">({t("common.edited")})</span>
           </Tooltip>
         )}

@@ -16,27 +16,14 @@ const positionClasses = {
   right: "left-full top-1/2 transform -translate-y-1/2 ml-2",
 };
 
-const Tooltip = ({
-  content,
-  children,
-  position = "top",
-  disabled,
-  isOpen,
-}: Props) => {
+const Tooltip = ({ content, children, position = "top", disabled, isOpen }: Props) => {
   const [isVisible, setIsVisible] = useState(false);
 
-  const show = useMemo(
-    () => isOpen || (!disabled && isVisible),
-    [isOpen, disabled, isVisible]
-  );
+  const show = useMemo(() => isOpen || (!disabled && isVisible), [isOpen, disabled, isVisible]);
 
   return (
     <div className="relative inline-block">
-      <div
-        onMouseEnter={() => setIsVisible(true)}
-        onMouseLeave={() => setIsVisible(false)}
-        className="inline-block"
-      >
+      <div onMouseEnter={() => setIsVisible(true)} onMouseLeave={() => setIsVisible(false)} className="inline-block">
         {children}
       </div>
 
@@ -58,13 +45,7 @@ const tooltipPositionClasses = {
   left: "right-[-4px] top-1/2 -translate-y-1/2",
   right: "left-[-4px] top-1/2 -translate-y-1/2",
 };
-const TooltipArrow = ({
-  position,
-}: {
-  position: "top" | "bottom" | "left" | "right";
-}) => (
-  <div
-    className={`absolute w-2 h-2 bg-content-300 transform rotate-45 ${tooltipPositionClasses[position]}`}
-  />
+const TooltipArrow = ({ position }: { position: "top" | "bottom" | "left" | "right" }) => (
+  <div className={`absolute w-2 h-2 bg-content-300 transform rotate-45 ${tooltipPositionClasses[position]}`} />
 );
 export default Tooltip;

@@ -1,10 +1,5 @@
 import { Check, ChevronDown } from "lucide-react";
-import {
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-} from "@/components/common/dropdown";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@/components/common/dropdown";
 import Button from "@/components/common/Button";
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
@@ -22,22 +17,17 @@ const LanguageSelector = () => {
   const { i18n } = useTranslation();
 
   useEffect(() => {
-  // Hago esto para precargar las imagenes, ya que si no, al abrir el dropdown pueden tardar un instante
-  locales.forEach((l) => {
-    const img = new Image();
-    img.src = l.image;
-  });
-}, []);
+    // Hago esto para precargar las imagenes, ya que si no, al abrir el dropdown pueden tardar un instante
+    locales.forEach((l) => {
+      const img = new Image();
+      img.src = l.image;
+    });
+  }, []);
 
   return (
     <Dropdown onSelect={handleSelect}>
       <DropdownTrigger>
-        <Button
-          variant="outline"
-          rightIcon={
-            <ChevronDown className="w-[1em] h-[1em] text-foreground-200" />
-          }
-        >
+        <Button variant="outline" rightIcon={<ChevronDown className="w-[1em] h-[1em] text-foreground-200" />}>
           {i18n.language}
         </Button>
       </DropdownTrigger>
@@ -45,11 +35,8 @@ const LanguageSelector = () => {
         {locales.map(({ label, key, image }) => (
           <DropdownItem key={key} value={key}>
             <span className="rounded-full h-5 w-5 bg-content-100 overflow-hidden">
-            <img
-              alt={label}
-              src={image}
-              className="rounded-full h-full w-full"
-            /></span>
+              <img alt={label} src={image} className="rounded-full h-full w-full" />
+            </span>
             {label}
             {key == i18n.language && (
               <div>

@@ -3,10 +3,7 @@ import { useEffect, useRef, useState } from "react";
 /**
  * Pequeño hook para manejar valores debounced
  */
-export function useDebounce<T>(
-  value: T,
-  delay: number
-): [T, (value: T) => void] {
+export function useDebounce<T>(value: T, delay: number): [T, (value: T) => void] {
   const [debouncedValue, setDebouncedValue] = useState<T>(value);
   const firstRender = useRef(true);
 

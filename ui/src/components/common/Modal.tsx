@@ -11,7 +11,6 @@ interface ModalProps {
 }
 
 const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
-
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -55,18 +54,10 @@ const ModalContent = ({ onClose, title, children }: ModalProps) => {
         className="bg-content-100 rounded-2xl p-6 shadow-xl max-w-lg w-full modal-adjust-position animate-scale-in lg:-mt-35 relative overflow-hidden overflow-y-auto max-h-[90vh]"
         onClick={(e) => e.stopPropagation()}
       >
-        <Button
-          variant="ghost"
-          className="absolute end-1 top-1 p-3 h-11 w-11"
-          onClick={onClose}
-        >
+        <Button variant="ghost" className="absolute end-1 top-1 p-3 h-11 w-11" onClick={onClose}>
           <X />
         </Button>
-        {title && (
-          <h2 className="text-lg font-semibold text-foreground-100 mb-4">
-            {title}
-          </h2>
-        )}
+        {title && <h2 className="text-lg font-semibold text-foreground-100 mb-4">{title}</h2>}
         {children}
       </div>
     </div>

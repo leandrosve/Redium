@@ -38,8 +38,7 @@ const CommentFormContent = ({
   const [value, setValue] = useState(comment?.content ?? "");
   const sanitizedContent = useMemo(() => value.trim(), [value]);
 
-  const showSubmit =
-    mode == "edit" || (!disabled && (!!sanitizedContent || parentId)); // Para las replies siempre muestro los botones
+  const showSubmit = mode == "edit" || (!disabled && (!!sanitizedContent || parentId)); // Para las replies siempre muestro los botones
 
   const handleCancel = () => {
     setValue("");
@@ -48,11 +47,7 @@ const CommentFormContent = ({
 
   let icon = null;
   if (mode === "create") {
-    icon = user ? (
-      <Avatar name={user.name} src={user.avatar} size="sm" className="mr-3" />
-    ) : (
-      <MessageCircle />
-    );
+    icon = user ? <Avatar name={user.name} src={user.avatar} size="sm" className="mr-3" /> : <MessageCircle />;
   }
 
   const handleSubmit = (e: FormEvent) => {
@@ -66,15 +61,9 @@ const CommentFormContent = ({
         disabled={!user}
         id={inputId}
         placeholder={t(
-          mode == "edit"
-            ? "comments.editPlaceholder"
-            : parentId
-            ? "comments.replyPlaceholder"
-            : "comments.placeholder"
+          mode == "edit" ? "comments.editPlaceholder" : parentId ? "comments.replyPlaceholder" : "comments.placeholder"
         )}
-        innerClassName={`h-auto pr-12 ${
-          mode == "edit" ? "text-sm" : "text-md"
-        }`}
+        innerClassName={`h-auto pr-12 ${mode == "edit" ? "text-sm" : "text-md"}`}
         className="dark:bg-transparent bg-content-100"
         maxLength={500}
         value={value}

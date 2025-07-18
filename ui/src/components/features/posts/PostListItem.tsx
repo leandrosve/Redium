@@ -11,7 +11,7 @@ interface Props {
   onDelete: () => void;
 }
 
-const PostListItem = ({ post, onEdit,onDelete }: Props) => {
+const PostListItem = ({ post, onEdit, onDelete }: Props) => {
   const { isPostOwned } = useOwnershipContext();
 
   const isOwned = isPostOwned(post.id);
@@ -34,12 +34,8 @@ const PostListItem = ({ post, onEdit,onDelete }: Props) => {
         <DateDisplay format="time-ago" date={post.createdAt} />
       </div>
 
-      <div className="font-bold line-clamp-2 max-md:line-clamp-3">
-        {post.title}
-      </div>
-      <div className="line-clamp-3 max-sm:line-clamp-6 text-sm text-foreground-200">
-        {post.content}
-      </div>
+      <div className="font-bold line-clamp-2 max-md:line-clamp-3">{post.title}</div>
+      <div className="line-clamp-3 max-sm:line-clamp-6 text-sm text-foreground-200">{post.content}</div>
     </div>
   );
 };

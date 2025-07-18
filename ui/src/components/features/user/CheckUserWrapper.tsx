@@ -20,11 +20,7 @@ const CheckUserWrapper = ({ children, onCompleted }: Props) => {
             className="rounded-3xl absolute t-0 l-0 bg-gray-500/5 z-10 h-full w-full cursor-pointer hover:bg-gray-500/10"
             onClick={() => setIsUserConfigOpen(true)}
           />
-          <UserConfigModal
-            onClose={() => setIsUserConfigOpen(false)}
-            isOpen={isUserConfigOpen}
-            onSaved={onCompleted}
-          />
+          <UserConfigModal onClose={() => setIsUserConfigOpen(false)} isOpen={isUserConfigOpen} onSaved={onCompleted} />
         </>
       )}
       {children}

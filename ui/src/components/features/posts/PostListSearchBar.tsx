@@ -1,10 +1,5 @@
 import Button from "@/components/common/Button";
-import {
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-} from "@/components/common/dropdown";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@/components/common/dropdown";
 import { Input } from "@/components/common/Input";
 import { useDebounce } from "@/hooks/useDebounce";
 import { join, printIf } from "@/utils/ClassUtils";
@@ -82,7 +77,14 @@ const PostListSearchBar = () => {
         ref={inputRef}
         onChange={(e) => setSearchTerm(e.target.value)}
         endElement={
-          <span role="button" className={join("cursor-pointer text-foreground-200", printIf("pointer-events-none opacity-0", !searchTerm))} onClick={onClearInput}>
+          <span
+            role="button"
+            className={join(
+              "cursor-pointer text-foreground-200",
+              printIf("pointer-events-none opacity-0", !searchTerm)
+            )}
+            onClick={onClearInput}
+          >
             <X />
           </span>
         }

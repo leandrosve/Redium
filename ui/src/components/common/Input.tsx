@@ -2,14 +2,13 @@ import { printIf } from "@/utils/ClassUtils";
 import { forwardRef, type InputHTMLAttributes, type ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 
-export interface InputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
+export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
   icon?: ReactNode;
   endElement?: ReactNode;
   className?: string;
   size?: "sm" | "md" | "lg";
   invalid?: boolean;
-  variant?: 'outline' | 'filled';
+  variant?: "outline" | "filled";
 }
 
 const sizeClasses = {
@@ -24,7 +23,7 @@ const variantClasses = {
 };
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(function (
-  { icon, className, size = "md", id, endElement, invalid, variant = 'outline', ...props }: InputProps,
+  { icon, className, size = "md", id, endElement, invalid, variant = "outline", ...props }: InputProps,
   ref
 ) {
   return (
@@ -38,12 +37,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function (
       )}
     >
       {icon && <div className="text-gray-500">{icon}</div>}
-      <input
-        id={id}
-        ref={ref}
-        className="flex-1 outline-none bg-transparent placeholder-gray-400 text-md"
-        {...props}
-      />
+      <input id={id} ref={ref} className="flex-1 outline-none bg-transparent placeholder-gray-400 text-md" {...props} />
       {endElement}
     </div>
   );

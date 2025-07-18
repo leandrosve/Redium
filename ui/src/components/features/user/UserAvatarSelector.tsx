@@ -11,7 +11,6 @@ interface Props {
 }
 
 const UserAvatarSelector = ({ onChange, value }: Props) => {
-
   // Pequeña optimizacion para evitar pasar el handler como prop a cada elemento
   const handleSelectAvatar = (e: React.MouseEvent | React.KeyboardEvent) => {
     const target = e.target as HTMLElement;
@@ -37,28 +36,13 @@ const UserAvatarSelector = ({ onChange, value }: Props) => {
     >
       {avatarSeeds.map((seed) => {
         const url = prefix + seed;
-        return (
-          <AvatarOption
-            key={seed}
-            url={url}
-            selected={value == url}
-            seed={seed}
-          />
-        );
+        return <AvatarOption key={seed} url={url} selected={value == url} seed={seed} />;
       })}
     </div>
   );
 };
 
-const AvatarOption = ({
-  url,
-  seed,
-  selected,
-}: {
-  url: string;
-  selected: boolean;
-  seed: string;
-}) => {
+const AvatarOption = ({ url, seed, selected }: { url: string; selected: boolean; seed: string }) => {
   return (
     <span
       key={seed}

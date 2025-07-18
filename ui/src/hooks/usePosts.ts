@@ -66,10 +66,7 @@ const usePosts = () => {
     return copy;
   }, [data, baseFilters.order]);
 
-  const deletePost = useCallback(
-    async (id: string) => setData((prev) => prev.filter((c) => c.id !== id)),
-    [setData]
-  );
+  const deletePost = useCallback(async (id: string) => setData((prev) => prev.filter((c) => c.id !== id)), [setData]);
 
   useEffect(() => {
     fetchInitial();
@@ -83,7 +80,7 @@ const usePosts = () => {
     error,
     hasMore,
     fetchMore,
-    deletePost
+    deletePost,
   };
 };
 

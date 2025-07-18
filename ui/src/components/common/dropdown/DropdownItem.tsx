@@ -8,11 +8,7 @@ export interface DropdownItemProps {
   className?: string;
 }
 
-export const DropdownItem = ({
-  value,
-  children,
-  className,
-}: DropdownItemProps) => {
+export const DropdownItem = ({ value, children, className }: DropdownItemProps) => {
   const { onSelect, close } = useDropdown();
 
   const handleClick = () => {

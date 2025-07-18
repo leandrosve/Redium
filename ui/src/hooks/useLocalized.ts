@@ -17,11 +17,9 @@ export const useLocalized = () => {
     ): string => {
       const { ignorePrefix, defaultKey, prefix, defaultValue } = options;
 
-      if (!key ) return "";
+      if (!key) return "";
 
-      const fullKey = ignorePrefix
-        ? key
-        : `${prefix ? prefix + "." : ""}${key}`;
+      const fullKey = ignorePrefix ? key : `${prefix ? prefix + "." : ""}${key}`;
 
       const message = t(fullKey, { defaultValue: defaultValue, returnObjects: false });
 

@@ -14,10 +14,7 @@ export default class LocalUserService {
       const parsedData = JSON.parse(storedData);
 
       // Validación básica del tipo
-      if (
-        typeof parsedData?.name === "string" &&
-        typeof parsedData?.avatar === "string"
-      ) {
+      if (typeof parsedData?.name === "string" && typeof parsedData?.avatar === "string") {
         return {
           name: parsedData.name,
           avatar: parsedData.avatar,

@@ -15,10 +15,7 @@ const useAPI = <T>({ fetchFunction, initialFetch = true, initialData }: Props<T>
   const [error, setError] = useState<string | null>(null);
 
   const doFetch = useCallback(
-    async (
-      fn: () => Promise<APIResponse<T>>,
-      transform?: (prev: T | null, newData: T) => T
-    ) => {
+    async (fn: () => Promise<APIResponse<T>>, transform?: (prev: T | null, newData: T) => T) => {
       setLoading(true);
       setError(null);
       const res = await fn();
@@ -37,14 +34,11 @@ const useAPI = <T>({ fetchFunction, initialFetch = true, initialData }: Props<T>
     []
   );
 
-  const fetchEntity = useCallback(
-    () => doFetch(fetchFunction),
-    [doFetch, fetchFunction]
-  );
+  const fetchEntity = useCallback(() => doFetch(fetchFunction), [doFetch, fetchFunction]);
 
   const setEntity = useCallback((value: SetStateAction<T>) => {
-  setData(value);
-}, []);
+    setData(value);
+  }, []);
 
   useEffect(() => {
     if (initialFetch) {

@@ -65,13 +65,8 @@ const PostForm = ({ onSuccess, post, user }: Props) => {
   );
 
   return (
-    <form
-      onSubmit={handleSubmit(submit)}
-      className="flex flex-col items-stretch gap-2"
-    >
-      {success && (
-        <SuccessOverlay message={translate(post ? "posts.create.saved" : "posts.create.published")} />
-      )}
+    <form onSubmit={handleSubmit(submit)} className="flex flex-col items-stretch gap-2">
+      {success && <SuccessOverlay message={translate(post ? "posts.create.saved" : "posts.create.published")} />}
       <h2 className="text-lg font-semibold text-foreground-100">
         {translate(!!post ? "posts.updatePost" : "posts.createPost")}
       </h2>
@@ -116,8 +111,8 @@ const PostForm = ({ onSuccess, post, user }: Props) => {
 
       {!!post && (
         <div className="flex rounded-full text-sm font-bold">
-          <Dot/> Created at:
-          <DateDisplay date={post.createdAt} format="date" className="ml-2 font-medium"/>
+          <Dot /> Created at:
+          <DateDisplay date={post.createdAt} format="date" className="ml-2 font-medium" />
         </div>
       )}
 
@@ -127,11 +122,7 @@ const PostForm = ({ onSuccess, post, user }: Props) => {
           position="left"
           disabled={isValid || isSubmitting}
         >
-          <Button
-            disabled={!isValid || isSubmitting}
-            type="submit"
-            loading={isSubmitting}
-          >
+          <Button disabled={!isValid || isSubmitting} type="submit" loading={isSubmitting}>
             {translate(!!post ? "common.save" : "posts.create.publish")}
           </Button>
         </Tooltip>

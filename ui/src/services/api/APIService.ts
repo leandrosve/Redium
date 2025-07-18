@@ -51,7 +51,7 @@ export default abstract class ApiService {
         if (textBody == '"Not found"') error = "not_found";
         return {
           hasError: true,
-          ok:false,
+          ok: false,
           error: error,
         };
       }
@@ -59,11 +59,11 @@ export default abstract class ApiService {
       return {
         data: responseBody as T,
         hasError: false,
-        ok:true,
+        ok: true,
       };
     } catch (err) {
       console.log(err);
-      return { hasError: true, error: "unknown_error", ok:false };
+      return { hasError: true, error: "unknown_error", ok: false };
     }
   }
 

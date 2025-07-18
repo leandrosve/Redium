@@ -49,20 +49,13 @@ export default class PostService extends ApiService {
     return this.get(`/${id}`);
   }
 
-  public static create(
-    post: PostContent,
-    user: User
-  ): Promise<APIResponse<Post>> {
+  public static create(post: PostContent, user: User): Promise<APIResponse<Post>> {
     const req = { ...post, ...user, createdAt: new Date().toISOString() };
 
     return this.post("", req);
   }
 
-  public static update(
-    postId: string,
-    post: PostContent,
-    user: User
-  ): Promise<APIResponse<Post>> {
+  public static update(postId: string, post: PostContent, user: User): Promise<APIResponse<Post>> {
     const req: Partial<Post> = {
       ...post,
       ...user,

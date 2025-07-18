@@ -48,10 +48,7 @@ export default class CommentService extends ApiService {
     return this.put(`/${postId}/comment/${commentId}`, req, { delay: 1000 });
   }
 
-  public static async delete(
-    postId: string,
-    commentId: string
-  ): Promise<APIResponse<boolean>> {
+  public static async delete(postId: string, commentId: string): Promise<APIResponse<boolean>> {
     return this.del(`/${postId}/comment/${commentId}`, { delay: 1000 });
   }
 }

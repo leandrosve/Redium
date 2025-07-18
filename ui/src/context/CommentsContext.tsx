@@ -22,33 +22,17 @@ const CommentsContext = createContext<CommentsContextType>({
   updateComment: () => {},
 });
 
-export const CommentsProvider = ({
-  children,
-  postId,
-}: {
-  postId: string;
-  children: ReactNode;
-}) => {
+export const CommentsProvider = ({ children, postId }: { postId: string; children: ReactNode }) => {
   const { markCommentAsOwned } = useOwnershipContext();
-  const fetchFunction = useCallback(
-    () => CommentService.list(postId),
-    [postId]
-  );
-  const {
-    loading,
-    entity: comments,
-    setEntity,
-    error,
-  } = useAPI<Comment[]>({ fetchFunction, initialData: [] });
+  const fetchFunction = useCallback(() => CommentService.list(postId), [postId]);
+  const { loading, entity: comments, setEntity, error } = useAPI<Comment[]>({ fetchFunction, initialData: [] });
 
   const addComment = (comment: Comment) => {
     setEntity((prev) => (prev ? [...prev, comment] : [comment]));
     markCommentAsOwned(comment.id);
   };
   const updateComment = (comment: Comment) => {
-    setEntity((prev) =>
-      prev ? prev.map((c) => (c.id === comment.id ? comment : c)) : [comment]
-    );
+    setEntity((prev) => (prev ? prev.map((c) => (c.id === comment.id ? comment : c)) : [comment]));
     markCommentAsOwned(comment.id);
   };
 

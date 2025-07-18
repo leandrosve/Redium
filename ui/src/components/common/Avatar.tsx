@@ -1,8 +1,5 @@
 import { useMemo, useState } from "react";
-import {
-  generateColorForNickname,
-  getInitialsForName,
-} from "@/utils/FormatUtils";
+import { generateColorForNickname, getInitialsForName } from "@/utils/FormatUtils";
 import { join, printIf } from "@/utils/ClassUtils";
 
 interface Props {

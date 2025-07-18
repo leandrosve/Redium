@@ -17,7 +17,6 @@ const UserConfigModal = ({ isOpen, onSaved, onCleared, onClose }: Props) => {
   const { user, setUser } = useUserContext();
   const { clearAll } = useOwnershipContext();
 
-
   const onSubmit = (u: User) => {
     setUser(u);
     onSaved?.();
@@ -43,21 +42,14 @@ const UserConfigModal = ({ isOpen, onSaved, onCleared, onClose }: Props) => {
         <div>
           <h3 className="font-bold">{t("user.logout")}</h3>
           <div className="flex max-sm:flex-col gap-2">
-            <p className="flex-1">
-              {t("user.logoutMessage")}
-            </p>
-            <Button
-              variant="solid"
-              color="secondary"
-              onClick={onLogOut}
-              className="shrink-0"
-            >
+            <p className="flex-1">{t("user.logoutMessage")}</p>
+            <Button variant="solid" color="secondary" onClick={onLogOut} className="shrink-0">
               <LogOut /> {t("user.logout")}
             </Button>
           </div>
         </div>
       )}
-      <hr  className="border-subtle mt-4"/>
+      <hr className="border-subtle mt-4" />
 
       <UserConfigForm
         onSubmit={onSubmit}

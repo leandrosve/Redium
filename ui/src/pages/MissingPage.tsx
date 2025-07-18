@@ -7,9 +7,7 @@ const MissingPage = () => {
     <div className="flex flex-col items-center justify-center w-full mt-20">
       <ShieldQuestionMark className="h-30 w-30 opacity-55" />
       <div className="text-center w-full p-5 font-bold text-sm  relative">
-        <h1 className="md:text-3xl opacity-55">
-          {t("common.missingResource")}
-        </h1>
+        <h1 className="md:text-3xl opacity-55">{t("common.missingResource")}</h1>
       </div>
     </div>
   );

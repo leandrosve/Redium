@@ -11,17 +11,17 @@ interface Props {
   onSuccess: (p: Post) => void;
   post: Post | null;
 }
-const PostFormModal = ({ isOpen, onClose, onSuccess, post}: Props) => {
+const PostFormModal = ({ isOpen, onClose, onSuccess, post }: Props) => {
   const { user } = useUserContext();
 
-  const onCloseConfig = (reason?: 'saved' | 'cleared' | 'closed') => {
-    if (reason == 'closed') {
+  const onCloseConfig = (reason?: "saved" | "cleared" | "closed") => {
+    if (reason == "closed") {
       onClose();
       return;
     }
-  } 
+  };
 
-  if (!user) return <UserConfigModal isOpen={isOpen} onClose={onCloseConfig}/>
+  if (!user) return <UserConfigModal isOpen={isOpen} onClose={onCloseConfig} />;
   return (
     <Modal
       isOpen={isOpen}
@@ -32,7 +32,7 @@ const PostFormModal = ({ isOpen, onClose, onSuccess, post}: Props) => {
         </div>
       }
     >
-      <PostForm onSuccess={onSuccess} user={user} post={post}/>
+      <PostForm onSuccess={onSuccess} user={user} post={post} />
     </Modal>
   );
 };

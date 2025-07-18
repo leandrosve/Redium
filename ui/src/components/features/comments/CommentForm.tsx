@@ -19,15 +19,7 @@ interface Props {
   onSuccess?: () => void;
 }
 
-const CommentForm = ({
-  mode = "create",
-  postId,
-  parentId,
-  autoFocus,
-  onCancel,
-  onSuccess,
-  comment,
-}: Props) => {
+const CommentForm = ({ mode = "create", postId, parentId, autoFocus, onCancel, onSuccess, comment }: Props) => {
   const { user } = useUserContext();
   const [inputId] = useState(generateId());
   const [isSubmiting, setIsSubmiting] = useState(false);
@@ -49,17 +41,13 @@ const CommentForm = ({
     }
 
     mode === "edit" ? updateComment(res.data) : addComment(res.data);
-   
+
     onSuccess?.();
     setIsSubmiting(false);
   };
-  
+
   return (
-    <CheckUserWrapper
-      onCompleted={() =>
-        setTimeout(() => document.getElementById(inputId)?.focus(), 200)
-      }
-    >
+    <CheckUserWrapper onCompleted={() => setTimeout(() => document.getElementById(inputId)?.focus(), 200)}>
       <CommentFormContent
         user={user}
         postId={postId}

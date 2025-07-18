@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
 import type { User } from "@/types/models/User";
 import LocalUserService from "@/services/LocalUserService";
 
@@ -51,11 +45,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     [setUserState]
   );
 
-  return (
-    <UserContext.Provider value={{ user, setUser }}>
-      {children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={{ user, setUser }}>{children}</UserContext.Provider>;
 };
 
 export const useUserContext = (): UserContextType => {

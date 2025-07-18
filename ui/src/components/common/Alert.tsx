@@ -27,16 +27,12 @@ const iconContainerClasses = {
   success: "bg-emerald-900",
 };
 const icons = {
-  info: <Info className="h-7 w-8 fill-primary-500 stroke-primary-100"/>,
+  info: <Info className="h-7 w-8 fill-primary-500 stroke-primary-100" />,
   danger: <CircleAlert className="h-7 w-8 fill-red-300 stroke-red-900" />,
-  success: <BadgeCheck className="h-7 w-8 fill-emerald-300 stroke-emerald-900"/>,
+  success: <BadgeCheck className="h-7 w-8 fill-emerald-300 stroke-emerald-900" />,
 };
 
-export const Alert: React.FC<AlertProps> = ({
-  title,
-  className,
-  status = "info",
-}) => {
+export const Alert: React.FC<AlertProps> = ({ title, className, status = "info" }) => {
   const textColor = textClasses[status];
   const bgColor = bgClasses[status];
   const iconContainerColor = iconContainerClasses[status];

@@ -18,7 +18,8 @@ const UserDisplay = () => {
         tabIndex={0}
         onClick={() => setIsOpen(true)}
       >
-        <Avatar size="sm" name={user.name} src={user.avatar} /> <span className="max-w-30 overflow-ellipsis line-clamp-1 max-sm:hidden">{user.name}</span>
+        <Avatar size="sm" name={user.name} src={user.avatar} />{" "}
+        <span className="max-w-30 overflow-ellipsis line-clamp-1 max-sm:hidden">{user.name}</span>
       </div>
       <UserConfigModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </>

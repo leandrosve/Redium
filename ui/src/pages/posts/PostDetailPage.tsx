@@ -5,7 +5,7 @@ import MissingPage from "../MissingPage";
 const PostDetailPage = () => {
   const { id } = useParams<{ id: string }>();
 
-  if (!id) return <MissingPage/>
+  if (!id) return <MissingPage />;
 
   return (
     <section className="flex flex-col w-full max-w-5xl mt-10 gap-2 mb-20 items-stretch flex-1">
@@ -13,6 +13,5 @@ const PostDetailPage = () => {
     </section>
   );
 };
-
 
 export default PostDetailPage;

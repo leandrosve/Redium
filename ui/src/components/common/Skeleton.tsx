@@ -6,12 +6,7 @@ interface SkeletonProps extends HTMLAttributes<HTMLDivElement> {
   wrapperClassName?: string;
 }
 
-const Skeleton = ({
-  className,
-  repeat = 1,
-  wrapperClassName,
-  ...props
-}: SkeletonProps) => {
+const Skeleton = ({ className, repeat = 1, wrapperClassName, ...props }: SkeletonProps) => {
   const mergedClassName = twMerge(
     "animate-pulse rounded-2xl bg-content-100/50 dark:bg-content-200 w-full shadow-md",
     className

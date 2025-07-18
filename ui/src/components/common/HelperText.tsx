@@ -13,11 +13,7 @@ const typeClasses = {
   helper: "text-foreground-300",
 };
 
-const HelperText = ({
-  type = "error",
-  message,
-  className = "",
-}: HelperTextProps) => {
+const HelperText = ({ type = "error", message, className = "" }: HelperTextProps) => {
   if (!message) return null;
 
   const Icon = type === "error" ? CircleAlert : Info;

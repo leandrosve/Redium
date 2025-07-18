@@ -17,8 +17,7 @@ interface Props {
   onEdit: (post: Post) => void;
 }
 const PostList = ({ onEdit }: Props) => {
-  const { posts, loading, loadingMore, fetchMore, hasMore, error, deletePost } =
-    usePosts();
+  const { posts, loading, loadingMore, fetchMore, hasMore, error, deletePost } = usePosts();
 
   const isEmpty = !loading && posts.length === 0 && !error;
   const showEndMessage = posts.length > 0 && !hasMore;
@@ -63,11 +62,7 @@ const PostList = ({ onEdit }: Props) => {
           {/* No puedo usar el id como key porque hay ids repetidos en los mockup*/}
           {posts?.map((p, i) => (
             <Link key={i} to={ROUTES.POST_DETAIL.replace(":id", p.id)}>
-              <PostListItem
-                post={p}
-                onEdit={() => onEdit(p)}
-                onDelete={() => onDelete(p)}
-              />
+              <PostListItem post={p} onEdit={() => onEdit(p)} onDelete={() => onDelete(p)} />
             </Link>
           ))}
         </div>
@@ -84,15 +79,10 @@ const PostList = ({ onEdit }: Props) => {
         </div>
       )}
       {showEndMessage && (
-        <div className="text-center w-full p-5 font-bold text-sm text-foreground-200">
-          {t("posts.endReached")}
-        </div>
+        <div className="text-center w-full p-5 font-bold text-sm text-foreground-200">{t("posts.endReached")}</div>
       )}
 
-      <InfiniteScrollDetector
-        onLoadMore={() => fetchMore()}
-        disabled={loading || loadingMore || !hasMore || !!error}
-      />
+      <InfiniteScrollDetector onLoadMore={() => fetchMore()} disabled={loading || loadingMore || !hasMore || !!error} />
     </div>
   );
 };

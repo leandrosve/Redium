@@ -9,11 +9,7 @@ interface DropdownMenuProps {
   position?: "left" | "right";
 }
 
-export const DropdownMenu = ({
-  children,
-  className,
-  position = "left",
-}: DropdownMenuProps) => {
+export const DropdownMenu = ({ children, className, position = "left" }: DropdownMenuProps) => {
   const { isOpen, close } = useDropdown();
 
   const ref = useRef<HTMLUListElement>(null);
@@ -44,15 +40,13 @@ export const DropdownMenu = ({
       ref={ref}
       className={join(
         "absolute mt-2 border top-full rounded-xl shadow z-10 bg-content-100 dark:bg-base backdrop-blur-3xl border-subtle overflow-hidden",
-        position == 'right' ? 'left-0' : 'right-0',
+        position == "right" ? "left-0" : "right-0",
         className
       )}
       role="menu"
     >
       {React.Children.map(children, (child) =>
-        React.isValidElement(child)
-          ? React.cloneElement(child as any, { onClick: () => close() })
-          : child
+        React.isValidElement(child) ? React.cloneElement(child as any, { onClick: () => close() }) : child
       )}
     </ul>
   );
