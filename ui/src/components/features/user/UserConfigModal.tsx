@@ -42,7 +42,7 @@ const UserConfigModal = ({ isOpen, onSaved, onCleared, onClose }: Props) => {
       {!!user && (
         <div>
           <h3 className="font-bold">{t("user.logout")}</h3>
-          <div className="flex">
+          <div className="flex max-sm:flex-col gap-2">
             <p className="flex-1">
               {t("user.logoutMessage")}
             </p>
@@ -50,7 +50,7 @@ const UserConfigModal = ({ isOpen, onSaved, onCleared, onClose }: Props) => {
               variant="solid"
               color="secondary"
               onClick={onLogOut}
-              className=" shrink-0"
+              className="shrink-0"
             >
               <LogOut /> {t("user.logout")}
             </Button>

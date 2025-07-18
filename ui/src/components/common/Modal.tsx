@@ -45,14 +45,14 @@ const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
 const ModalContent = ({ onClose, title, children }: ModalProps) => {
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+      className="fixed inset-0 flex items-center justify-center p-4 z-50 bg-black/50 h-screen w-screen overflow-hidden"
       onClick={(e) => {
         e.stopPropagation();
         onClose();
       }}
     >
       <div
-        className="bg-content-100 rounded-2xl p-6 shadow-xl max-w-lg w-full animate-scale-in -mt-40 relative overflow-hidden"
+        className="bg-content-100 rounded-2xl p-6 shadow-xl max-w-lg w-full modal-adjust-position animate-scale-in lg:-mt-35 relative overflow-hidden overflow-y-auto max-h-[90vh]"
         onClick={(e) => e.stopPropagation()}
       >
         <Button

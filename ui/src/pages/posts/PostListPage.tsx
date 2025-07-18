@@ -20,7 +20,7 @@ const PostListPage = () => {
   };
 
   return (
-    <section className="flex flex-col w-full max-w-5xl mt-10 gap-2 mb-20 items-stretch">
+    <section className="flex flex-col w-full max-w-5xl mt-10 gap-2 mb-20 items-stretch flex-1">
       <PostCreateButton
         onClick={() => setModalState({ isOpen: true, post: null })}
       />

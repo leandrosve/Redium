@@ -45,7 +45,7 @@
 
 @layer base {
   :root.light {
-    --color-foreground-100: rgb(0, 0, 0);
+    --color-foreground-100: rgb(26, 26, 26);
     --color-foreground-200: rgb(71, 71, 71);
 
     --color-base: #f0f0f7;
@@ -61,8 +61,8 @@
     --color-subtle: #d8d8d8;
     --color-highlight: #e7e7e7;
 
-    --color-secondary-400: oklch(86.9% 0.022 252.894);
-    --color-secondary-500: oklch(87.2% 0.01 258.338);
+    --color-secondary-500: oklch(86.9% 0.022 252.894);
+    --color-secondary-400: oklch(87.2% 0.01 258.338);
   }
   :root.dark {
     --color-foreground-100: white;
@@ -182,4 +182,10 @@ html {
 
 .disable-transitions * {
   transition: none !important;
+}
+
+@media (max-height: 500px) {
+  .modal-adjust-position {
+    margin-top: 0 !important;
+  }
 }

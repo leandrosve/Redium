@@ -27,7 +27,7 @@ const Avatar = ({ name, src, size = "md", className }: Props) => {
   return (
     <span
       className={join(
-        "text-white overflow-hidden rounded-full flex items-center justify-center select-none relative",
+        "text-white overflow-hidden rounded-full flex items-center justify-center select-none relative shrink-0",
         color,
         sizeClasses[size],
         className

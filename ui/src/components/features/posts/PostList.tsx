@@ -59,7 +59,7 @@ const PostList = ({ onEdit }: Props) => {
       {loading ? (
         <Skeleton repeat={5} className="h-30" />
       ) : (
-        <div className="flex flex-col gap-4 ">
+        <div className="flex flex-col gap-4 max-sm:gap-8 ">
           {/* No puedo usar el id como key porque hay ids repetidos en los mockup*/}
           {posts?.map((p, i) => (
             <Link key={i} to={ROUTES.POST_DETAIL.replace(":id", p.id)}>

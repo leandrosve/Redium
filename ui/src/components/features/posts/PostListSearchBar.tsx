@@ -57,7 +57,7 @@ const PostListSearchBar = () => {
 
   const { t } = useTranslation();
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-3 flex-wrap max-sm:items-stretch">
       <Dropdown onSelect={onSortChange}>
         <DropdownTrigger>
           <Button
@@ -69,7 +69,7 @@ const PostListSearchBar = () => {
             {t(`posts.sort.${sort}`)}
           </Button>
         </DropdownTrigger>
-        <DropdownMenu className="min-w-40">
+        <DropdownMenu className="min-w-40" position="right">
           <DropdownItem value="newest">{t("posts.sort.newest")}</DropdownItem>
           <DropdownItem value="oldest">{t("posts.sort.oldest")}</DropdownItem>
         </DropdownMenu>

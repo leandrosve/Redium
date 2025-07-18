@@ -21,7 +21,7 @@ const PostDetail = ({ id }: Props) => {
     entity: post,
     error,
     loading,
-    setEntity
+    setEntity,
   } = useAPI<Post | null>({
     fetchFunction: () => PostService.detail(id),
     initialData: null,
@@ -32,10 +32,13 @@ const PostDetail = ({ id }: Props) => {
     post: Post | null;
   }>({ isOpen: false, post: null });
 
-  const onEdited = useCallback((p:Post) => {
-    setEntity(p);
-    setModalState({isOpen:false, post:null})
-  },[setEntity, setModalState]);
+  const onEdited = useCallback(
+    (p: Post) => {
+      setEntity(p);
+      setModalState({ isOpen: false, post: null });
+    },
+    [setEntity, setModalState]
+  );
 
   if (loading) return <Spinner fullPage />;
 
@@ -85,12 +88,12 @@ const PostDetailContent = ({
           {t("common.edit")}
         </Button>
       )}
-      <div className="flex gap-2 items-center font-bold text-foreground-200 text-sm">
+      <div className="flex gap-2 items-center font-bold text-foreground-200 text-sm flex-wrap max-sm">
         <Avatar name={post.name} src={post.avatar} size="sm" />{" "}
         <span className="max-w-40 overflow-ellipsis line-clamp-1">
           {post.name} {isOwned && `(${t("common.you")})`}
+          <span className="select-none opacity-50">•</span>
         </span>
-        <span className="select-none opacity-50">•</span>
         <DateDisplay date={post.createdAt} format="date" />
         {post.updatedAt && (
           <Tooltip

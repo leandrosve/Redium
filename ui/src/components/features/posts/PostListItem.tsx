@@ -37,7 +37,7 @@ const PostListItem = ({ post, onEdit,onDelete }: Props) => {
       <div className="font-bold line-clamp-2 max-md:line-clamp-3">
         {post.title}
       </div>
-      <div className="line-clamp-3 text-sm text-foreground-200">
+      <div className="line-clamp-3 max-sm:line-clamp-6 text-sm text-foreground-200">
         {post.content}
       </div>
     </div>

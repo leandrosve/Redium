@@ -5,12 +5,14 @@ import { ThemeSwitcher } from "./ThemeSwitcher";
 
 const Header = () => {
   return (
-    <header className="flex justify-between text-xl items-center xl:px-80 px-10 z-10 border-b border-subtle h-24 fixed top-0 left-0 bg-content-100/60 dark:bg-content-100/30 backdrop-blur-lg w-screen">
+    <header className="flex justify-between text-xl items-center xl:px-80 px-3 lg:px-10 z-10 border-b border-subtle h-24 fixed top-0 left-0 bg-content-100/60 dark:bg-content-100/30 backdrop-blur-lg w-screen">
       <div className="text-3xl flex items-center gap-1">
-        <Link to="/">[Re]dium</Link>
+        <Link to="/">
+          [Re]<span className="max-sm:hidden">dium</span>
+        </Link>
       </div>
 
-      <div className="flex gap-5 items-center">
+      <div className="flex gap-2 md:gap-5 items-center">
         <UserDisplay />
         <ThemeSwitcher />
         <LanguageSelector />
