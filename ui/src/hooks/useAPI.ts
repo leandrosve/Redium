@@ -11,7 +11,7 @@ type SetStateAction<T> = T | ((prevState: T) => T);
 
 const useAPI = <T>({ fetchFunction, initialFetch = true, initialData }: Props<T>) => {
   const [data, setData] = useState<T>(initialData);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(initialFetch);
   const [error, setError] = useState<string | null>(null);
 
   const doFetch = useCallback(

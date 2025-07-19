@@ -184,7 +184,7 @@ html {
   transition: none !important;
 }
 
-@media (max-height: 500px) {
+@media (max-height: 800px) {
   .modal-adjust-position {
     margin-top: 0 !important;
   }
