@@ -26,7 +26,7 @@ const CommentForm = ({ mode = "create", postId, parentId, autoFocus, onCancel, o
   const [isSubmiting, setIsSubmiting] = useState(false);
   const { addComment, updateComment } = useCommentsContext();
   const { toast } = useToast();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const onSubmit = async (content: string): Promise<boolean> => {
     if (!content) return false;
@@ -40,6 +40,7 @@ const CommentForm = ({ mode = "create", postId, parentId, autoFocus, onCancel, o
 
     if (res.hasError) {
       toast(t("common.error"));
+      setIsSubmiting(false);
       return false;
     }
 

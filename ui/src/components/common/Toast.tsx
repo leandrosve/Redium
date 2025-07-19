@@ -27,7 +27,7 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
       {children}
       {createPortal(
         visible && (
-          <div className="fixed top-25 left-[50%] -translate-x-1/2 animate-scale-in z-100 min-w-lg">
+          <div className="fixed top-25 left-[50%] -translate-x-1/2 animate-scale-in z-100 min-w-lg max-w-[90vw]">
             <Alert status={status} title={message} className="backdrop-blur-lg shadow-md"/>
           </div>
         ),

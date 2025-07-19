@@ -39,13 +39,13 @@ const Tooltip = ({ content, children, position = "top", disabled, isOpen }: Prop
   );
 };
 
-const tooltipPositionClasses = {
+const arrowPositionClasses = {
   top: "bottom-[-4px] left-1/2 -translate-x-1/2",
   bottom: "top-[-4px] left-1/2 -translate-x-1/2",
   left: "right-[-4px] top-1/2 -translate-y-1/2",
   right: "left-[-4px] top-1/2 -translate-y-1/2",
 };
 const TooltipArrow = ({ position }: { position: "top" | "bottom" | "left" | "right" }) => (
-  <div className={`absolute w-2 h-2 bg-content-300 transform rotate-45 ${tooltipPositionClasses[position]}`} />
+  <div className={`absolute w-2 h-2 bg-content-300 transform rotate-45 ${arrowPositionClasses[position]}`} />
 );
 export default Tooltip;
