@@ -10,7 +10,7 @@ import { CircleOff } from "lucide-react";
 import usePosts from "@/hooks/usePosts";
 import type { Post } from "@/types/models/Post";
 import { useConfirmDialog } from "@/components/common/ConfirmationDialog";
-import { memo, useCallback } from "react";
+import { useCallback } from "react";
 import PostService from "@/services/api/PostService";
 import { useToast } from "@/components/common/Toast";
 

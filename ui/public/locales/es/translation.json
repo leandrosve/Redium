@@ -64,7 +64,8 @@
     "edited": "Editado",
     "you": "Tú",
     "accept": "Aceptar",
-    "missingResource": "Lo sentimos, no pudimos encontrar el recurso solicitado"
+    "missingResource": "Lo sentimos, no pudimos encontrar el recurso solicitado",
+    "backHome": "Volver al inicio"
   },
   "routes": {
     "posts": "Publicaciones",

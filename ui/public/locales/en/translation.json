@@ -64,7 +64,8 @@
     "edited": "Edited",
     "you": "You",
     "accept": "Accept",
-    "missingResource": "Sorry, we couldn't find the requested resource"
+    "missingResource": "Sorry, we couldn't find the requested resource",
+    "backHome": "Return home"
   },
   "routes": {
     "posts": "Posts",

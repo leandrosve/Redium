@@ -16,6 +16,7 @@ import { useToast } from "@/components/common/Toast";
 import { ROUTES } from "@/routes/routes";
 import { useNavigate } from "react-router-dom";
 import ActionMenu from "@/components/common/ActionMenu";
+import Breadcrumbs from "@/components/common/Breadcrumbs";
 interface Props {
   id: string;
 }
@@ -88,6 +89,7 @@ const PostDetailContent = ({ post: initialPost }: { post: Post }) => {
 
   return (
     <div className="relative">
+      <Breadcrumbs items={[{to: "/posts", name: "Posts"}, {to:"", name: post.title}]}/>
       {isOwned && <div className="absolute top-0 right-0"><ActionMenu onDelete={onDelete} onEdit={() => setIsEditing(true)} /></div>}
       <div className="flex gap-2 items-center font-bold text-foreground-200 text-sm flex-wrap max-sm">
         <Avatar name={post.name} src={post.avatar} size="sm" />{" "}

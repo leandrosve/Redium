@@ -84,6 +84,7 @@ const PostListSearchBar = () => {
               printIf("pointer-events-none opacity-0", !searchTerm)
             )}
             onClick={onClearInput}
+            aria-label="clear input"
           >
             <X />
           </span>

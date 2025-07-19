@@ -10,8 +10,9 @@ i18n
   .use(initReactI18next)
 
   .init({
+    supportedLngs: ['en', 'es'],
     fallbackLng: 'en',
-    debug: true,
+    debug: process.env.NODE_ENV === 'development',
     interpolation: {
       escapeValue: false,
     }

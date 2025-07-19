@@ -36,7 +36,8 @@ const Avatar = ({ name, src, size = "md", className }: Props) => {
       {src && (
         <img
           src={src}
-          className={join("absolute h-full w-full", printIf("hidden", error))}
+          className={join("absolute h-full w-full text-transparentcursor-pointer text-foreground-200 aspect-square", printIf("hidden", error))}
+          alt={name}
           onError={() => setError(true)}
         />
       )}

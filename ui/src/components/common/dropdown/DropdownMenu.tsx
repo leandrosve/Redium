@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, type ReactElement } from "react";
+import React, { type ReactElement } from "react";
 import { useDropdown } from "./Dropdown";
 import type { DropdownItemProps } from "./DropdownItem";
 import { join } from "@/utils/ClassUtils";
