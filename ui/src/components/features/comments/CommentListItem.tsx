@@ -71,7 +71,7 @@ const CommentListItem = ({ comment, nestingLevel = 0, className }: Props) => {
           <span className="select-none opacity-50">•</span>
           <DateDisplay className="text-xs" format="time-ago" date={comment.createdAt} />
 
-          {isOwned && <ActionMenu onEdit={() => setIsEditing(true)} onDelete={onDelete} />}
+          {isOwned && <ActionMenu onEdit={() => setIsEditing(true)} onDelete={onDelete} size="sm"/>}
         </div>
         {isEditing ? (
           <CommentForm

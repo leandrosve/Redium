@@ -1,12 +1,14 @@
 import { Suspense } from "react";
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, createHashRouter, Navigate, RouterProvider } from "react-router-dom";
 import routes from "./routes";
 import Layout from "@/components/layout/Layout";
 import Spinner from "@/components/common/Spinner";
 import { useTranslation } from "react-i18next";
 import MissingPage from "@/pages/MissingPage";
 
-const router = createBrowserRouter([
+const createRouter = import.meta.env.VITE_GH_PAGES === "true" ? createHashRouter : createBrowserRouter;
+
+const router = createRouter([
   {
     path: "/",
     Component: Layout,

@@ -4,10 +4,11 @@ import Button from "@/components/common/Button";
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
+import { getPublicPath } from "@/utils/paths";
 
 const locales = [
-  { label: "English", key: "en", image: "/images/languages/en.png" },
-  { label: "Español", key: "es", image: "/images/languages/es.png" },
+  { label: "English", key: "en", image: getPublicPath("/images/languages/en.png") },
+  { label: "Español", key: "es", image: getPublicPath("/images/languages/es.png") },
 ];
 
 const LanguageSelector = () => {
