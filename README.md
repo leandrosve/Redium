@@ -14,7 +14,7 @@
 git clone https://github.com/leandrosve/redium.git
 cd redium
 ```
-### 2.1 Con docker
+### 2.1 🐋 Con docker
 En la raíz del proyecto hay dos scripts (para Linux y Windows) que construyen la imagen y levantan el contenedor, usando el `Dockerfile` ubicado en la carpeta `ui`.
 ```bash 
 # En linux

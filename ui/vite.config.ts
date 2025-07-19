@@ -5,7 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 import * as path from "path";
 
 // https://vite.dev/config/
-export default defineConfig(({mode}) => {
+export default defineConfig(({ mode }) => {
   // Cargar variables de entorno según el modo (dev/production)
   const env = loadEnv(mode, process.cwd(), "");
 
@@ -21,6 +21,7 @@ export default defineConfig(({mode}) => {
     test: {
       environment: "jsdom",
       globals: true, // para usar describe/it/expect sin importar
+      setupFiles: "./tests/setupTests.ts",
     },
     base: base,
   };
