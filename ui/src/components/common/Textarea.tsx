@@ -52,10 +52,6 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function (
   ref
 ) {
   const [charCount, setCharCount] = useState(0);
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setCharCount(e.target.value.length);
-    onChange?.(e);
-  };
 
   // Pequeña logica para permitir que el textarea crezca a meida que se agregan mas lineas
   const innerRef = useRef<HTMLTextAreaElement>(null);
@@ -65,12 +61,16 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function (
 
   const resize = useCallback(() => {
     const el = innerRef.current;
-    console.log("NO CORRE??");
     if (el) {
       el.style.height = "auto";
       el.style.height = `${el.scrollHeight}px`;
     }
   }, [innerRef]);
+
+  const onInput = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    resize();
+    setCharCount(e.target.value.length);
+  }, [resize, setCharCount]);
 
   useEffect(() => resize(), [resize]);
   useEffect(() => {
@@ -90,26 +90,26 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function (
   return (
     <div
       className={twMerge(
-        "flex flex-col items-start gap-2 rounded-3xl px-3 py-2 transition-colors text-foreground-100 relative ",
+        "flex flex-col items-start gap-2 rounded-3xl px-3 py-2 transition-colors text-foreground-100 relative",
         variantClasses[variant],
         sizeClasses[size],
         printIf("border-transparent bg-red-700/5 focus-within:bg-red-400/5", invalid),
         className
       )}
     >
-      <div className="flex gap-2 self-stretch flex-1 ">
+      <div className="flex gap-2 self-stretch flex-1  overflow-y-auto">
         {icon && <div className="text-gray-500">{icon}</div>}
         <textarea
           id={id}
           ref={innerRef}
           value={value}
-          onChange={value !== undefined ? handleChange : undefined}
+          onChange={onChange}
           className={join(
             "flex-1 outline-none bg-transparent placeholder-gray-400 text-md resize-none w-full h-full",
             innerClassName
           )}
           rows={1}
-          onInput={resize}
+          onInput={onInput}
           maxLength={maxLength}
           {...props}
         />

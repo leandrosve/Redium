@@ -23,7 +23,7 @@ const Tooltip = ({ content, children, position = "top", disabled, isOpen }: Prop
 
   return (
     <div className="relative inline-block">
-      <div onMouseEnter={() => setIsVisible(true)} onMouseLeave={() => setIsVisible(false)} className="inline-block">
+      <div onFocus={() => setIsVisible(true)} onBlur={() => setIsVisible(false)} onMouseEnter={() => setIsVisible(true)} onMouseLeave={() => setIsVisible(false)} className="inline-block" tabIndex={0}>
         {children}
       </div>
 

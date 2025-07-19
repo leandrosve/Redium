@@ -3,7 +3,7 @@ import PostFormModal from "@/components/features/posts/PostFormModal";
 import PostList from "@/components/features/posts/PostList";
 import { ROUTES } from "@/routes/routes";
 import type { Post } from "@/types/models/Post";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
@@ -19,11 +19,13 @@ const PostListPage = () => {
     navigate(ROUTES.POST_DETAIL.replace(":id", post.id));
   };
 
+  const openModal = useCallback((p:Post) => setModalState({ isOpen: true, post: p }), [setModalState])
+
   return (
     <section className="flex flex-col w-full max-w-5xl mt-10 gap-2 mb-20 items-stretch flex-1">
       <PostCreateButton onClick={() => setModalState({ isOpen: true, post: null })} />
       <h1 className="text-4xl mb-4 mt-4">{t("posts.title")}</h1>
-      <PostList onEdit={(p) => setModalState({ isOpen: true, post: p })} />
+      <PostList onEdit={openModal} />
       <PostFormModal
         isOpen={modalState.isOpen}
         post={modalState.post}

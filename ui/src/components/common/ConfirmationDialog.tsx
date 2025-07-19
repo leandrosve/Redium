@@ -3,23 +3,24 @@ import { createPortal } from "react-dom";
 import Modal from "./Modal";
 import Button from "./Button";
 
-type ConfirmOptions = {
+type ConfirmOptions<T> = {
   title?: string;
   message?: string;
   confirmText?: string;
   cancelText?: string;
   confirmColorScheme?: string;
-  onConfirm?: () => Promise<void>;
+  onConfirm?: () => Promise<T>;
 };
 
-type ConfirmState = {
+type ConfirmState<T> = {
   isOpen: boolean;
-  options: ConfirmOptions;
-  resolve: (value: boolean) => void;
+  options: ConfirmOptions<T>;
+  resolve: (value: T | null) => void;
 };
+
 
 const ConfirmDialogContext = createContext<{
-  confirm: (options: ConfirmOptions) => Promise<boolean>;
+  confirm: <T>(options: ConfirmOptions<T>) => Promise<T>;
 } | null>(null);
 
 export const useConfirmDialog = () => {
@@ -29,28 +30,27 @@ export const useConfirmDialog = () => {
 };
 
 export const ConfirmationDialogProvider = ({ children }: { children: React.ReactNode }) => {
-  const [state, setState] = useState<ConfirmState>({
+  const [state, setState] = useState<ConfirmState<any>>({
     isOpen: false,
     options: {},
-    resolve: () => {},
+    resolve: async () => {},
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  const confirm = useCallback((options: ConfirmOptions) => {
-    return new Promise<boolean>((resolve) => {
+  const confirm = useCallback(<T,>(options: ConfirmOptions<T>) => {
+    return new Promise<T>((resolve) => {
       setState({ isOpen: true, options, resolve });
     });
   }, []);
 
   const handleConfirm = async () => {
     setIsLoading(true);
-    try {
-      if (state.options.onConfirm) {
-        await state.options.onConfirm();
-      }
-      state.resolve(true);
+     try {
+      const result = state.options.onConfirm ? await state.options.onConfirm() : true;
+      state.resolve(result);
     } catch (e) {
       console.error(e);
+      state.resolve(null);
     } finally {
       setIsLoading(false);
       setState((prev) => ({ ...prev, isOpen: false }));

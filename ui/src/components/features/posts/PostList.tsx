@@ -10,7 +10,7 @@ import { CircleOff } from "lucide-react";
 import usePosts from "@/hooks/usePosts";
 import type { Post } from "@/types/models/Post";
 import { useConfirmDialog } from "@/components/common/ConfirmationDialog";
-import { useCallback } from "react";
+import { memo, useCallback } from "react";
 import PostService from "@/services/api/PostService";
 import { useToast } from "@/components/common/Toast";
 
@@ -23,35 +23,28 @@ const PostList = ({ onEdit }: Props) => {
   const isEmpty = !loading && posts.length === 0 && !error;
   const showEndMessage = posts.length > 0 && !hasMore;
 
-  const {toast} = useToast();
+  const { toast } = useToast();
   const { t } = useTranslation();
 
   const { confirm } = useConfirmDialog();
 
-  const onDeleteConfirmed = useCallback(
-    async (post: Post) => {
-      const res = await PostService.delete(post.id);
-      if (res.hasError) {
-        toast(t('common.error'), 'danger')
-        return;
-      }
-      deletePost(post.id);
-      toast(t('posts.postDeleted'), 'info')
-    },
-    [deletePost, t]
-  );
-
   const onDelete = useCallback(
     async (post: Post) => {
-      await confirm({
+      const res = await confirm({
         title: t("posts.deletePost"),
         message: t("posts.deleteDescription"),
         confirmText: t("common.accept"),
         cancelText: t("common.cancel"),
-        onConfirm: () => onDeleteConfirmed(post),
+        onConfirm: () => PostService.delete(post.id),
       });
+      if (res.hasError) {
+        toast(t("common.error"), "danger");
+        return;
+      }
+      deletePost(post.id);
+      toast(t("posts.postDeleted"), "info");
     },
-    [onDeleteConfirmed, confirm]
+    [confirm]
   );
 
   return (

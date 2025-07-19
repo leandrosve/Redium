@@ -2,7 +2,7 @@ import Avatar from "@/components/common/Avatar";
 import DateDisplay from "@/components/common/DateDisplay";
 import type { CommentNode } from "@/types/models/Comment";
 import { join } from "@/utils/ClassUtils";
-import { useCallback, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import CommentForm from "./CommentForm";
 import { useTranslation } from "react-i18next";
 import { useOwnershipContext } from "@/context/OwnershipContext";
@@ -25,7 +25,6 @@ const CommentListItem = ({ comment, nestingLevel = 0, className }: Props) => {
   const { isCommentOwned } = useOwnershipContext();
   const { deleteComment } = useCommentsContext()
   const { toast } = useToast();
-  ;
 
   const { t } = useTranslation();
   const isOwned = isCommentOwned(comment.id);
@@ -88,10 +87,10 @@ const CommentListItem = ({ comment, nestingLevel = 0, className }: Props) => {
           <CommentListItemContent comment={comment} />
         )}
         {nestingLevel < maxNextingLevel &&
-          comment.children?.map((c) => <CommentListItem comment={c} nestingLevel={nestingLevel + 1} />)}
+          comment.children?.map((c) => <CommentListItem key={c.id} comment={c} nestingLevel={nestingLevel + 1} />)}
       </div>
     </div>
   );
 };
 
-export default CommentListItem;
+export default memo(CommentListItem);

@@ -1,0 +1,88 @@
+
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+body {
+  background: var(--color-base);
+  color: var(--color-foreground-100);
+  width: 100vw;
+}
+html {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.background-effect {
+  background-image: radial-gradient(circle at 12.02% 58.03%, #a7c7e2, transparent 82%),
+    radial-gradient(circle at 33.97% 87.99%, #591a89, transparent 65%),
+    radial-gradient(circle at 59.71% 67.88%, #a3a3f7, transparent 89%),
+    radial-gradient(circle at 50% 50%, #fff5f5, #fff5f5 100%);
+}
+
+.dark .background-effect {
+  background-image: radial-gradient(circle at 96.74% 90.01%, #011b4de1, transparent 29%),
+    radial-gradient(circle at 9.92% 74.36%, #190b21, transparent 45%),
+    radial-gradient(circle at 54.35% 34.01%, #130836, transparent 72%),
+    radial-gradient(circle at 50% 50%, #000000, #000000 100%);
+}
+
+.dark .card-gradient {
+  background-image: radial-gradient(circle at 20.39% 120.56%, rgba(105, 99, 194, 0.075), transparent 80%),
+    radial-gradient(circle at 50% 50%, transparent, transparent 100%);
+}
+
+:root.dark .post-success-overlay {
+  background-image: radial-gradient(circle, #150f3e, rgba(54, 65, 83, 0.19));
+}
+.post-success-overlay {
+  background-image: radial-gradient(circle, #dfe6ff, rgba(54, 65, 83, 0.19));
+}
+
+.post-success-overlay-content {
+  animation: scale-in 0.75s ease-out;
+  transform: scale(1);
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.animate-scale-in {
+  animation: scale-in 0.2s ease-out;
+}
+
+.no-scroll,
+.no-scroll-menu {
+  overflow: hidden;
+}
+
+.comment-tree-line {
+  background: var(--color-subtle);
+  background: linear-gradient(180deg, var(--color-subtle) 0% 90%, rgba(237, 221, 83, 0) 100%);
+}
+.comment-tree-line-horizontal {
+  background: var(--color-subtle);
+  background: linear-gradient(90deg, var(--color-subtle) 0%, rgba(237, 221, 83, 0) 100%);
+}
+
+.disable-transitions * {
+  transition: none !important;
+}
+
+@media (max-height: 800px) {
+  .modal-adjust-position {
+    margin-top: 0 !important;
+  }
+}

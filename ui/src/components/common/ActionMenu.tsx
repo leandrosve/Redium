@@ -6,8 +6,14 @@ import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "./dropdow
 interface Props {
   onEdit: () => void;
   onDelete: () => void;
+  size?: 'sm' | 'md';
 }
-const ActionMenu = ({ onEdit, onDelete }: Props) => {
+
+const sizeClasses = {
+  sm: "p-4 h-4 w-4",
+  md:"p-6 h-6 w-6"
+}
+const ActionMenu = ({ onEdit, onDelete, size='md' }: Props) => {
   const onSelect = useCallback(
     (value: string) => {
       if (value == "edit") {
@@ -25,16 +31,16 @@ const ActionMenu = ({ onEdit, onDelete }: Props) => {
       <DropdownTrigger>
         <Button
           variant="ghost"
-          className="p-4 h-4 w-4"
+          className={sizeClasses[size]}
           rightIcon={<Ellipsis className="w-[1em] h-[1em] text-foreground-200" />}
         ></Button>
       </DropdownTrigger>
       <DropdownMenu>
-        <DropdownItem value="edit" className="text-sm gap-2">
+        <DropdownItem value="edit" >
           <PencilIcon className="h-4 w-4" /> Edit
         </DropdownItem>
-        <DropdownItem value="delete" className="text-sm gap-2">
-          <Trash2Icon className="h-4 w-4" /> Delete
+        <DropdownItem value="delete" >
+          <Trash2Icon className="h-4 w-4"/> Delete
         </DropdownItem>
       </DropdownMenu>
     </Dropdown>

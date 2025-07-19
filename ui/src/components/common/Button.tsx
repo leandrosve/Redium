@@ -49,7 +49,7 @@ const Button = ({
   return (
     <button
       onClick={onClick}
-      disabled={disabled}
+      disabled={loading || disabled}
       className={join(
         "inline-flex items-center justify-center font-medium transition-colors duration-200 overflow-hidden relative cursor-pointer gap-1 rounded-full",
         sizeClasses[size],

@@ -1,6 +1,6 @@
 import Avatar from "@/components/common/Avatar";
 import { join, printIf } from "@/utils/ClassUtils";
-import React from "react";
+import React, { memo } from "react";
 
 const avatarSeeds = [...new Array(54)].map((_, i) => (i + 1).toString());
 const prefix = "https://api.dicebear.com/9.x/bottts-neutral/svg?seed=";
@@ -42,7 +42,7 @@ const UserAvatarSelector = ({ onChange, value }: Props) => {
   );
 };
 
-const AvatarOption = ({ url, seed, selected }: { url: string; selected: boolean; seed: string }) => {
+const AvatarOption = memo(({ url, seed, selected }: { url: string; selected: boolean; seed: string }) => {
   return (
     <span
       key={seed}
@@ -51,10 +51,13 @@ const AvatarOption = ({ url, seed, selected }: { url: string; selected: boolean;
         printIf(" border-primary-400", selected)
       )}
       tabIndex={0}
+      role="button"
+      aria-selected={selected}
+      aria-label={seed}
       data-avatar={seed}
     >
       <Avatar name="" src={url} />
     </span>
   );
-};
+});
 export default UserAvatarSelector;

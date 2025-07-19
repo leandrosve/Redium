@@ -9,11 +9,13 @@ import DateDisplay from "@/components/common/DateDisplay";
 import { useTranslation } from "react-i18next";
 import Tooltip from "@/components/common/Tooltip";
 import { useOwnershipContext } from "@/context/OwnershipContext";
-import Button from "@/components/common/Button";
-import { Pencil } from "lucide-react";
 import PostFormModal from "./PostFormModal";
 import MissingPage from "@/pages/MissingPage";
-
+import { useConfirmDialog } from "@/components/common/ConfirmationDialog";
+import { useToast } from "@/components/common/Toast";
+import { ROUTES } from "@/routes/routes";
+import { useNavigate } from "react-router-dom";
+import ActionMenu from "@/components/common/ActionMenu";
 interface Props {
   id: string;
 }
@@ -22,29 +24,15 @@ const PostDetail = ({ id }: Props) => {
     entity: post,
     error,
     loading,
-    setEntity,
   } = useAPI<Post | null>({
     fetchFunction: () => PostService.detail(id),
     initialData: null,
   });
 
-  const [modalState, setModalState] = useState<{
-    isOpen: boolean;
-    post: Post | null;
-  }>({ isOpen: false, post: null });
-
-  const onEdited = useCallback(
-    (p: Post) => {
-      setEntity(p);
-      setModalState({ isOpen: false, post: null });
-    },
-    [setEntity, setModalState]
-  );
-
   useEffect(() => {
     if (!post) return;
     document.title = post?.title;
-  }, [post])
+  }, [post]);
 
   if (loading) return <Spinner fullPage />;
 
@@ -52,39 +40,55 @@ const PostDetail = ({ id }: Props) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <PostDetailContent post={post} onEdit={(p) => setModalState({ isOpen: true, post: p })} />
+      <PostDetailContent post={post} />
       <div className="mt-8">
         <CommentSection postId={post.id} />
       </div>
-      <PostFormModal
-        isOpen={modalState.isOpen}
-        post={modalState.post}
-        onSuccess={onEdited}
-        onClose={() => setModalState({ isOpen: false, post: null })}
-      />
     </div>
   );
 };
 
-const PostDetailContent = ({ post, onEdit }: { post: Post; onEdit: (p: Post) => void }) => {
-  const { t } = useTranslation();
-
+const PostDetailContent = ({ post: initialPost }: { post: Post }) => {
+  const [post, setPost] = useState(initialPost);
   const { isPostOwned } = useOwnershipContext();
   const isOwned = isPostOwned(post.id);
 
+  const { confirm } = useConfirmDialog();
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
+  const { t } = useTranslation();
+
+  const [isEditing, setIsEditing] = useState(false);
+
+  const onEdited = useCallback(
+    (updatedPost: Post) => {
+      setPost(updatedPost);
+      setIsEditing(false);
+    },
+    [setIsEditing]
+  );
+
+  const onDelete = useCallback(async () => {
+    const res = await confirm({
+      title: t("posts.deletePost"),
+      message: t("posts.deleteDescription"),
+      confirmText: t("common.accept"),
+      cancelText: t("common.cancel"),
+      onConfirm: async () => await PostService.delete(post.id),
+    });
+
+    if (res.hasError) {
+      toast(t("common.error"), "danger");
+      return;
+    }
+    toast(t("posts.postDeleted"), "info");
+    navigate(ROUTES.POSTS);
+  }, [confirm, toast, navigate, post.id]);
+
   return (
     <div className="relative">
-      {isOwned && (
-        <Button
-          variant="outline"
-          size="sm"
-          className="absolute right-0 top-0"
-          leftIcon={<Pencil className="h-4 w-4" />}
-          onClick={() => onEdit(post)}
-        >
-          {t("common.edit")}
-        </Button>
-      )}
+      {isOwned && <div className="absolute top-0 right-0"><ActionMenu onDelete={onDelete} onEdit={() => setIsEditing(true)} /></div>}
       <div className="flex gap-2 items-center font-bold text-foreground-200 text-sm flex-wrap max-sm">
         <Avatar name={post.name} src={post.avatar} size="sm" />{" "}
         <span className="max-w-40 overflow-ellipsis line-clamp-1">
@@ -100,6 +104,13 @@ const PostDetailContent = ({ post, onEdit }: { post: Post; onEdit: (p: Post) => 
       </div>
       <h2 className="text-xl mt-4 font-bold">{post.title}</h2>
       <p className="mt-4 text-foreground-200">{post.content}</p>
+
+      <PostFormModal
+        isOpen={isEditing}
+        post={post}
+        onSuccess={onEdited}
+        onClose={() => setIsEditing(false)}
+      />
     </div>
   );
 };

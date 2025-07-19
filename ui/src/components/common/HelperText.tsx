@@ -8,8 +8,8 @@ interface HelperTextProps {
 }
 
 const typeClasses = {
-  error: "text-primary-600",
-  helper: "text-foreground-300",
+  error: "text-primary-400 dark:text-primary-600",
+  helper: "dark:text-foreground-300",
 };
 
 const HelperText = ({ type = "error", message, className = "" }: HelperTextProps) => {

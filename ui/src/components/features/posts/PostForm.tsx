@@ -37,7 +37,7 @@ const PostForm = ({ onSuccess, post, user }: Props) => {
     },
   });
 
-  const { translate } = useLocalized();
+  const { translate: t } = useLocalized();
   const { markPostAsOwned } = useOwnershipContext();
 
   const [error, setError] = useState<string | null>();
@@ -66,13 +66,13 @@ const PostForm = ({ onSuccess, post, user }: Props) => {
 
   return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-col items-stretch gap-2">
-      {success && <SuccessOverlay message={translate(post ? "posts.create.saved" : "posts.create.published")} />}
+      {success && <SuccessOverlay message={t(post ? "posts.create.saved" : "posts.create.published")} />}
       <h2 className="text-lg font-semibold text-foreground-100">
-        {translate(!!post ? "posts.updatePost" : "posts.createPost")}
+        {t(!!post ? "posts.updatePost" : "posts.createPost")}
       </h2>
       {error && (
         <Alert
-          title={translate(error, {
+          title={t(error, {
             defaultKey: "common.error",
             defaultValue: "",
           })}
@@ -82,27 +82,28 @@ const PostForm = ({ onSuccess, post, user }: Props) => {
 
       <Field
         id="title"
-        label={translate("posts.create.title")}
-        error={translate(errors.title?.message, { prefix: "validationErrors" })}
+        label={t("posts.create.title")}
+        error={t(errors.title?.message, { prefix: "validationErrors" })}
       >
         <Input
           id="title"
           variant="filled"
-          placeholder={translate("posts.create.titlePlaceholder")}
+          autoFocus
+          placeholder={t("posts.create.titlePlaceholder")}
           {...register("title")}
         />
       </Field>
       <Field
         id="content"
-        label={translate("posts.create.content")}
-        error={translate(errors.content?.message, {
+        label={t("posts.create.content")}
+        error={t(errors.content?.message, {
           prefix: "validationErrors",
         })}
       >
         <Textarea
           id="content"
           variant="filled"
-          placeholder={translate("posts.create.contentPlaceholder")}
+          placeholder={t("posts.create.contentPlaceholder")}
           className="h-[15em]"
           maxLength={500}
           {...register("content", { maxLength: 500 })}
@@ -118,12 +119,12 @@ const PostForm = ({ onSuccess, post, user }: Props) => {
 
       <div className="ml-auto mt-4">
         <Tooltip
-          content={translate("validationErrors.complete_required_fields")}
+          content={t("validationErrors.complete_required_fields")}
           position="left"
           disabled={isValid || isSubmitting}
         >
           <Button disabled={!isValid || isSubmitting} type="submit" loading={isSubmitting}>
-            {translate(!!post ? "common.save" : "posts.create.publish")}
+            {t(!!post ? "common.save" : "posts.create.publish")}
           </Button>
         </Tooltip>
       </div>

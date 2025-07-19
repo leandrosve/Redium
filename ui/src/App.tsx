@@ -1,4 +1,5 @@
-import "./App.css";
+import "./styles/tailwind.css";
+import "./styles/app.css";
 import { ConfirmationDialogProvider } from "./components/common/ConfirmationDialog";
 import { ToastProvider } from "./components/common/Toast";
 import { OwnershipProvider } from "./context/OwnershipContext";
