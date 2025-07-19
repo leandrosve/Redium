@@ -1,0 +1,87 @@
+{
+  "home": {
+    "title": "Bienvenido a Redium"
+  },
+  "posts": {
+    "title": "Publicaciones",
+    "sort": {
+      "newest": "Más recientes",
+      "oldest": "Más antiguas"
+    },
+    "searchPlaceholder": "Buscar publicaciones",
+    "endReached": "Nada más que ver... por ahora.",
+    "noResults": "No se encontraron resultados. Intenta con otro término de búsqueda.",
+    "createPost": "Crear publicación",
+    "updatePost": "Actualizar publicación",
+    "deletePost": "Eliminar publicación",
+    "deleteDescription": "¿Estás seguro de que deseas eliminar esta publicación?",
+    "postDeleted": "La publicación ha sido eliminada con éxito.",
+    "create": {
+      "share": "¿Hay algo que quieras compartir?",
+      "saved": "¡Guardado!",
+      "title": "Título",
+      "titlePlaceholder": "Ingresa un título...",
+      "content": "Contenido",
+      "contentPlaceholder": "¿Qué estás pensando?",
+      "publish": "Publicar",
+      "published": "¡Publicado!"
+    }
+  },
+  "user": {
+    "profile": "Perfil",
+    "firstThingFirst": "Primero lo primero...",
+    "requireInfo": "¿Quién eres? Dinos tu nombre y elige un avatar para que todos sepan quién eres.",
+    "logout": "Cerrar sesión",
+    "logoutMessage": "Ya no podrás editar ninguna de las publicaciones o comentarios que hayas hecho.",
+    "name": "Nombre",
+    "namePlaceholder": "Ingresa tu nombre",
+    "avatar": "Avatar"
+  },
+  "comments": {
+    "comments": "Comentarios",
+    "placeholder": "Únete a la conversación...",
+    "comment": "Comentar",
+    "reply": "Responder",
+    "replyPlaceholder": "Agrega una respuesta...",
+    "empty": "Aún no hay comentarios. ¡Sé el primero!",
+    "editPlaceholder": "Edita tu comentario...",
+    "deleteComment": "Eliminar comentario",
+    "deleteDescription": "¿Estás seguro de que deseas eliminar este comentario?",
+    "commentDeleted": "El comentario ha sido eliminado con éxito.",
+    "saved": "Los cambios se han guardado en tu comentario",
+    "published": "¡Tu comentario ha sido publicado con éxito!"
+  },
+  "common": {
+    "error": "Algo salió mal, por favor intenta de nuevo.",
+    "continue": "Continuar",
+    "save": "Guardar",
+    "momentAgo": "hace un momento",
+    "fromFuture": "esto viene del futuro",
+    "cancel": "Cancelar",
+    "showMore": "Mostrar más",
+    "showLess": "Mostrar menos",
+    "edit": "Editar",
+    "edited": "Editado",
+    "you": "Tú",
+    "accept": "Aceptar",
+    "missingResource": "Lo sentimos, no pudimos encontrar el recurso solicitado",
+    "backHome": "Volver al inicio"
+  },
+  "routes": {
+    "posts": "Publicaciones",
+    "postDetail": "Detalle de la publicación"
+  },
+  "validationErrors": {
+    "title_required": "El título es obligatorio",
+    "content_required": "El contenido es obligatorio",
+    "min_3_characters": "Debe tener al menos 3 caracteres",
+    "max_200_characters": "Debe tener como máximo 200 caracteres",
+    "max_500_characters": "Debe tener como máximo 500 caracteres",
+
+    "name_required": "El nombre es obligatorio",
+    "max_50_characters": "Debe tener como máximo 50 caracteres",
+    "avatar_required": "El avatar es obligatorio",
+
+    "complete_required_fields": "Por favor completa todos los campos obligatorios"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "home": {
+    "title": "Welcome to Redium"
+  },
+  "posts": {
+    "title": "Posts",
+    "sort": {
+      "newest": "Newest",
+      "oldest": "Oldest"
+    },
+    "searchPlaceholder": "Search all posts",
+    "endReached": "Nothing else to see... for now.",
+    "noResults": "No results found. Try a different search term.",
+    "createPost": "Create post",
+    "updatePost": "Update post",
+    "deletePost": "Delete post",
+    "deleteDescription": "Are you sure you want to delete this post?",
+    "postDeleted": "The post has been deleted succesfully.",
+    "create": {
+      "share": "Is there something you'd like to share?",
+      "saved": "Saved!",
+      "title": "Title",
+      "titlePlaceholder": "Enter a title...",
+      "content": "Content",
+      "contentPlaceholder": "What's on your mind?",
+      "publish": "Publish",
+      "published": "Published!"
+    }
+  },
+  "user": {
+    "profile": "Profile",
+    "firstThingFirst": "First thing first...",
+    "requireInfo": "Who are you? Tell us your name and pick an avatar so everyone knows who you are.",
+    "logout": "Log out",
+    "logoutMessage": "You will no longer be able to edit any of the posts or comments you made.",
+    "name": "Name",
+    "namePlaceholder": "Enter your name",
+    "avatar": "Avatar"
+  },
+  "comments": {
+    "comments": "Comments",
+    "placeholder": "Join the conversation...",
+    "comment": "Comment",
+    "reply": "Reply",
+    "replyPlaceholder": "Add a reply...",
+    "empty": "No comments yet. Be the first one!",
+    "editPlaceholder": "Edit your comment...",
+    "deleteComment": "Delete comment",
+    "deleteDescription": "Are you sure you want to delete this comment?",
+    "commentDeleted": "The comment has been deleted succesfully.",
+    "saved": "Changes have been saved to your comment",
+    "published": "Your comment has been published succesfully!"
+  },
+  "common": {
+    "error": "Something went wrong, please try again.",
+    "continue": "Continue",
+    "save": "Save",
+    "momentAgo": "a moment ago",
+    "fromFuture": "this comes from the future",
+    "cancel": "Cancel",
+    "showMore": "Show more",
+    "showLess": "Show less",
+    "edit": "Edit",
+    "edited": "Edited",
+    "you": "You",
+    "accept": "Accept",
+    "missingResource": "Sorry, we couldn't find the requested resource",
+    "backHome": "Return home"
+  },
+  "routes": {
+    "posts": "Posts",
+    "postDetail": "Post Detail"
+  },
+  "validationErrors": {
+    "title_required": "Title is required",
+    "content_required": "Content is required",
+    "min_3_characters": "Must be at least 3 characters",
+    "max_200_characters": "Must be at most 200 characters",
+    "max_500_characters": "Must be at most 500 characters",
+
+    "name_required": "Name is required",
+    "max_50_characters": "Must be at most 50 characters",
+    "avatar_required": "Avatar is required",
+
+    "complete_required_fields": "Please complete all required fields"
+  }
+}
