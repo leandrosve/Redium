@@ -24,6 +24,7 @@ export const DropdownItem = ({ value, children, className }: DropdownItemProps) 
         printIf("text-primary-600 dark:text-primary-300 bg-base-300/50", false),
         className
       )}
+      tabIndex={0}
       role="menuitem"
     >
       {children}

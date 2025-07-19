@@ -39,11 +39,17 @@ export const Dropdown = ({ children, onSelect }: DropdownProps) => {
         close();
       }
     };
+    const handleBlur = () => {
+      console.log("BLURR")
+      close();
+    }
     document.documentElement.classList.add("no-scroll-menu");
 
     document.addEventListener("mousedown", handleClickOutside);
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("blur", handleBlur);
       document.documentElement.classList.remove("no-scroll-menu");
     };
   }, [isOpen, close]);

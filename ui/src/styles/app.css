@@ -22,6 +22,12 @@ ul {
   list-style: none;
 }
 
+:focus {
+  outline: 2px solid var(--color-primary-500); /* un outline morado, por ejemplo */
+  outline-offset: 1px;
+  box-shadow: none;
+}
+
 .background-effect {
   background-image: radial-gradient(circle at 12.02% 58.03%, #a7c7e2, transparent 82%),
     radial-gradient(circle at 33.97% 87.99%, #591a89, transparent 65%),
