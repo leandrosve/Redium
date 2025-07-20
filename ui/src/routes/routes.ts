@@ -27,10 +27,15 @@ const routes: AppRoute[] = [
     titleKey: "routes.postDetail",
     element: PostDetailPage,
   },
-  {
+];
+
+// Playground solo para modo desarrollo
+if (import.meta.env.DEV) {
+  routes.push({
     path: "/playground",
     titleKey: "routes.playground",
     element: PlaygroundPage,
-  },
-];
+  });
+}
+
 export default routes;

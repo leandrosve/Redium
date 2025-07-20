@@ -86,7 +86,7 @@
   },
   "apiErrors": {
     "not_found": "The requested resource could not be found.",
-    "reached_max_elements": "Maximum number of elements allowed for this resource has been reached."
+    "reached_max_elements": "Maximum number of elements allowed for this resource has been reached. Try deleting some."
   },
   "extra": {
     "orderWarning": "In some cases, sorting may not work correctly due to limitations in the API, which prevent proper sorting by date or ID.",

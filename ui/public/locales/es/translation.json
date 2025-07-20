@@ -87,7 +87,7 @@
 
   "apiErrors": {
     "not_found": "Lo sentimos, no se encontró el recurso solicitado.",
-    "reached_max_elements": "Se alcanzó el número máximo de elementos para este recurso."
+    "reached_max_elements": "Se alcanzó el número máximo de elementos para este recurso. Intenta eliminando algunos."
   },
   "extra": {
     "orderWarning": "En algunos casos, el ordenamiento podría no funcionar correctamente debido a limitaciones en la API, que impiden ordenar adecuadamente por fecha o ID.",

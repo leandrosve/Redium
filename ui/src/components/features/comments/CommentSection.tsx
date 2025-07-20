@@ -17,7 +17,7 @@ const CommentSection = ({ postId }: Props) => {
         <div className="mt-4">
           <div className="flex items-center gap-2 mb-2">
             <h3>{t("comments.comments")}</h3>
-            <Tooltip content={t("extra.commentSection")} position="top">
+            <Tooltip content={t("extra.commentSection")} position="right">
               <CircleQuestionMark className="h-4 w-4 text-foreground-200/50"/>
             </Tooltip>
           </div>
