@@ -12,6 +12,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
   loading?: boolean;
   className?: string;
+  as?: 'button' | 'span';
 }
 
 const sizeClasses = {
@@ -44,10 +45,12 @@ const Button = ({
   onClick,
   loading,
   className,
+  as = 'button',
   ...props
 }: Props) => {
+  const Element = as === 'span' ? 'span' : 'button';
   return (
-    <button
+    <Element
       onClick={onClick}
       disabled={loading || disabled}
       className={join(
@@ -69,7 +72,7 @@ const Button = ({
           <Spinner className="h-5 w-5 text-inherit" />
         </span>
       )}
-    </button>
+    </Element>
   );
 };
 
