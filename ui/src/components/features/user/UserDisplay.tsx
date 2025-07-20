@@ -12,7 +12,7 @@ const UserDisplay = () => {
 
   return (
     <>
-      <div
+      <button
         className="inline-flex gap-2 items-center text-md text-foreground-200 cursor-pointer rounded-full p-3 hover:bg-gray-400/5 "
         role="button"
         tabIndex={0}
@@ -20,7 +20,7 @@ const UserDisplay = () => {
       >
         <Avatar size="sm" name={user.name} src={user.avatar} />{" "}
         <span className="max-w-30 overflow-ellipsis line-clamp-1 max-sm:hidden">{user.name}</span>
-      </div>
+      </button>
       <UserConfigModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </>
   );

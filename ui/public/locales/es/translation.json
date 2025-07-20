@@ -83,5 +83,8 @@
     "avatar_required": "El avatar es obligatorio",
 
     "complete_required_fields": "Por favor completa todos los campos obligatorios"
+  },
+  "extra": {
+    "commentSection":"No deberías poder editar ni eliminar comentarios de otros usuarios; sin embargo, esta funcionalidad se encuentra habilitada para facilitar las pruebas."
   }
 }

@@ -83,5 +83,8 @@
     "avatar_required": "Avatar is required",
 
     "complete_required_fields": "Please complete all required fields"
+  }, 
+  "extra": {
+    "commentSection":"You shouldn't be able to edit or delete comments from other users; however, this functionality is enabled to facilitate testing."
   }
 }

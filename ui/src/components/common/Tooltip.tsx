@@ -22,7 +22,7 @@ const Tooltip = ({ content, children, position = "top", disabled, isOpen }: Prop
   const show = useMemo(() => isOpen || (!disabled && isVisible), [isOpen, disabled, isVisible]);
 
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-flex items-center">
       <div onFocus={() => setIsVisible(true)} onBlur={() => setIsVisible(false)} onMouseEnter={() => setIsVisible(true)} onMouseLeave={() => setIsVisible(false)} className="inline-block" tabIndex={disabled ? -1 : 0}>
         {children}
       </div>
