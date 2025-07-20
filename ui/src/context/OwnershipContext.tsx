@@ -39,7 +39,7 @@ export const OwnershipProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const isPostOwned = (id: string) => posts.has(id);
-  const isCommentOwned = (id: string) => comments.has(id) ||true;
+  const isCommentOwned = (id: string) => comments.has(id);
 
   const markPostAsOwned = (id: string) => {
     setPosts((prev) => {

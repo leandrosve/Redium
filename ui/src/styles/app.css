@@ -23,9 +23,8 @@ ul {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-primary-500); /* un outline morado, por ejemplo */
-  outline-offset: 1px;
-  box-shadow: none;
+  outline-color: var(--color-primary-500);
+  outline-style: outset;
 }
 
 .background-effect {
