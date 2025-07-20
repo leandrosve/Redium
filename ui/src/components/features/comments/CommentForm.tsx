@@ -1,13 +1,8 @@
-import { useUserContext } from "@/context/UserContext";
 import { useState } from "react";
 import { generateId } from "@/utils/IdUtils";
 import type { Comment } from "@/types/models/Comment";
 import CheckUserWrapper from "../user/CheckUserWrapper";
 import CommentFormContent from "./CommentFormContent";
-import { useCommentsContext } from "@/context/CommentsContext";
-import CommentService from "@/services/api/CommentService";
-import { useToast } from "@/components/common/Toast";
-import { useTranslation } from "react-i18next";
 import useCommentForm from "@/hooks/useCommentForm";
 
 interface Props {
