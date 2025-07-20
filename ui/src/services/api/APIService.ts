@@ -3,6 +3,11 @@ import type { APIResponse } from "@/types/APIResponse";
 interface Options {
   delay?: number;
 }
+
+const API_ERRORS:Record<string,string> = {
+  ['"Not found"']: "not_found",
+  ['"Max number of elements reached for this resource!"']: "reached_max_elements",
+}
 export default abstract class ApiService {
 
   protected static BASE_URL = import.meta.env.VITE_API_URL;
@@ -49,7 +54,7 @@ export default abstract class ApiService {
       if (!res.ok) {
         const textBody = await res.text();
         let error = "api_error";
-        if (textBody == '"Not found"') error = "not_found";
+        if (textBody && !!API_ERRORS[textBody]) error = API_ERRORS[textBody];
         return {
           hasError: true,
           ok: false,

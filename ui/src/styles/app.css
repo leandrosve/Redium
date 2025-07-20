@@ -22,11 +22,6 @@ ul {
   list-style: none;
 }
 
-:focus-visible {
-  outline-color: var(--color-primary-500);
-  outline-style: outset;
-}
-
 .background-effect {
   background-image: radial-gradient(circle at 12.02% 58.03%, #a7c7e2, transparent 82%),
     radial-gradient(circle at 33.97% 87.99%, #591a89, transparent 65%),

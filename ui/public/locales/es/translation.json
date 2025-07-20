@@ -83,5 +83,12 @@
     "avatar_required": "El avatar es obligatorio",
 
     "complete_required_fields": "Por favor completa todos los campos obligatorios"
+  },
+  "apiErrors": {
+    "not_found": "Lo sentimos, no se encontró el recurso solicitado.",
+    "reached_max_elements": "Se alcanzó el número máximo de elementos para este recurso."
+  },
+  "extra": {
+    "orderWarning": "En algunos casos, el ordenamiento podría no funcionar correctamente debido a limitaciones en la API, que impiden ordenar adecuadamente por fecha o ID."
   }
 }

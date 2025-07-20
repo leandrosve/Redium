@@ -72,7 +72,7 @@ const PostForm = ({ onSuccess, post, user }: Props) => {
       </h2>
       {error && (
         <Alert
-          title={t(error, {
+          title={t(`apiErrors.${error}`, {
             defaultKey: "common.error",
             defaultValue: "",
           })}

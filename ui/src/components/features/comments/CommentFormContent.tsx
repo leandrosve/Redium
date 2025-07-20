@@ -1,42 +1,41 @@
 import Textarea from "@/components/common/Textarea";
 import { useMemo, useState, type FormEvent } from "react";
 import { useTranslation } from "react-i18next";
-import type { User } from "@/types/models/User";
 import Avatar from "@/components/common/Avatar";
 import { MessageCircle } from "lucide-react";
 import Button from "@/components/common/Button";
 import type { Comment } from "@/types/models/Comment";
+import { useUserContext } from "@/context/UserContext";
 
 interface Props {
   mode?: "create" | "edit";
   comment: Comment | null; // Para la edicion
-  user: User | null;
   parentId?: string | null;
   postId: string;
   autoFocus?: boolean;
   inputId?: string;
   onCancel?: () => void;
-  disabled?: boolean;
   isSubmiting?: boolean;
   onSubmit: (content: string) => Promise<boolean>;
 }
 
 const CommentFormContent = ({
-  user,
   parentId,
   autoFocus,
   inputId,
   onCancel,
   isSubmiting,
-  disabled,
   comment,
   onSubmit,
   mode = "create",
 }: Props) => {
   const { t } = useTranslation();
+  const { user } = useUserContext();
+
   const [value, setValue] = useState(comment?.content ?? "");
   const sanitizedContent = useMemo(() => value.trim(), [value]);
 
+  const disabled = !user;
   const showSubmit = mode == "edit" || (!disabled && (!!sanitizedContent || parentId)); // Para las replies siempre muestro los botones
 
   const handleCancel = () => {

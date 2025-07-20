@@ -1,9 +1,10 @@
 import Button from "@/components/common/Button";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@/components/common/dropdown";
 import { Input } from "@/components/common/Input";
+import Tooltip from "@/components/common/Tooltip";
 import { useDebounce } from "@/hooks/useDebounce";
 import { join, printIf } from "@/utils/ClassUtils";
-import { ChevronDown, SearchIcon, X } from "lucide-react";
+import { ChevronDown, CircleQuestionMark, SearchIcon, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -90,6 +91,7 @@ const PostListSearchBar = () => {
           </span>
         }
       />
+      <Tooltip position="top" content={t('extra.orderWarning')}><span className="text-foreground-200/50"><CircleQuestionMark className="h-5 w-5"/></span></Tooltip>
     </div>
   );
 };

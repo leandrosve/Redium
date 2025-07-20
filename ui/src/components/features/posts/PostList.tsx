@@ -38,7 +38,8 @@ const PostList = ({ onEdit }: Props) => {
         onConfirm: () => PostService.delete(post.id),
       });
       if (res.hasError) {
-        toast(t("common.error"), "danger");
+        let error = t(`apiErrors.${res.error}`, { defaultValue: "" }) || t("common.error");
+        toast(error, "danger");
         return;
       }
       deletePost(post.id);
