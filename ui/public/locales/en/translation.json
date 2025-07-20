@@ -89,6 +89,7 @@
     "reached_max_elements": "Maximum number of elements allowed for this resource has been reached."
   },
   "extra": {
-    "orderWarning": "In some cases, sorting may not work correctly due to limitations in the API, which prevent proper sorting by date or ID."
+    "orderWarning": "In some cases, sorting may not work correctly due to limitations in the API, which prevent proper sorting by date or ID.",
+    "commentSection":"You shouldn't be able to edit or delete comments from other users; however, this functionality is enabled to facilitate testing."
   }
 }

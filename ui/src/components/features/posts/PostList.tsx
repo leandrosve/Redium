@@ -67,7 +67,7 @@ const PostList = ({ onEdit }: Props) => {
 
       {error && <ErrorMessage />}
 
-      {!loading && loadingMore && <Skeleton repeat={5} className="h-30" />}
+      {!loading && loadingMore && <Skeleton repeat={5} className="h-30" wrapperClassName="gap-4 max-sm:gap-6 mt-2" />}
 
       {isEmpty && (
         <div className="text-center w-full p-5 font-bold text-sm text-foreground-200 relative">

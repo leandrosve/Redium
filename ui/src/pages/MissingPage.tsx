@@ -1,6 +1,8 @@
 import Button from "@/components/common/Button";
+import { ROUTES } from "@/routes/routes";
 import { House, ShieldQuestionMark } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 const MissingPage = () => {
   const { t } = useTranslation();
@@ -10,7 +12,9 @@ const MissingPage = () => {
       <div className="text-center w-full p-5 font-bold text-sm  relative">
         <h1 className="md:text-xl opacity-55">{t("common.missingResource")}</h1>
       </div>
-      <Button size="lg" className="mt-5 gap-3"><House/>{t("common.backHome")}</Button>
+      <Link to={ROUTES.HOME}>
+        <Button as='span' size="lg" className="mt-5 gap-3"><House/>{t("common.backHome")}</Button>
+      </Link>
     </div>
   );
 };
